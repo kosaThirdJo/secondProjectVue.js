@@ -19,7 +19,7 @@ const req = {
 }
 const result = ref([]);
 api(
-    "http://192.168.3.111:8080/meeting?" +
+    "http://localhost:8081/meeting?" +
     "page=" + req.page + "&" +
     "size=" + req.size + "&" +
     "order=" + req.order + "&" +  // '=' 추가

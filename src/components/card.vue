@@ -1,9 +1,9 @@
-<style src="../css/meeting/meeting_home.css" scoped>
+<style src="../assets/css/meeting/meeting_home.css" scoped>
 .read-the-docs {
   color: #888;
 }
 </style>
-<style src="../css/home.css" scoped>
+<style src="../assets/css/home.css" scoped>
 </style>
 <template>
   <div class="content_list_title_display">
