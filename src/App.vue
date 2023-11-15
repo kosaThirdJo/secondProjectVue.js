@@ -11,3 +11,4 @@
 import PageHeader from "./components/TheHeader.vue";
 import PageFooter from "./components/TheFooter.vue";
 </script>
+
