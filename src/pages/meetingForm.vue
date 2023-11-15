@@ -1,0 +1,253 @@
+<script setup>
+
+</script>
+
+<template>
+  <!DOCTYPE html>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>미팅페이지입니다.</title>
+<!--    <link href="@{/css/signup.css}" rel="stylesheet"/>-->
+<!--    <link href="@{/css/meeting/meeting_form.css}" rel="stylesheet"/>-->
+  </head>
+
+
+    <article>
+      <form action="/meeting/write" method=post>
+        <h2><input style="width: 100%" name="title" placeholder="제목을 입력해 주세요" maxlength=50 minlength="2" required></h2>
+        <section>
+          <div id="content_type">
+            <table>
+              <tr>
+                <th>카테고리</th>
+                <td>
+                  <input type="radio" name="category" value=1 checked> 프로젝트
+                  <input type="radio" name="category" value=0> 스터디
+                  <input type="radio" name="category" value=2> 기타
+                </td>
+              </tr>
+              <tr>
+                <th>마감일</th>
+                <td>
+                  <label>
+                    <input id="endDate" name="endDate" type="datetime-local" required/>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <th>모집 장소</th>
+                <td>
+                  <div>
+                    <span></span>
+                    <input type="hidden" name="location">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <th>모집 인원 수</th>
+                <td>
+                  <input id="recruitNum"  name="recruitNum" type="number" placeholder="(최대 100 명)" min="0" max="100"  required>
+                </td>
+              </tr>
+              <tr>
+                <th>관심 분야</th>
+                <td style="padding: 0 10px 10px 0;">
+                  <div class="signup-form-input-box-content" style="padding-bottom: 10px;">
+                    <!--  02-02-06-01 언어  -->
+                    <div class="signup-form-select-interest">
+                      <span class="signup-form-select-interest-title">Language</span>
+                      <div class="signup-form-select-interest-button">
+                        <input type="hidden" name="interest_language" id="selected-interests-lang" value="">
+                        <button type="button" class="signup-interest-lang-btn" value="1">Java</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="2">Python</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="3">C#</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="4">C++</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="5">JavaScript</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="6">Ruby</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="7">Swift</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="8">TypeScript</button>
+                        <button type="button"  class="signup-interest-lang-btn" value="9">PHP</button>
+                      </div>
+                    </div>
+
+                    <!--  02-02-06-02 프레임워크  -->
+                    <div class="signup-form-select-interest">
+                      <span class="signup-form-select-interest-title">Framework</span>
+                      <div class="signup-form-select-interest-button">
+                        <input type="hidden" name="interest_framework" id="selected-interests-fw" value="">
+                        <button type="button" class="signup-interest-fw-btn" value="1">Spring</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="2">React</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="3">Angular</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="4">Vue.js</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="5">Express.js</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="6">Django</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="7">Ruby on Rails</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="8">Flask</button>
+                        <button type="button"  class="signup-interest-fw-btn" value="9">Laravel</button>
+                      </div>
+                    </div>
+
+                    <!--  02-02-06-01 직무  -->
+                    <div class="signup-form-select-interest">
+                      <span class="signup-form-select-interest-title">Role</span>
+                      <div class="signup-form-select-interest-button">
+                        <input type="hidden" name="interest_job" id="selected-interests-job" value="">
+                        <button type="button" class="signup-interest-job-btn" value="1">프론트엔드</button>
+                        <button type="button"  class="signup-interest-job-btn" value="2">백엔드</button>
+                        <button type="button"  class="signup-interest-job-btn" value="3">풀스택</button>
+                        <button type="button"  class="signup-interest-job-btn" value="4">모바일 앱 개발</button>
+                        <button type="button"  class="signup-interest-job-btn" value="5">게임 개발</button>
+                        <button type="button"  class="signup-interest-job-btn" value="6">데이터베이스</button>
+                        <button type="button"  class="signup-interest-job-btn" value="7">데브옵스</button>
+                        <button type="button"  class="signup-interest-job-btn" value="8">디자이너</button>
+                        <button type="button"  class="signup-interest-job-btn" value="9">기획자</button>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </section>
+        <section>
+          <div id="content">
+            <table>
+              <tr>
+                <th>소개</th>
+                <td>
+                  <textarea id="description" name="content" placeholder="내용을 입력해 주세요!" required></textarea>
+                  <div id="text-length-check">글자수 : </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </section>
+        <button id="submit-button"  type="submit" class="btn btn-primary"
+                style="background-color: #FF9F29; color: white; margin-top: 30px;">등록하기
+        </button>
+        <!--            <button hidden id="submit-button"  type="submit" class="btn btn-primary"-->
+        <!--                    style="display : none; background-color: #FF9F29; color: white; margin-top: 30px;">등록하기-->
+        <!--            </button>-->
+      </form>
+      <!--        <button id="check-button" class="btn btn-primary"-->
+      <!--                style="background-color: #FF9F29; color: white; margin-top: 30px;">등록하기-->
+      <!--        </button>-->
+    </article>
+
+</template>
+
+<style scoped>
+
+</style>
+<script>
+
+
+
+
+//
+//// 최소 마감일 지정
+//let dateElement = document.getElementById('endDate');
+//let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -5);
+//dateElement.value = date;
+//dateElement.setAttribute("min", date);
+//
+//
+//// 글자수 세기
+//text_check_dom = document.querySelector("#text-length-check")
+//text_dom = document.querySelector("#description")
+//window.addEventListener("keyup" ,() => {
+//  text_check_dom.innerText = "글자수 :" + text_dom.value.length
+//})
+//// 언어
+//const interestLangButtons = document.querySelectorAll('.signup-interest-lang-btn');
+//const selectedInterestsLangInput = document.getElementById('selected-interests-lang');
+//let selectedInterestsLang = [];
+//selectInterests(interestLangButtons, selectedInterestsLang, selectedInterestsLangInput);
+//// 프레임 워크
+//const interestFwButtons = document.querySelectorAll('.signup-interest-fw-btn');
+//const selectedInterestsFwInput = document.getElementById('selected-interests-fw');
+//let selectedInterestsFw = [];
+//selectInterests(interestFwButtons, selectedInterestsFw, selectedInterestsFwInput);
+//// 직무
+//const interestJobButtons = document.querySelectorAll('.signup-interest-job-btn');
+//const selectedInterestsJobInput = document.getElementById('selected-interests-job');
+//let selectedInterestsJob = [];
+//selectInterests(interestJobButtons, selectedInterestsJob, selectedInterestsJobInput);
+//
+//
+//
+////언어 문자열 에서 "_"을 제외한 문자열 배열 생성 후 배열에서 "" 삭제
+//let langrr = []
+//let langs = langarr.filter((element) => element !== "");
+////프레임워크
+//let fwarr = []
+//let fws = fwarr.filter((element) => element !== "");
+////직무
+//let jobarr = []
+//let jobs = jobarr.filter((element) => element !== "");
+//
+////관심분야(언어, 프레임워크, 직무) 기존 데이터 화면 출력
+//window.onload = function(){
+//  //관심 언어
+//  let langButtons = document.querySelectorAll('.signup-interest-lang-btn');
+//  for(let lang of langs){
+//    for(let langBtn of langButtons){
+//      if(lang === langBtn.value){
+//        langBtn.className = "signup-interest-lang-btn selected";
+//        selectedInterestsLang.push(langBtn.value);
+//      }
+//    }
+//  }
+//  //관심 프레임워크
+//  let fwButtons = document.querySelectorAll('.signup-interest-fw-btn');
+//  for(let fw of fws){
+//    for(let fwBtn of fwButtons){
+//      if(fw === fwBtn.value){
+//        fwBtn.className = "signup-interest-fw-btn selected";
+//        selectedInterestsFw.push(fwBtn.value);
+//      }
+//    }
+//  }
+//  //관심 직무
+//  let jobButtons = document.querySelectorAll('.signup-interest-job-btn');
+//  for(let job of jobs){
+//    for(let jobBtn of jobButtons){
+//      if(job === jobBtn.value){
+//        jobBtn.className ="signup-interest-job-btn selected";
+//        selectedInterestsJob.push(jobBtn.value);
+//      }
+//    }
+//  }
+//}
+//// 관심 분야 선택
+//// 버튼 목록, 선택된 관심사 배열, hidden input에 저장
+//function selectInterests(buttons, selectedInterests, selectedInterestsInput) {
+//  buttons.forEach(button => {
+//    button.addEventListener('click', () => {  // click될 때마다 실행
+//      const interest = button.value;  // 클릭된 버튼 value
+//
+//      if (selectedInterests.includes(interest)) {  // 선택되어있으면, 배열에서 제거
+//        selectedInterests = selectedInterests.filter(item => item !== interest);
+//      } else {  // 선택되어있지않으면, 배열에 추가
+//        selectedInterests.push(interest);
+//      }
+//      selectedInterestsInput.value = selectedInterests.join('_');
+//      button.classList.toggle('selected');  // 버튼 상태 토글
+//      //선택된 버튼은 class가 signup-interest-lang-btn selected 됨
+//    });
+//  });
+//}
+
+</script>
+
+<style src="../css/meeting/meeting_home.css" scoped>
+</style>
+<style src="../css/meeting/meeting_article.css" scoped>
+</style>
+<style src="../css/home.css" scoped>
+</style>
+<style src="../css/meeting/meeting_form.css" scoped>
+</style>
