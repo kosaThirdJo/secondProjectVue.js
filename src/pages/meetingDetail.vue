@@ -110,9 +110,9 @@ function writeComment(){
   }
 
 </style>
-<style src="../css/meeting/meeting_home.css" scoped>
+<style src="../assets/css/meeting/meeting_home.css" scoped>
 </style>
-<style src="../css/meeting/meeting_article.css" scoped>
+<style src="../assets/css/meeting/meeting_article.css" scoped>
 </style>
-<style src="../css/home.css" scoped>
+<style src="../assets/css/home.css" scoped>
 </style>
