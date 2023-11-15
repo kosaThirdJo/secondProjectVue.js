@@ -1,46 +1,48 @@
 <template>
-  <div id="profile" class="border border-dark">
-  </div>
+  <div v-if="!isLoading" id="profile" class="border border-dark">
+
   <section id="content_box">
-    <div>
-      <span class="badge bg-secondary">모집중</span>
+    <div class="title-box">
+      <span class="btn btn-primary">모집중</span>
       <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
-      <span class="badge bg-secondary" style="float: right">신청하기</span>
+      <span class="btn btn-primary" style="float: right">신청하기</span>
     </div>
-    <div>
-      <span style="margin-left: 10px"></span>
+    <div class="view-box">
+      <span></span>
       <span> 조회수 </span>
-      <span>2</span>
+      <span v-text="result.views"></span>
     </div>
-    <div v-text="'내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.' +
-     ''" id="content_description" class="main-content-container">
+    <div v-text="result.description" id="content_description" class="main-content-box">
     </div>
     <div id="end_date_line">
       <span>마감일 </span>
-      <span>2</span>
+      <span v-text="result.applicationDeadline"></span>
     </div>
     <div id="location">
-      <span v-text="location"></span>
+      <span> 위치 </span>
+      <span v-text="result.location"></span>
     </div>
   </section>
   <section id="comment_box">
-    <div>댓글 <span style="color: #1A4D2E"></span>
+    <div>댓글 <span v-text="commentResult.length" style="color: #1A4D2E"></span>
     </div>
     <div id="comment_input_line">
-      <form onsubmit="return false" method=post>
-        <input type="hidden" name="commentUserName">
-        <input id="comment_input" type="text" name="commentContent" placeholder=" 댓글을 작성해 보세요" size=80% maxlength=8>
-        <span id="comment_button" class="btn btn-primary">등록</span>
-      </form>
-    </div>
+      <input id="comment_input" v-model="commentInput" @keyup.enter="writeComment()" class="mt-2 mb-2" type="text" name="commentContent" placeholder=" 댓글을 작성해 보세요">
+      <span id="comment_button" class="btn btn-primary mr-3" @click="writeComment()">등록</span>
+      </div>
     <div class="main-content-container">
-      <div id="comment_list">
-        <div id="comment_title"></div>
-        <div></div>
-        <div></div>
+      <div class="comment_list" v-for="(commentEle,commentIdx) in commentResult">
+        <div id="comment_title" v-text="commentEle.userNickName"></div>
+        <div v-text="commentEle.content"></div>
+        <div v-text="commentEle.creationDate"></div>
       </div>
     </div>
   </section>
+  </div>
+    <div v-else>
+    <!-- 로딩 중에 표시할 스피너나 메시지를 추가할 수 있습니다 -->
+    로딩 중...
+  </div>
 </template>
 <script setup>
 
@@ -50,22 +52,40 @@ import {api} from "../common.js";
 
 
 const route = useRoute()
-console.log(route.params.post_id)
-const result = ref({
-  "userNickname":"닉네임",
-  "title":"제목입니다."
-    }
-)
+const isLoading = ref(true);
+const result = ref([])
+const commentResult = ref([])
 api(
-    "http://localhost:8081/meeting/" +
+    "http://localhost:8080/meeting/" +
+    route.params.post_id,
+    "GET", null
+).then(response => {
+  result.value = response
+  isLoading.value = false;
+
+});
+api(
+    "http://localhost:8080/comment/meeting/" +
     route.params.post_id,
     "GET", ""
 ).then(response => {
-  result.value = response
-  console.log(result.value)
+  commentResult.value = response.content
+  isLoading.value = false;
+  console.log(commentResult)
 });
+const commentInput = ref("")
 
-console.log(result.value.userNickname)
+function writeComment(){
+  api("http://localhost:8080/comment/meeting/" + route.params.post_id,
+      "POST",
+      {
+        userId:1,
+        meetingId:route.params.post_id,
+        content: commentInput.value
+      }
+  )
+  window.location.reload();
+}
 
 
 </script>
@@ -73,79 +93,26 @@ console.log(result.value.userNickname)
 
 
 <style scoped>
-body {
-  padding-top: 75px;
-  padding-bottom: 75px;
-  /* 생략 */
-}
-font{
-  @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
-}
-.nanumgothic * {
-  font-family: 'Nanum Gothic', sans-serif;
-}
-#profile{
-  float: right;
-  background-color: #FAF3E3;
-  width: 300px;
-  height: 200px;
-  margin-right: 50px;
-  margin-top: 50px;
-}
-#content_box {
-  width: 800px;
-  padding: 5px 5px 5px 5px;
-}
-#content_title{
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-#content_description{
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-#comment_box {
-  background-color: #FAF3E3;
-  width: 800px;
-  padding: 20px 20px 20px 20px;
-}
-#comment_input_line{
-  margin: 5px 5px 5px ;
-}
-#comment_input{
-  text-align: left;
-  width: 80%;
-  outline: none;
-  border-radius: 10px;
-  border:none;
-}
+  section{
+    text-align: left;
+    margin: 10px;
+  }
 
-#comment_list{
-  padding-top: 10px;
-  padding-left: 10px;
-  background-color: white;
-  margin-bottom: 5px;
-}
-#comment_title{
-  margin-top: 5px;
-  margin-left: 5px;
-}
-article{
-  margin-left: 200px;
-}
-
-header {
-  background-color: green;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
+  #comment_button{
+    float: right;
+  }
+  #comment_input{
+    width: 90%;
+  }
+  .comment_list{
+    background-color: antiquewhite;
+    margin-bottom: 10px;
+  }
 
 </style>
-<style src="../assets/css/meeting/meeting_home.css" scoped>
+<style src="../css/meeting/meeting_home.css" scoped>
 </style>
-<style src="../assets/css/meeting/meeting_article.css" scoped>
+<style src="../css/meeting/meeting_article.css" scoped>
 </style>
-<style src="../assets/css/home.css" scoped>
+<style src="../css/home.css" scoped>
 </style>
