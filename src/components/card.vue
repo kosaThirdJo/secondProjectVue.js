@@ -8,7 +8,8 @@
 <template>
   <div class="content_list_title_display">
     <div class="container-content">
-    <a>
+      <router-link :to="url" class="button">
+<!--  <a :href="url" class="button">//https://velog.io/@mahns/vue-router-link-->
       <div class="main-left-content-bottom-meeting">
         <!-- 01-02-01 white box -->
         <div class="main-left-content-bottom-meeting-white">
@@ -102,7 +103,8 @@
           </div>
         </div>
       </div>
-    </a>
+      </router-link>
+<!--    </a>-->
     </div>
   </div>
 
@@ -115,15 +117,14 @@ import { defineProps } from 'vue';
 const p = defineProps( {
   resOne : Object,
 });
+const url = "/meeting/" + p.resOne.meetingId
 
-//
+
 const categoryContainer = ["스터디","프로젝트","기타"]
 const statusContainer = ["모집중","모집완료"]
 const langContainer = ["Java","Python","C#","C++","JavaScript","Ruby","Swift","TypeScript","PHP"]
 const frameworkContainer =  ["Spring","React","Angular","Vue.js","Express.js","Django","Ruby on Rails","Flask","Laravel"]
 const jobContainer = ["프론트엔드","백엔드","풀스택","모바일 앱 개발","게임 개발","데이터베이스","데브옵스","디자이너","기획자"]
-
-//
 const category = ref(categoryContainer[p.resOne.category])
 const status = ref(statusContainer[p.resOne.status])
 const location = ref(p.resOne.location)
@@ -136,15 +137,10 @@ const commentCount = ref(p.resOne.commentCount) // api로 같이 전달 할 것
 let langArr = []
 let frameworkArr = []
 let jobArr = []
-if (p.resOne.interestLanguage) {
-  langArr = ref(p.resOne.interestLanguage.split("_")) // 변환 필요
-}
-if (p.resOne.interestFramwork) {
-  frameworkArr = ref(p.resOne.interestFramwork.split("_")) // 변환 필요
-}
-if (p.resOne.interestJob) {
-  jobArr = ref(p.resOne.interestJob.split("_")) // 변환 필요
-}
+langArr = p.resOne?.interestLanguage && ref(p.resOne.interestLanguage.split("_"));
+frameworkArr = p.resOne?.interestFramework && ref(p.resOne.interestFramework.split("_"))
+jobArr = p.resOne?.interestJob && ref(p.resOne.interestJob.split("_"))
+
 
 </script>
 

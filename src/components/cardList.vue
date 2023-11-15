@@ -11,7 +11,7 @@ import Card from "./card.vue";
 import {api} from "../common.js";
 
 const req = {
-  page:0,
+  page:1,
   size:9,
   order:"desc",
   category:1,
@@ -34,5 +34,3 @@ defineProps({
 
 })
 </script>
-
-
