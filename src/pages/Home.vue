@@ -12,7 +12,7 @@ const req = {
 }
 const cardResult = ref([]);
 api(
-    "http://localhost:8080/meeting?" +
+    "http://localhost:8081/meeting?" +
     "page=" + req.page + "&" +
     "size=" + req.size + "&" +
     "order=" + req.order + "&" +  // '=' 추가
@@ -27,7 +27,7 @@ defineProps({})
 // 인기글 (rank)
 const rankResult = ref([]);
 api(
-    "http://localhost:8080/rankMeeting",
+    "http://localhost:8081/rankMeeting",
     "GET", ""
 ).then(response => {
   console.log(response)

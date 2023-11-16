@@ -76,7 +76,7 @@ api(
 const commentInput = ref("")
 
 function writeComment(){
-  api("http://localhost:8080/comment/meeting/" + route.params.post_id,
+  api("http://localhost:8081/comment/meeting/" + route.params.post_id,
       "POST",
       {
         userId:1,

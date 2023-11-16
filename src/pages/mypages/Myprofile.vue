@@ -1,5 +1,5 @@
 <template>
-  <div class="frame-content">
+  <section class="frame-content">
   <div class="frame-content-title">
     <div class="content-title">
       <span class="content-title-text">이력 관리</span>
@@ -32,7 +32,7 @@
         <input @click="updateData()" id="submitbutton" class="button-submit"  value="수정하기"/>
       </div>
   </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
