@@ -13,11 +13,11 @@
   <div class="container mt-5">
     <nav aria-label="Page navigation example" style="margin: auto">
       <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">이전</a></li>
+        <li class="page-item"><span class="page-link" href="#">이전</span></li>
         <li class="page-item"  v-for="(content,idx) in page">
-          <a class="page-link" href="#" v-text="content"></a>
+          <span class="page-link" v-text="content" @click="changePage(idx)"></span>
         </li>
-        <li class="page-item"><a class="page-link" href="#">다음</a></li>
+        <li class="page-item"><span class="page-link" href="#">다음</span></li>
       </ul>
     </nav>
   </div>
@@ -31,30 +31,51 @@
 
 import { ref } from 'vue'
 import Card from "./card.vue";
-import {api} from "../../common.js";
-const url = "/meeting";
-const req = {
-  page:1,
-  size:9,
-  order:"desc",
-  category: 1,
-  criteria:"creationDate"
-}
-const result = ref([]);
-const page = ref(0);
-api(
-    "meeting?" +
-    "page=" + req.page + "&" +
-    "size=" + req.size + "&" +
-    "order=" + req.order + "&" +  // '=' 추가
-    "criteria=" + req.criteria
-    + ((req.category) ? "&category=" + req.category : ""),
-    "GET", null
-).then(response => {
-  page.value = response.totalPages;
-  result.value = response.content;
-});
-defineProps({
+import {api} from "../common.js";
+import {useRoute} from "vue-router";
 
+const req = ref({
+  page:(useRoute().query.page!== undefined) ? useRoute().query.page: 0,
+  size:(useRoute().query.size!== undefined) ? useRoute().query.size: 9,
+  order:(useRoute().query.order!== undefined) ? useRoute().query.order: "desc",
+  category: (useRoute().query.category!== undefined) ? useRoute().query.category: null,
+  criteria:(useRoute().query.criteria!== undefined) ? useRoute().query.criteria: "creationDate"
 })
+getPage()
+
+
+
+const result = ref({});
+const page = ref(0);
+function changePage(newPage) {
+  req.value.page = newPage;
+  getPage()
+}
+
+async function getPage() {
+  console.log(req.value.page)
+  console.log("meeting?" +
+      "page=" + req.value.page + "&" +
+      "size=" + req.value.size + "&" +
+      "order=" + req.value.order + "&" +  // '=' 추가
+      "criteria=" + req.value.criteria
+      + ((req.value.category) ? "&category=" + req.value.category : ""))
+   api(
+      "meeting?" +
+      "page=" + req.value.page + "&" +
+      "size=" + req.value.size + "&" +
+      "order=" + req.value.order + "&" +  // '=' 추가
+      "criteria=" + req.value.criteria
+      + ((req.value.category) ? "&category=" + req.value.category : ""),
+      "GET", null
+  ).then(response => {
+
+    console.log(response)
+     result.value = response.content
+    return response.totalPages;
+  }).then(totalPage =>{
+     page.value = totalPage;
+   });
+}
+
 </script>

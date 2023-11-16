@@ -47,11 +47,12 @@
 <script setup>
 
 import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import {api} from "../../common.js";
+import {useRoute, useRouter} from 'vue-router'
+import {api} from "../common.js";
 
 
 const route = useRoute()
+const router = useRouter()
 const isLoading = ref(true);
 const result = ref([])
 const commentResult = ref([])
@@ -76,6 +77,7 @@ api(
 const commentInput = ref("")
 
 function writeComment(){
+
   api("comment/meeting/" + route.params.post_id,
       "POST",
       {
@@ -84,7 +86,7 @@ function writeComment(){
         content: commentInput.value
       }
   )
-  window.location.reload();
+  router.go(0)
 }
 
 

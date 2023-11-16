@@ -111,34 +111,50 @@
 
 <script setup>
 
-import { ref } from 'vue'
+import {ref, toRef, watchEffect} from 'vue'
 import { defineProps } from 'vue';
-const p = defineProps( {
+let p = defineProps( {
   resOne : Object,
 });
-const url = "/meeting/" + p.resOne.meetingId
-
-
+let pp = toRef(p,"resOne")
+const url = "/meeting/" + pp.value.meetingId
+const title = ref(pp.value.title)
 const categoryContainer = ["스터디","프로젝트","기타"]
 const statusContainer = ["모집중","모집완료"]
 const langContainer = ["Java","Python","C#","C++","JavaScript","Ruby","Swift","TypeScript","PHP"]
 const frameworkContainer =  ["Spring","React","Angular","Vue.js","Express.js","Django","Ruby on Rails","Flask","Laravel"]
 const jobContainer = ["프론트엔드","백엔드","풀스택","모바일 앱 개발","게임 개발","데이터베이스","데브옵스","디자이너","기획자"]
-const category = ref(categoryContainer[p.resOne.category])
-const status = ref(statusContainer[p.resOne.status])
-const location = ref(p.resOne.location)
-const title = ref(p.resOne.title)
-const writer = ref(p.resOne.userNickname)
-const endDate = ref(p.resOne.applicationDeadline)
-const nowCount = ref(p.resOne.applicationCount)
-const viewCount = ref(p.resOne.views)
-const commentCount = ref(p.resOne.commentCount)
+const category = ref(categoryContainer[pp.value.category])
+const status = ref(statusContainer[pp.value.status])
+const location = ref(pp.value.location)
+
+const writer = ref(pp.value.userNickname)
+const endDate = ref(pp.value.applicationDeadline)
+const nowCount = ref(pp.value.applicationCount)
+const viewCount = ref(pp.value.views)
+const commentCount = ref(pp.value.commentCount)
 let langArr = []
 let frameworkArr = []
 let jobArr = []
-langArr = p.resOne?.interestLanguage && ref(p.resOne.interestLanguage.split("_"));
-frameworkArr = p.resOne?.interestFramework && ref(p.resOne.interestFramework.split("_"))
-jobArr = p.resOne?.interestJob && ref(p.resOne.interestJob.split("_"))
+langArr = pp.value?.interestLanguage && ref(pp.value.interestLanguage.split("_"));
+frameworkArr = pp.value?.interestFramework && ref(pp.value.interestFramework.split("_"))
+jobArr = pp.value?.interestJob && ref(pp.value.interestJob.split("_"))
+watchEffect(() => {
+  title.value = pp.value.title
+  category.value = categoryContainer[pp.value.category]
+  status.value = statusContainer[pp.value.status]
+  location.value = pp.value.location
+  writer.value = pp.value.userNickname
+  endDate.value = pp.value.applicationDeadline
+  nowCount.value = pp.value.applicationCount
+  viewCount.value = pp.value.views
+  commentCount.value = pp.value.commentCount
+  langArr = pp.value?.interestLanguage && pp.value.interestLanguage.split("_")
+  frameworkArr = pp.value?.interestFramework && pp.value.interestFramework.split("_")
+  jobArr =pp.value?.interestJob && pp.value.interestJob.split("_")
+
+})
+
 
 
 </script>
