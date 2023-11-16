@@ -56,7 +56,7 @@ const isLoading = ref(true);
 const result = ref([])
 const commentResult = ref([])
 api(
-    "http://localhost:8080/meeting/" +
+    "http://localhost:8081/meeting/" +
     route.params.post_id,
     "GET", null
 ).then(response => {
@@ -65,7 +65,7 @@ api(
 
 });
 api(
-    "http://localhost:8080/comment/meeting/" +
+    "http://localhost:8081/comment/meeting/" +
     route.params.post_id,
     "GET", ""
 ).then(response => {
@@ -76,7 +76,7 @@ api(
 const commentInput = ref("")
 
 function writeComment(){
-  api("http://localhost:8080/comment/meeting/" + route.params.post_id,
+  api("http://localhost:8081/comment/meeting/" + route.params.post_id,
       "POST",
       {
         userId:1,
@@ -110,9 +110,10 @@ function writeComment(){
   }
 
 </style>
+<!--
 <style src="../css/meeting/meeting_home.css" scoped>
 </style>
 <style src="../css/meeting/meeting_article.css" scoped>
 </style>
 <style src="../css/home.css" scoped>
-</style>
+</style>-->

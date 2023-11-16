@@ -242,12 +242,12 @@
 //}
 
 </script>
-
+<!--
 <style src="../css/meeting/meeting_home.css" scoped>
 </style>
 <style src="../css/meeting/meeting_article.css" scoped>
 </style>
-<style src="../css/home.css" scoped>
+<style src="../../src/assets/css/home.css" scoped>
 </style>
 <style src="../css/meeting/meeting_form.css" scoped>
-</style>
+</style>-->

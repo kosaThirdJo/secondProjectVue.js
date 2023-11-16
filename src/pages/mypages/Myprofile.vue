@@ -6,7 +6,6 @@
     </div>
   </div>
   <div class="frame-content-body">
-    <form class="form-content-body">
       <input type="hidden" name="userId" v-model="myInfo.userId"/>
       <!-- 한줄 소개 -->
       <div class="frame-oneline">
@@ -30,9 +29,8 @@
         </textarea>
       </div>
       <div class="frame-bottom">
-        <input @click="updateData()" id="submitbutton" class="button-submit" type="submit" value="수정하기"/>
+        <input @click="updateData()" id="submitbutton" class="button-submit"  value="수정하기"/>
       </div>
-    </form>
   </div>
   </div>
 </template>
@@ -44,8 +42,7 @@
   import {api} from "../../common.js";
 
   const route = useRoute();//CompositionAPI 매칭된 라우트 (OptionAPI : this.$route)
-  const router = useRouter();//CompositionAPI 라우터 객체 (OptionAPI : this.$router)
-  //console.log(route.params.user_id);
+
   const getDataErr = reactive({});
   const myInfo = ref({
     "userId":"",
@@ -53,52 +50,30 @@
     "profileContent" : ""
   });
 
-  async function updateData(){
-    console.log("수정버튼 클릭");
-    let payload = {
-      aboutMe: myInfo.value.aboutMe,
-      profileContent: myInfo.value.profileContent
-    };
-    console.log(payload);
-    try{
-      const response = await axios.patch("http://localhost:8081/users/profile/"+route.params.user_id, payload);
-      console.log("수정완료");
-      console.log(response);
-      //router.push("/users/profile/1");
-      //route.push("/users/profile/1");
-    }catch (error){
-      console.log(error);
-    }
-/*
+  function updateData(){
     api(
-        "http://localhost:8081/users/profile/"+route.params.user_id,
-        "PATCH", payload)
-        .then(response => {
-          console.log(response);
+        "http://localhost:8081/users/profile/"+route.params.user_id, "PATCH",
+        {
+          aboutMe: myInfo.value.aboutMe,
+          profileContent: myInfo.value.profileContent
+        })
+        .then(response2 => {
+          console.log(response2);
           alert("수정완료되었습니다.");
+          window.location.reload();
           //this.$router.push("/users/profile/1");
         });
-
- */
-    //this.$router.push("/users/profile/1");
-    //this.$router.go(-2);
-    //alert("수정완료되었습니다.");
-    //route.go(-1);
-    //this.$router.go(-1);
-    //this.$router.push('myprofile');
-    //getData();
   }
-  async function getData(){
+ async function getData(){
     try {
-      const response = await axios.get("http://localhost:8081/users/profile/"+route.params.user_id);
-      myInfo.value = response.data;
+      const response1 = await axios.get("http://localhost:8081/users/profile/"+route.params.user_id);
+      myInfo.value = response1.data;
       console.log(myInfo.value);
     }catch (error){
       getDataErr.value =error;
       //console.log(getDataErr.value);
     }
   }
-
   onMounted(()=>{
     console.log("onmount");
     getData();

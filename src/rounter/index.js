@@ -12,7 +12,7 @@ const router = createRouter({
         { path: '/meeting', component: meeting },
         //동적 매핑
         {path: '/meeting/:post_id', component: meetingDetail},
-        {path: '/users/profile/:user_id', component:myprofile}
+        {path: '/users/profile/:user_id', component:myprofile},
         { path: '/meeting/:post_id', component: meetingDetail },
         { path: '/meeting/write', component: meetingForm}
     ]
