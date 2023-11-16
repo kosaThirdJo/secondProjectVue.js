@@ -1,6 +1,6 @@
 <script setup>
 
-import InputMeeting from "../components/inputMeeting.vue";
+import InputMeeting from "../../components/inputMeeting.vue";
 </script>
 
 <template>
