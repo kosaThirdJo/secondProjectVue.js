@@ -43,7 +43,7 @@ const req = {
 const result = ref([]);
 const page = ref(0);
 api(
-    "http://localhost:8081/meeting?" +
+    "meeting?" +
     "page=" + req.page + "&" +
     "size=" + req.size + "&" +
     "order=" + req.order + "&" +  // '=' 추가
