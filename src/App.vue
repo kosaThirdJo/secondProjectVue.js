@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import PageHeader from "./components/TheHeader.vue";
-import PageFooter from "./components/TheFooter.vue";
+import PageHeader from "./components/common/TheHeader.vue";
+import PageFooter from "./components/common/TheFooter.vue";
 </script>
 

@@ -48,7 +48,7 @@
 
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import {api} from "../common.js";
+import {api} from "../../common.js";
 
 
 const route = useRoute()
@@ -110,9 +110,9 @@ function writeComment(){
   }
 
 </style>
-<style src="../assets/css/meeting/meeting_home.css" scoped>
+<style src="../../assets/css/meeting/meeting_home.css" scoped>
 </style>
-<style src="../assets/css/meeting/meeting_article.css" scoped>
+<style src="../../assets/css/meeting/meeting_article.css" scoped>
 </style>
-<style src="../assets/css/home.css" scoped>
+<style src="../../assets/css/home.css" scoped>
 </style>

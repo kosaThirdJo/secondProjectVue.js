@@ -31,7 +31,7 @@
 
 import { ref } from 'vue'
 import Card from "./card.vue";
-import {api} from "../common.js";
+import {api} from "../../common.js";
 const url = "/meeting";
 const req = {
   page:1,

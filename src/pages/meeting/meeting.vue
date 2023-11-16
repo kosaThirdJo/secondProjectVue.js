@@ -4,7 +4,7 @@
 
 <script>
 
-import cardList from "../components/cardList.vue";
+import cardList from "../../components/element/cardList.vue";
 
 export default {
   name: 'Meeting',

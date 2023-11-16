@@ -16,4 +16,4 @@
     </div>
   </footer>
 </template>
-<style scoped src="../assets/css/home.css"></style>
+<style scoped src="../../assets/css/home.css"></style>
