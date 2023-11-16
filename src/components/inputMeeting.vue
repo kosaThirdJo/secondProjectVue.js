@@ -1,111 +1,151 @@
 <script setup>
-  //
-  //// 글자수 세기
-  //text_check_dom = document.querySelector("#text-length-check")
-  //text_dom = document.querySelector("#description")
-  //window.addEventListener("keyup" ,() => {
-//  text_check_dom.innerText = "글자수 :" + text_dom.value.length
-//})
-//// 언어
-//const interestLangButtons = document.querySelectorAll('.signup-interest-lang-btn');
-//const selectedInterestsLangInput = document.getElementById('selected-interests-lang');
-//let selectedInterestsLang = [];
-//selectInterests(interestLangButtons, selectedInterestsLang, selectedInterestsLangInput);
-//// 프레임 워크
-//const interestFwButtons = document.querySelectorAll('.signup-interest-fw-btn');
-//const selectedInterestsFwInput = document.getElementById('selected-interests-fw');
-//let selectedInterestsFw = [];
-//selectInterests(interestFwButtons, selectedInterestsFw, selectedInterestsFwInput);
-//// 직무
-//const interestJobButtons = document.querySelectorAll('.signup-interest-job-btn');
-//const selectedInterestsJobInput = document.getElementById('selected-interests-job');
-//let selectedInterestsJob = [];
-//selectInterests(interestJobButtons, selectedInterestsJob, selectedInterestsJobInput);
-//
-//
-//
-////언어 문자열 에서 "_"을 제외한 문자열 배열 생성 후 배열에서 "" 삭제
-//let langrr = []
-//let langs = langarr.filter((element) => element !== "");
-////프레임워크
-//let fwarr = []
-//let fws = fwarr.filter((element) => element !== "");
-////직무
-//let jobarr = []
-//let jobs = jobarr.filter((element) => element !== "");
-//
-////관심분야(언어, 프레임워크, 직무) 기존 데이터 화면 출력
-//window.onload = function(){
-//  //관심 언어
-//  let langButtons = document.querySelectorAll('.signup-interest-lang-btn');
-//  for(let lang of langs){
-//    for(let langBtn of langButtons){
-//      if(lang === langBtn.value){
-//        langBtn.className = "signup-interest-lang-btn selected";
-//        selectedInterestsLang.push(langBtn.value);
-//      }
-//    }
-//  }
-//  //관심 프레임워크
-//  let fwButtons = document.querySelectorAll('.signup-interest-fw-btn');
-//  for(let fw of fws){
-//    for(let fwBtn of fwButtons){
-//      if(fw === fwBtn.value){
-//        fwBtn.className = "signup-interest-fw-btn selected";
-//        selectedInterestsFw.push(fwBtn.value);
-//      }
-//    }
-//  }
-//  //관심 직무
-//  let jobButtons = document.querySelectorAll('.signup-interest-job-btn');
-//  for(let job of jobs){
-//    for(let jobBtn of jobButtons){
-//      if(job === jobBtn.value){
-//        jobBtn.className ="signup-interest-job-btn selected";
-//        selectedInterestsJob.push(jobBtn.value);
-//      }
-//    }
-//  }
-//}
-//// 관심 분야 선택
-//// 버튼 목록, 선택된 관심사 배열, hidden input에 저장
-//function selectInterests(buttons, selectedInterests, selectedInterestsInput) {
-//  buttons.forEach(button => {
-//    button.addEventListener('click', () => {  // click될 때마다 실행
-//      const interest = button.value;  // 클릭된 버튼 value
-//
-//      if (selectedInterests.includes(interest)) {  // 선택되어있으면, 배열에서 제거
-//        selectedInterests = selectedInterests.filter(item => item !== interest);
-//      } else {  // 선택되어있지않으면, 배열에 추가
-//        selectedInterests.push(interest);
-//      }
-//      selectedInterestsInput.value = selectedInterests.join('_');
-//      button.classList.toggle('selected');  // 버튼 상태 토글
-//      //선택된 버튼은 class가 signup-interest-lang-btn selected 됨
-//    });
-//  });
-//}
+import {onMounted, ref} from "vue";
+  import {api} from "../common.js";
+import {useRouter} from "vue-router";
+  const router = useRouter()
+  // 글자수 세기
+  const contentCount = ref(0)
+  function countText(){
+    contentCount.value = writeVal.value.description.length
+  }
+
+const writeVal = ref({
+  "userId": 1,//
+  "title": null,
+  "category": 1,
+  "applicationDeadline": null,
+  "recruitmentCount": 0,
+  "location": "서울특별시",//
+  "description": "",
+  "interestLanguage": null,
+  "interestFramework": null,
+  "interestJob": null
+});
+
+
+
+
+  function write(){
+    api(
+        "meeting",
+        "POST",
+        writeVal.value
+    ).then(router.replace("/meeting"))
+  }
+
+  onMounted(() => {
+    // 언어
+    const interestLangButtons = document.querySelectorAll('.signup-interest-lang-btn');
+    const selectedInterestsLangInput = document.getElementById('selected-interests-lang');
+    let selectedInterestsLang = [];
+    selectInterests(interestLangButtons, selectedInterestsLang, selectedInterestsLangInput,"lang");
+    // 프레임 워크
+    const interestFwButtons = document.querySelectorAll('.signup-interest-fw-btn');
+    const selectedInterestsFwInput = document.getElementById('selected-interests-fw');
+    let selectedInterestsFw = [];
+    selectInterests(interestFwButtons, selectedInterestsFw, selectedInterestsFwInput,"fw");
+    // 직무
+    const interestJobButtons = document.querySelectorAll('.signup-interest-job-btn');
+    const selectedInterestsJobInput = document.getElementById('selected-interests-job');
+    let selectedInterestsJob = [];
+    selectInterests(interestJobButtons, selectedInterestsJob, selectedInterestsJobInput,"job");
+
+
+
+    let langArr = []
+    let langs = langArr.filter((element) => element !== "");
+    //프레임워크
+    let fwArr = []
+    let fws = fwArr.filter((element) => element !== "");
+    //직무
+    let jobArr = []
+    let jobs = jobArr.filter((element) => element !== "");
+
+    window.onload = function(){
+      //관심 언어
+      let langButtons = document.querySelectorAll('.signup-interest-lang-btn');
+      for(let lang of langs){
+        for(let langBtn of langButtons){
+          if(lang === langBtn.value){
+            langBtn.className = "signup-interest-lang-btn selected";
+            selectedInterestsLang.push(langBtn.value);
+          }
+        }
+      }
+      //관심 프레임워크
+      let fwButtons = document.querySelectorAll('.signup-interest-fw-btn');
+      for(let fw of fws){
+        for(let fwBtn of fwButtons){
+          if(fw === fwBtn.value){
+            fwBtn.className = "signup-interest-fw-btn selected";
+            selectedInterestsFw.push(fwBtn.value);
+          }
+        }
+      }
+      //관심 직무
+      let jobButtons = document.querySelectorAll('.signup-interest-job-btn');
+      for(let job of jobs){
+        for(let jobBtn of jobButtons){
+          if(job === jobBtn.value){
+            jobBtn.className ="signup-interest-job-btn selected";
+            selectedInterestsJob.push(jobBtn.value);
+          }
+        }
+      }
+    }
+    // 관심 분야 선택
+    // 버튼 목록, 선택된 관심사 배열, hidden input에 저장
+    function selectInterests(buttons, selectedInterests, selectedInterestsInput, type) {
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {  // click될 때마다 실행
+          const interest = button.value;  // 클릭된 버튼 value
+
+          if (selectedInterests.includes(interest)) {  // 선택되어있으면, 배열에서 제거
+            selectedInterests = selectedInterests.filter(item => item !== interest);
+          } else {  // 선택되어있지않으면, 배열에 추가
+            selectedInterests.push(interest);
+          }
+          selectedInterestsInput.value = selectedInterests.join('_');
+          button.classList.toggle('selected');  // 버튼 상태 토글
+          switch (type){
+            case "lang":
+              writeVal.value.interestLanguage = selectedInterestsInput.value
+              break
+            case "fw":
+              writeVal.value.interestFramework = selectedInterestsInput.value
+              break
+            case "job":
+              writeVal.value.interestJob = selectedInterestsInput.value
+          }
+          //선택된 버튼은 class가 signup-interest-lang-btn selected 됨
+          console.log(selectedInterests)
+        });
+      });
+    }
+
+  })
+
 </script>
 
 <template>
   <article>
-      <h2><input style="width: 100%" name="title" placeholder="제목을 입력해 주세요" maxlength=50 minlength="2" required></h2>
+      <h2><input style="width: 100%" name="title" placeholder="제목을 입력해 주세요" maxlength=50 minlength="2" v-model="writeVal.title" required></h2>
       <section>
         <div id="content_type">
           <table>
             <tr>
               <th>카테고리</th>
               <td>
-                <input type="radio" name="category" value=1 checked> 프로젝트
-                <input type="radio" name="category" value=0> 스터디
-                <input type="radio" name="category" value=2> 기타
+                <input type="radio" name="category" value=1 @click="()=> writeVal.category = 1" checked> 프로젝트
+                <input type="radio" name="category" value=0 @click="()=> writeVal.category = 0"> 스터디
+                <input type="radio" name="category" value=2 @click="()=> writeVal.category = 2"> 기타
               </td>
             </tr>
             <tr>
               <th>마감일</th>
               <td>
                 <label>
-                  <input id="endDate" name="endDate" type="datetime-local" required/>
+                  <input id="endDate" name="endDate" type="date" v-model="writeVal.applicationDeadline" required/>
                 </label>
               </td>
             </tr>
@@ -114,14 +154,14 @@
               <td>
                 <div>
                   <span></span>
-                  <input type="hidden" name="location">
+                  <input type="hidden" name="location" v-model="writeVal.location">
                 </div>
               </td>
             </tr>
             <tr>
               <th>모집 인원 수</th>
               <td>
-                <input id="recruitNum"  name="recruitNum" type="number" placeholder="(최대 100 명)" min="0" max="100"  required>
+                <input id="recruitNum"  name="recruitNum" type="number" placeholder="(최대 100 명)" min="0" max="100" v-model="writeVal.recruitmentCount" required>
               </td>
             </tr>
             <tr>
@@ -190,19 +230,22 @@
             <tr>
               <th>소개</th>
               <td>
-                <textarea id="description" name="content" placeholder="내용을 입력해 주세요!" required></textarea>
-                <div id="text-length-check">글자수 : </div>
+                <textarea id="description" name="content" placeholder="내용을 입력해 주세요!" required @keyup="countText()"  v-model="writeVal.description"></textarea>
+                <div id="text-length-check">글자수 :
+                  <span v-text="contentCount"></span>
+                </div>
               </td>
             </tr>
           </table>
         </div>
       </section>
-      <button id="submit-button"  type="submit" class="btn btn-primary"
+      <button id="submit-button"  type="button" @click="write()"  class="btn btn-primary"
               style="background-color: #FF9F29; color: white; margin-top: 30px;">등록하기
       </button>
   </article>
 
 </template>
+
 
 <style scoped>
 </style>
