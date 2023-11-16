@@ -76,7 +76,7 @@ api(
 const commentInput = ref("")
 
 function writeComment(){
-  api("http://localhost:8081/comment/meeting/" + route.params.post_id,
+  api("http://localhost:8080/comment/meeting/" + route.params.post_id,
       "POST",
       {
         userId:1,
@@ -112,8 +112,11 @@ function writeComment(){
 </style>
 <!--
 <style src="../css/meeting/meeting_home.css" scoped>
+<style src="../assets/css/meeting/meeting_home.css" scoped>
 </style>
-<style src="../css/meeting/meeting_article.css" scoped>
+<style src="../assets/css/meeting/meeting_article.css" scoped>
+</style>
+<style src="../assets/css/home.css" scoped>
 </style>
 <style src="../css/home.css" scoped>
 </style>-->
