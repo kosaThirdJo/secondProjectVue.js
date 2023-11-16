@@ -40,7 +40,7 @@
   import axios from "axios";
   import {useRoute, useRouter} from "vue-router";
   import {api} from "../../common.js";
-  import Sidebar from "../../components/Sidebar.vue";
+  import Sidebar from "./Sidebar.vue";
 
   const route = useRoute();//CompositionAPI 매칭된 라우트 (OptionAPI : this.$route)
 
