@@ -52,7 +52,7 @@
 
   function updateData(){
     api(
-        "http://localhost:8081/users/profile/"+route.params.user_id, "PATCH",
+        "users/profile/"+route.params.user_id, "PATCH",
         {
           aboutMe: myInfo.value.aboutMe,
           profileContent: myInfo.value.profileContent
