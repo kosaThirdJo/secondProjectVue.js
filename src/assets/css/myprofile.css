@@ -1,4 +1,6 @@
-
+.frame-content{
+    /*min-width: 1000px;*/
+}
 .frame-content-title{ /* content title div (이력관리) */
     width: 100%;
     padding: 5px 10px;
