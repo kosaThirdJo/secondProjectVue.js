@@ -29,10 +29,10 @@
 
 <script setup>
 
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import Card from "./card.vue";
-import {api} from "../common.js";
-import {useRoute} from "vue-router";
+import {api} from "../../common.js";
+import {onBeforeRouteUpdate, useRoute} from "vue-router";
 
 const req = ref({
   page:(useRoute().query.page!== undefined) ? useRoute().query.page: 0,
@@ -43,7 +43,12 @@ const req = ref({
 })
 getPage()
 
-
+const route = useRoute();
+watch(() => route.query.category, (newCategory) => {
+  req.value.page = 0;
+  req.value.category = newCategory;
+  getPage()
+})
 
 const result = ref({});
 const page = ref(0);

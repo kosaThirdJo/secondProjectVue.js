@@ -1,9 +1,9 @@
-<style src="../assets/css/meeting/meeting_home.css" scoped>
+<style src="../../assets/css/meeting/meeting_home.css" scoped>
 .read-the-docs {
   color: #888;
 }
 </style>
-<style src="../assets/css/home.css" scoped>
+<style src="../../assets/css/home.css" scoped>
 </style>
 <template>
   <div class="content_list_title_display">
@@ -32,7 +32,7 @@
           <div class="main-left-content-bottom-meeting-white-bottom">
             <!-- white box - location -->
             <div class="main-left-content-bottom-meeting-white-location">
-              <img src="../assets/image/global/location01.png" alt="">
+              <img src="../../assets/image/global/location01.png" alt="">
               <span v-text="location" class="main-left-content-bottom-meeting-white-location-text"
               ></span>
             </div>
@@ -44,14 +44,14 @@
 
             <!--  작성자  -->
             <div class="main-left-content-bottom-meeting-white-deadline">
-              <img class="person-img" src="../assets/image/global/person.png" alt="">
+              <img class="person-img" src="../../assets/image/global/person.png" alt="">
               <span class="main-left-content-bottom-meeting-white-deadline-text">작성자</span>
               <span v-text="writer" class="main-left-content-bottom-meeting-white-deadlineText" style="margin-left: 10px;"></span>
             </div>
 
             <!-- whitebox - deadline -->
             <div class="main-left-content-bottom-meeting-white-deadline">
-              <img src="../assets/image/global/end_date01.png" alt="">
+              <img src="../../assets/image/global/end_date01.png" alt="">
               <span  class="main-left-content-bottom-meeting-white-deadline-text">마감일</span>
               <span v-text="endDate" class="main-left-content-bottom-meeting-white-deadlineText" style="margin-left: 10px;"></span>
             </div>
@@ -63,7 +63,7 @@
         <div class="main-left-content-bottom-meeting-yellow-now">
           <!-- yellowbox - now - people -->
           <div class="main-left-content-bottom-meeting-yellow-now-people">
-            <img src="../assets/image/global/member_count.png" alt="">
+            <img src="../../assets/image/global/member_count.png" alt="">
             <div class="main-left-content-bottom-meeting-yellow-now-people-text">
               현재 <span v-text="nowCount" class="main-left-content-bottom-meeting-yellow-now-people-text-cnt"></span>명이 참여중입니다!
             </div>
@@ -72,14 +72,14 @@
           <div class="main-left-content-bottom-meeting-yellow-now-info">
             <!-- view -->
             <div class="main-left-content-bottom-meeting-yellow-now-info-view">
-              <img src="../assets/image/global/see_count01.png" alt="">
+              <img src="../../assets/image/global/see_count01.png" alt="">
               <div class="main-left-content-bottom-meeting-yellow-now-info-view-cnt">
                 <span v-text="viewCount"></span>
               </div>
             </div>
             <!-- reply -->
             <div class="main-left-content-bottom-meeting-yellow-now-info-reply">
-              <img src="../assets/image/home/chat.png" alt="">
+              <img src="../../assets/image/home/chat.png" alt="">
               <div class="main-left-content-bottom-meeting-yellow-now-info-reply-cnt">
                 <span v-text="commentCount"></span>
               </div>
@@ -99,7 +99,6 @@
             <span v-for="(lang,i1) in langArr" v-text="langContainer[lang]"></span>
             <span v-for="(frame,i2) in frameworkArr" v-text="frameworkContainer[frame]"></span>
             <span v-for="(job,i3) in jobArr" v-text="jobContainer[job]"></span>
-
           </div>
         </div>
       </div>
