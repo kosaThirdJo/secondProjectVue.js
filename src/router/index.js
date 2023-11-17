@@ -32,6 +32,9 @@ const router = createRouter({
             {path: '/meeting', name: 'meeting', component: meeting},
             {path: '/meeting/:post_id', component: meetingDetail},
             {path: '/meeting/write',component:meetingFrom},
+            {path: '/meeting/write',component:meetingFrom},
+            // mypage
+            {path: '/users/profile/:user_id', component:myprofile},
             {path: '/users/:user_id', name: 'mypage', component:mypage,
                 children:[
                     {path:'myprofile', name:'myprofile', component: myprofile},
@@ -39,9 +42,7 @@ const router = createRouter({
                     {path: 'mymeeting', name: 'mymeetinglist',component:mymeetingList},
                     {path: 'myapplying', name: 'myapplyinglist',component:myapplyingList}
                 ]},
-            {path: '/meeting/write',component:meetingFrom},
-            // mypage
-            {path: '/users/profile/:user_id', component:myprofile},
+
         ]
 })
 export default router;
