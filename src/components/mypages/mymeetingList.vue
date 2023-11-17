@@ -67,6 +67,12 @@
   </section>
 </template>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+  })
+
+</script>
+
 <script setup>
 import Mymeeting from "./mymeeting.vue";
 import axios from "axios";
@@ -75,6 +81,8 @@ import {onMounted, ref} from "vue";
 
 const route = useRoute();
 const resultList = ref([]);
+//조건별 조회
+const selectedFilters = ref({category: "all", status: "all"});
 
 //데이터 조회
 async function getData(){
