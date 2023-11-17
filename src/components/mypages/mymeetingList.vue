@@ -58,8 +58,7 @@
         <!-- 2.2.2. 목록 -->
         <div class="list-container-body">
           <!-- 2.2.2.1. 조회 결과(meetingvoList)가 있을 경우 -->
-          <mymeeting v-for="(data, idx) in resultList" :key="idx" :meetingone="data"></mymeeting>
-
+            <mymeeting v-for="(data, idx) in resultList" :key="idx" :meetingone="data"></mymeeting>
           <!-- 2.2.2.2. 조회 결과(meetingvoList)가 없을 경우 -->
 
         </div><!-- 2.2.2. 목록 끝 -->
@@ -75,27 +74,13 @@ import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
 
 const route = useRoute();
-const resultList = ref([{
-  "meetingId": "",
-  "title": "",
-  "category": "",
-  "status": "",
-  "applicationDeadline": "",
-  "views": "",
-  "recruitmentCount": "",
-  "applicationCount": "",
-  "location": "",
-  "creationDate": "",
-  "description": ""
-}]);
+const resultList = ref([]);
 
 //데이터 조회
 async function getData(){
   try{
     const res = await axios.get("http://localhost:8081/users/mymeeting/"+route.params.user_id);
     resultList.value = res.data;
-    console.log(resultList.value.length);
-    //console.log(resultList.value[2].status);
   }catch (error){
     console.log(error);
   }
