@@ -26,7 +26,7 @@
             <!-- 02-03-03 기타 -->
             <a class="main-header-nav-meetinglist-text" href="@{/meeting(category=2)}"><span>기타</span></a></div>
           <!-- 02-04 마이페이지 -->
-          <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/profile/1">
+          <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/1/myprofile">
             <span>마이페이지</span>
           </router-link>
 <!--          <a class="main-header-nav-mypage main-header-nav-meetinglist-text"
