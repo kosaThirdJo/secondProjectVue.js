@@ -39,6 +39,9 @@ align-items: center;
 justify-content: center;
 text-decoration: none;
 }
+.signup-top-logo:hover{
+  text-decoration: none;
+}
 .signup-top-logo-text {
 color: rgba(0, 0, 0, 1);
 height: auto;

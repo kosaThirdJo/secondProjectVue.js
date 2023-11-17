@@ -20,11 +20,13 @@ const router = createRouter({
             {path:'/login', component: login},
             {path:'/signup', component: signup},
             // meeting
-            {path: '/meeting', component: meeting},
+            {path: '/meeting', name: 'meeting', component: meeting},
             {path: '/meeting/:post_id', component: meetingDetail},
             {path: '/meeting/write',component:meetingFrom},
             // mypage
             {path: '/users/profile/:user_id', component:myprofile},
         ]
 })
+
+
 export default router;

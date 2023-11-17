@@ -22,11 +22,11 @@
           <!-- 02-03 모임 리스트 -->
           <div class="main-header-nav-meetinglist">
             <!-- 02-03-01 스터디 -->
-            <a class="main-header-nav-meetinglist-text" href="@{/meeting(category=0)}"><span>스터디</span></a>
+            <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 0}}"><span>스터디</span></router-link>
             <!-- 02-03-02 프로젝트 -->
-            <a class="main-header-nav-meetinglist-text" href="@{/meeting(category=1)}"><span>프로젝트</span></a>
+            <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 1}}"><span>프로젝트</span></router-link>
             <!-- 02-03-03 기타 -->
-            <a class="main-header-nav-meetinglist-text" href="@{/meeting(category=2)}"><span>기타</span></a></div>
+            <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 2}}"><span>기타</span></router-link></div>
             <!-- 02-04 마이페이지 -->
             <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/mypage/profile"><span>마이페이지</span></router-link>
         </div>
