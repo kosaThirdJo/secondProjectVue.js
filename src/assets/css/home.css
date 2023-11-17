@@ -580,11 +580,17 @@ margin-left: 5px;
   justify-content: center;
 }
 .main-left-content-bottom-meeting-yellow-hashtag-text {
-  color: rgba(26, 77, 46, 1);
-  height: auto;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
+    color: rgba(26, 77, 46, 1);
+    height: 40px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-content: space-between;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 .main-left-content-bottom-meeting-yellow-hashtag-text span{
   margin-right: 10px;

@@ -1,5 +1,5 @@
 <script setup>
-import Card from "../components/card.vue";
+import Card from "../components/element/card.vue";
 import {defineProps, ref} from 'vue'
 import { api } from "../common.js";
 
@@ -19,7 +19,6 @@ api(
     "criteria=" + req.criteria,
     "GET", ""
 ).then(response => {
-  console.log(response)
   cardResult.value = response.content;
 });
 defineProps({})
@@ -30,7 +29,6 @@ api(
     "rankMeeting",
     "GET", ""
 ).then(response => {
-  console.log(response)
   rankResult.value = response.content;
 });
 
