@@ -39,9 +39,11 @@ import {api} from "../../common.js";
 import {useRoute} from "vue-router";
 import router from "../../router/index.js";
 
+const route = useRoute();
+
   const req = ref({
-  page:(useRoute().query.page!== undefined) ? useRoute().query.page: 0,
-  size:(useRoute().query.size!== undefined) ? useRoute().query.size: 9,
+  page:(useRoute().query.page!== undefined) ? parseInt(useRoute().query.page): 0,
+  size:(useRoute().query.size!== undefined) ? parseInt(useRoute().query.size): 9,
   order:(useRoute().query.order!== undefined) ? useRoute().query.order: "desc",
   category: (useRoute().query.category!== undefined) ? useRoute().query.category: null,
   criteria:(useRoute().query.criteria!== undefined) ? useRoute().query.criteria: "creationDate",
@@ -59,7 +61,7 @@ let routerUrl = ref("/meeting?")
 let routeQuery = route.query
 
 for (const ele in routeQuery){
-  if (ele !== "page") {
+  if (ele !== "page" && ele !== "offset") {
     routerUrl.value += ele + "=" + routeQuery[ele] +"&"
   }
 }
@@ -74,7 +76,7 @@ watch(
       routeQuery = route.query
 
       for (const ele in routeQuery){
-        if (ele !== "page") {
+        if (ele !== "page" && ele !== "offset") {
           routerUrl.value += ele + "=" + routeQuery[ele] +"&"
         }
       }
@@ -94,6 +96,7 @@ function changeOffset(offsetDelta){
 }
 
 async function getPage() {
+  console.log(offset)
   console.log("meeting?" +
       "page=" + (parseInt(req.value.page)) + "&" +
       "size=" + req.value.size + "&" +
