@@ -7,7 +7,7 @@
 import cardList from "../../components/element/cardList.vue";
 
 export default {
-  name: 'Meeting',
+  name: 'meeting',
   components: {cardList}
 }
 

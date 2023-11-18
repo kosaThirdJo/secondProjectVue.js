@@ -119,6 +119,7 @@ let p = defineProps( {
 let pp = toRef(p,"resOne")
 const url = "/meeting/" + pp.value.meetingId
 const title = ref(pp.value.title)
+
 const categoryContainer = ["스터디","프로젝트","기타"]
 const statusContainer = ["모집중","모집완료"]
 const langContainer = ["Java","Python","C#","C++","JavaScript","Ruby","Swift","TypeScript","PHP"]
