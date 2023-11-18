@@ -96,9 +96,9 @@
         <!-- yellowbox - hashtag -->
         <div class="main-left-content-bottom-meeting-yellow-hashtag">
           <div class="main-left-content-bottom-meeting-yellow-hashtag-text">
-            <span v-for="(lang,i1) in langArr" v-text="langContainer[lang]"></span>
-            <span v-for="(frame,i2) in frameworkArr" v-text="frameworkContainer[frame]"></span>
-            <span v-for="(job,i3) in jobArr" v-text="jobContainer[job]"></span>
+            <span v-for="(lang,i1) in langArr" v-text="langContainer[lang-1]"></span>
+            <span v-for="(frame,i2) in frameworkArr" v-text="frameworkContainer[frame-1]"></span>
+            <span v-for="(job,i3) in jobArr" v-text="jobContainer[job-1]"></span>
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@ let p = defineProps( {
   resOne : Object,
 });
 let pp = toRef(p,"resOne")
-const url = "/meeting/" + pp.value.meetingId
+const url = ref("/meeting/" + pp.value.meetingId)
 const title = ref(pp.value.title)
 
 const categoryContainer = ["스터디","프로젝트","기타"]
@@ -141,6 +141,7 @@ langArr = pp.value?.interestLanguage && ref(pp.value.interestLanguage.split("_")
 frameworkArr = pp.value?.interestFramework && ref(pp.value.interestFramework.split("_"))
 jobArr = pp.value?.interestJob && ref(pp.value.interestJob.split("_"))
 watchEffect(() => {
+  url.value = "/meeting/" + pp.value.meetingId
   title.value = pp.value.title
   category.value = categoryContainer[pp.value.category]
   status.value = statusContainer[pp.value.status]
