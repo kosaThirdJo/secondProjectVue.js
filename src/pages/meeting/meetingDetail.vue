@@ -5,6 +5,18 @@
     <div class="title-box">
       <span class="btn btn-primary">모집중</span>
       <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
+      <button id="show-modal" @click="showModal = true">Show Modal</button>
+      <router-link :to="'/meeting/fix/'+route.params.post_id" class="btn btn-primary" ><span>수정 하기
+      </span></router-link>
+
+      <Teleport to="body">
+        <!-- use the modal component, pass in the prop -->
+        <modal :show="showModal" @close="showModal = false">
+          <template #header>
+            <h3>custom header</h3>
+          </template>
+        </modal>
+      </Teleport>
       <span class="btn btn-primary" style="float: right">신청하기</span>
     </div>
     <div class="view-box">
@@ -49,8 +61,9 @@
 import { ref, watch } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import {api} from "../../common.js";
+import Modal from '../../components/meeting/applyModal.vue'
 
-
+const showModal = ref(false)
 const route = useRoute()
 const router = useRouter()
 const isLoading = ref(true);
@@ -62,7 +75,6 @@ api(
     "GET", null
 ).then(response => {
   result.value = response
-  isLoading.value = false;
 
 });
 api(
@@ -72,7 +84,6 @@ api(
 ).then(response => {
   commentResult.value = response.content
   isLoading.value = false;
-  console.log(commentResult)
 });
 const commentInput = ref("")
 
