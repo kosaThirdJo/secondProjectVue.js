@@ -16,9 +16,9 @@
         <li  class="page-item">
           <span v-if="offset" class="page-link" @click="changeOffset(-5)" >이전</span>
         </li>
-        <li class="page-item"  v-for="(content,idx) in Math.min(offset+5,totalPage-offset)">
-          <router-link class="main-header-nav-meetinglist-text" :to="routerUrl + 'page=' + (idx+offset)">
-          <span class="page-link" v-text= "offset+content" @click="changePage(idx)"></span>
+        <li class="page-item"  v-for="(content,idx) in Math.max(0,Math.min(offset+5,totalPage-offset))">
+          <router-link class="main-header-nav-meetinglist-text" :to="routerUrl + 'page=' + (idx+parseInt(offset)) + '&offset=' + offset">
+          <span class="page-link" v-text= "offset+content" @click="changePage(idx+offset)"></span>
           </router-link>
         </li>
         <li v-if="offset+5< totalPage"  class="page-item"><span class="page-link" @click="changeOffset(+5)">다음</span></li>
@@ -44,18 +44,16 @@ import router from "../../router/index.js";
   size:(useRoute().query.size!== undefined) ? useRoute().query.size: 9,
   order:(useRoute().query.order!== undefined) ? useRoute().query.order: "desc",
   category: (useRoute().query.category!== undefined) ? useRoute().query.category: null,
-  criteria:(useRoute().query.criteria!== undefined) ? useRoute().query.criteria: "creationDate"
+  criteria:(useRoute().query.criteria!== undefined) ? useRoute().query.criteria: "creationDate",
+    offset:(useRoute().query.offset!== undefined) ? parseInt(useRoute().query.offset): 0
 })
-
-
-
-let offset = 0;
+let offset = (useRoute().query.offset!== undefined) ? parseInt(useRoute().query.offset): 0
+console.log(offset)
 getPage()
-const route = useRoute();
-watch(() => route.query.category, (newCategory) => {
-  req.value.page = 0;
-  req.value.category = newCategory;
-  getPage()
+watch(() => route.query.category, (newCategory,lastCategory) => {
+    req.value.category = newCategory;
+    getPage()
+
 })
 let routerUrl = ref("/meeting?")
 let routeQuery = route.query
@@ -66,8 +64,12 @@ for (const ele in routeQuery){
   }
 }
 watch(
-    () => router.currentRoute.value.href,
-    () => {
+    () => router.currentRoute.value,
+    (newVal,lastVal) => {
+      if (lastVal.query.category !== newVal.query.category) {
+        req.value.page = 0;
+        offset = 0
+      }
       routerUrl = ref("/meeting?")
       routeQuery = route.query
 
@@ -76,6 +78,7 @@ watch(
           routerUrl.value += ele + "=" + routeQuery[ele] +"&"
         }
       }
+      getPage()
     }
 )
 const result = ref({});
@@ -92,14 +95,14 @@ function changeOffset(offsetDelta){
 
 async function getPage() {
   console.log("meeting?" +
-      "page=" + (req.value.page+ offset) + "&" +
+      "page=" + (parseInt(req.value.page)) + "&" +
       "size=" + req.value.size + "&" +
       "order=" + req.value.order + "&" +  // '=' 추가
       "criteria=" + req.value.criteria
       + ((req.value.category) ? "&category=" + req.value.category : ""))
    api(
       "meeting?" +
-      "page=" + (req.value.page+ offset) + "&" +
+      "page=" + (parseInt(req.value.page)) + "&" +
       "size=" + req.value.size + "&" +
       "order=" + req.value.order + "&" +  // '=' 추가
       "criteria=" + req.value.criteria
