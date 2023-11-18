@@ -13,11 +13,15 @@
   <div class="container mt-5">
     <nav aria-label="Page navigation example" style="margin: auto">
       <ul class="pagination">
-        <li class="page-item"><span class="page-link" href="#">이전</span></li>
-        <li class="page-item"  v-for="(content,idx) in page">
-          <span class="page-link" v-text="content" @click="changePage(idx)"></span>
+        <li  class="page-item">
+          <span v-if="offset" class="page-link" @click="changeOffset(-5)" >이전</span>
         </li>
-        <li class="page-item"><span class="page-link" href="#">다음</span></li>
+        <li class="page-item"  v-for="(content,idx) in Math.min(offset+5,totalPage-offset)">
+          <router-link class="main-header-nav-meetinglist-text" :to="routerUrl + 'page=' + (idx+offset)">
+          <span class="page-link" v-text= "offset+content" @click="changePage(idx)"></span>
+          </router-link>
+        </li>
+        <li v-if="offset+5< totalPage"  class="page-item"><span class="page-link" @click="changeOffset(+5)">다음</span></li>
       </ul>
     </nav>
   </div>
@@ -32,55 +36,80 @@
 import { ref, watch } from 'vue'
 import Card from "./card.vue";
 import {api} from "../../common.js";
-import {onBeforeRouteUpdate, useRoute} from "vue-router";
+import {useRoute} from "vue-router";
+import router from "../../router/index.js";
 
-const req = ref({
+  const req = ref({
   page:(useRoute().query.page!== undefined) ? useRoute().query.page: 0,
   size:(useRoute().query.size!== undefined) ? useRoute().query.size: 9,
   order:(useRoute().query.order!== undefined) ? useRoute().query.order: "desc",
   category: (useRoute().query.category!== undefined) ? useRoute().query.category: null,
   criteria:(useRoute().query.criteria!== undefined) ? useRoute().query.criteria: "creationDate"
 })
-getPage()
 
+
+
+let offset = 0;
+getPage()
 const route = useRoute();
 watch(() => route.query.category, (newCategory) => {
   req.value.page = 0;
   req.value.category = newCategory;
   getPage()
 })
+let routerUrl = ref("/meeting?")
+let routeQuery = route.query
 
+for (const ele in routeQuery){
+  if (ele !== "page") {
+    routerUrl.value += ele + "=" + routeQuery[ele] +"&"
+  }
+}
+watch(
+    () => router.currentRoute.value.href,
+    () => {
+      routerUrl = ref("/meeting?")
+      routeQuery = route.query
+
+      for (const ele in routeQuery){
+        if (ele !== "page") {
+          routerUrl.value += ele + "=" + routeQuery[ele] +"&"
+        }
+      }
+    }
+)
 const result = ref({});
-const page = ref(0);
+const totalPage = ref(0);
 function changePage(newPage) {
   req.value.page = newPage;
   getPage()
+  window.scrollTo(0, 0);
+}
+function changeOffset(offsetDelta){
+  getPage()
+  offset = offset + offsetDelta
 }
 
 async function getPage() {
-  console.log(req.value.page)
   console.log("meeting?" +
-      "page=" + req.value.page + "&" +
+      "page=" + (req.value.page+ offset) + "&" +
       "size=" + req.value.size + "&" +
       "order=" + req.value.order + "&" +  // '=' 추가
       "criteria=" + req.value.criteria
       + ((req.value.category) ? "&category=" + req.value.category : ""))
    api(
       "meeting?" +
-      "page=" + req.value.page + "&" +
+      "page=" + (req.value.page+ offset) + "&" +
       "size=" + req.value.size + "&" +
       "order=" + req.value.order + "&" +  // '=' 추가
       "criteria=" + req.value.criteria
       + ((req.value.category) ? "&category=" + req.value.category : ""),
       "GET", null
   ).then(response => {
-
-    console.log(response)
      result.value = response.content
-    return response.totalPages;
-  }).then(totalPage =>{
-     page.value = totalPage;
-   });
+     totalPage.value = response.totalPages;
+   })
+
 }
 
 </script>
