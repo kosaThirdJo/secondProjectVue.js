@@ -9,9 +9,10 @@
   <div class="container">
     <card v-for="(resOne, i) in result" :key="i" :resOne="resOne"></card>
   </div>
-  <a href="/meeting/write" class="btn btn-primary" style="background-color: #FF9F29; color: white; margin-top: 30px;"> 새 글 작성</a>
+
   <div class="container mt-5">
-    <nav aria-label="Page navigation example" style="margin: auto">
+    <nav aria-label="Page navigation example" style="margin: auto; display: flex; justify-content: right ">
+      <div>
       <ul class="pagination">
         <li  class="page-item">
           <span v-if="offset" class="page-link" @click="changeOffset(-5)" >이전</span>
@@ -23,6 +24,9 @@
         </li>
         <li v-if="offset+5< totalPage"  class="page-item"><span class="page-link" @click="changeOffset(+5)">다음</span></li>
       </ul>
+      </div>
+      <div class="page-item" style=""><a id="write-content" href="/meeting/write" class="btn btn-primary" style="background-color: #FF9F29; color: white; float: right"> 새 글 작성</a></div>
+
     </nav>
   </div>
 
