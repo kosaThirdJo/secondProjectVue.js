@@ -105,6 +105,7 @@
 /* header - search */
 .main-header-searchAndBtn{
     display: flex;
+    gap: 3%;
 }
 .main-header-search{
     background-color: rgba(246, 246, 246, 1);

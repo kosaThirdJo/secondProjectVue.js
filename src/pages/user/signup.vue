@@ -208,7 +208,7 @@ const signupInfo = ref({
 });
 
 function signup() {
-  console.log("Signup info:", signupInfo.value);
+  console.log("회원가입 정보:", signupInfo.value);
 
   api("users", "POST", signupInfo.value)
       .then(response => {
@@ -239,7 +239,7 @@ const checkDuplicate = async (type) => {
       nameMessage.value = "아이디를 4자 이상, 15자 이하의 알파벳과 숫자로 입력해주세요.";
     } else {
       try {
-        const response = await axios.get(`http://localhost:8081/checkDuplicate?type=name&value=${value}`);
+        const response = await axios.get(`http://localhost:8081/users/checkDuplicate?type=name&value=${value}`);
         checkUsernameDuplicateTest.value = false;
         nameMessage.value = response.data;
       } catch (error) {
@@ -301,7 +301,7 @@ watch(() => signupInfo.nickname, validateNickname);
 // 지역 인증
 const getLocation = async () => {
   // apiKey 가져오기
-  const apiResponse = await axios.get(`http://localhost:8081/apiKey`);
+  const apiResponse = await axios.get(`http://localhost:8081/users/apiKey`);
   const apiKey = apiResponse.data;
   // geolocation
   if (navigator.geolocation) {
