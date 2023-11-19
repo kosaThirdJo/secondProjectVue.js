@@ -1,13 +1,13 @@
 import {createRouter, createWebHistory} from "vue-router";
 // common
-import home from "../pages/Home.vue";
-import login from "../pages/user/login.vue";
-import signup from "../pages/user/signup.vue";
+import home from "@/pages/Home.vue";
+import login from "@/pages/user/login.vue";
+import signup from "@/pages/user/signup.vue";
 // meeting
-import meeting from "../pages/meeting/Meeting.vue";
-import meetingDetail from "../pages/meeting/meetingDetail.vue";
-import meetingFrom from "../pages/meeting/meetingForm.vue"
-import meetingFix from "../pages/meeing/MeetingFix.vue";
+import meeting from "@/pages/meeting/Meeting.vue";
+import meetingDetail from "@/pages/meeting/meetingDetail.vue";
+import meetingFrom from "@/pages/meeting/meetingForm.vue"
+import meetingFix from "@/pages/meeting/MeetingFix.vue";
 // mypage
 import mypage from "../pages/Mypage.vue";
 import myprofile from "../components/mypages/myprofile.vue";
