@@ -1,12 +1,13 @@
 import {createRouter, createWebHistory} from "vue-router";
 // common
-import home from "../pages/home.vue";
+import home from "../pages/Home.vue";
 import login from "../pages/user/login.vue";
 import signup from "../pages/user/signup.vue";
 // meeting
-import meeting from "../pages/meeting/meeting.vue";
+import meeting from "../pages/meeting/Meeting.vue";
 import meetingDetail from "../pages/meeting/meetingDetail.vue";
 import meetingFrom from "../pages/meeting/meetingForm.vue"
+import meetingFix from "../pages/meeing/MeetingFix.vue";
 // mypage
 import mypage from "../pages/Mypage.vue";
 import myprofile from "../components/mypages/myprofile.vue";
@@ -25,11 +26,10 @@ const router = createRouter({
             {path:'/signup', component: signup},
             // meeting
             {path: '/meeting', name: 'meeting', component: meeting},
-            {path: '/meeting/:post_id', component: meetingDetail},
-            {path: '/meeting/write',component:meetingFrom},
-            {path: '/meeting/write',component:meetingFrom},
+            {path: '/meeting/:post_id', name: 'meetingDetail', component: meetingDetail},
+            {path: '/meeting/write', name: 'meetingForm', component:meetingFrom},
+            {path: '/meeting/fix/:fix_id', name: 'meetingFix', component:meetingFix},
             // mypage
-            {path: '/users/profile/:user_id', component:myprofile},
             {path: '/users/:user_id', name: 'mypage', component:mypage,
                 children:[
                     {path:'myprofile', name:'myprofile', component: myprofile},
@@ -40,5 +40,4 @@ const router = createRouter({
 
         ]
 })
-
 export default router;
