@@ -1,5 +1,23 @@
 <script setup>
+import {onMounted, ref, watch} from "vue";
+import { useAuthStore } from '@/stores/index';
+import router from "@/router/index.js";
+
+const auth = useAuthStore();
+
+// 토큰 확인
+const state = ref({
+  jwtToken: auth.getToken(),
+});
+console.log(state.value.jwtToken);
+// 로그아웃 시  Pinia 스토어에서 토큰 제거
+const logout = async () => {
+  auth.clearToken();
+  location.reload();
+}
+
 </script>
+
 <template>
   <header>
     <div class="main-header">
@@ -48,21 +66,21 @@
           </form><!-- 04 로그인, 회원가입, 로그아웃 -->
           <div class="main-header-button">
             <!-- 로그인하지 않았을 경우 -->
-            <router-link to="/login">
+            <router-link to="/login" v-if="!state.jwtToken">
               <button class="main-header-button-login">
                 <span class="main-header-button-login-text"><span>로그인</span></span>
               </button>
             </router-link>
-            <router-link to="/signup">
+            <router-link to="/signup" v-if="!state.jwtToken">
               <button class="main-header-button-signup">
                 <span class="main-header-button-signup-text"><span>회원가입</span></span>
               </button>
             </router-link>
 
-            <!-- 로그인 했을 경우 -->
-<!--            <button class="main-header-button-logout" onclick="location.href='@{/logout}'">
+<!--             로그인 했을 경우 -->
+            <button class="main-header-button-logout" @click="logout" v-if="state.jwtToken">
               <span class="main-header-button-logout-text"><span>로그아웃</span></span>
-            </button>-->
+            </button>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <script setup>
-import InputMeeting from "../components/meeting/inputMeeting.vue";
+import InputMeeting from "@/components/meeting/inputMeeting.vue";
 
 const type = 'fix';
 </script>
