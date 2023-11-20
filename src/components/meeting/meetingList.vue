@@ -38,8 +38,8 @@
 <script setup>
 
 import { ref, watch } from 'vue'
-import Card from "./card.vue";
-import {api} from "../../common.js";
+import Card from "../element/card.vue";
+import {api} from "@/common.js";
 import {useRoute} from "vue-router";
 import router from "../../router/index.js";
 

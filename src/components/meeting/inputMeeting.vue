@@ -2,13 +2,12 @@
 import {defineProps, onMounted, ref} from "vue";
 import {api} from "@/common.js";
 import {useRoute, useRouter} from "vue-router";
-
+import { useAuthStore } from '@/stores/index';
 const router = useRouter()
 let p = defineProps({
   type: String
 });
-const route = useRoute();
-
+const authStore = useAuthStore();
 function write() {
   //수정 모드
   if (p.type === "fix") {
@@ -90,7 +89,10 @@ const writeVal = ref({
   "description": "",
   "interestLanguage": "",
   "interestFramework": "",
-  "interestJob": ""
+  "interestJob": "",
+  "headers": {
+    Authorization: authStore.getToken()
+  }
 });
 
 

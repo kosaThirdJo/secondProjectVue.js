@@ -23,6 +23,7 @@ const api = async (urn, method, data) => {
     })).data
 }
 
+
 export {
     api
 };
