@@ -273,7 +273,17 @@
     api(
         "users/setting/"+route.params.user_id,
         "PUT",
-        myInfo.value
+        //myInfo.value
+        {
+          password : myInfo.value.password,
+          email : myInfo.value.email,
+          nickname : myInfo.value.nickname,
+          location1 : myInfo.value.location1,
+          location2 : myInfo.value.location2,
+          interestLanguage : myInfo.value.interestLanguage,
+          interestFramework : myInfo.value.interestFramework,
+          interestJob : myInfo.value.interestJob
+        }
     ).then(response => {
       console.log(response);
     })

@@ -74,11 +74,16 @@ const myInfo = ref({});
 const imgfileInput = ref(null);
 //[이미지 미리보기]
 const previewPhoto = ref(null);
+const token = localStorage.getItem("jwtToken");
 
 //프로필 정보 받아서 파싱
 async function getData(){
   try {
-    const response1 = await axios.get("http://localhost:8081/users/profile/"+route.params.user_id);
+    const response1 = (await axios.get("http://localhost:8081/users/profile/"+route.params.user_id, {
+      headers : {
+        Authorization: token
+      }
+    }));
     myInfo.value = response1.data;
     if(myInfo.value.profilePhoto === ""){
       myInfo.value.profilePhoto = defaultImg;

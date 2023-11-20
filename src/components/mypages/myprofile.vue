@@ -43,13 +43,13 @@
   import Sidebar from "./Sidebar.vue";
 
   const route = useRoute();//CompositionAPI 매칭된 라우트 (OptionAPI : this.$route)
-
   const getDataErr = reactive({});
   const myInfo = ref({
     "userId":"",
     "aboutMe" : "",
     "profileContent" : ""
   });
+  const token = localStorage.getItem("jwtToken");
 
   function updateData(){
     api(
@@ -67,7 +67,11 @@
   }
  async function getData(){
     try {
-      const response1 = await axios.get("http://localhost:8081/users/profile/"+route.params.user_id);
+      const response1 = (await axios.get("http://localhost:8081/users/profile/" + route.params.user_id, {
+        headers : {
+          Authorization: token
+        }
+      }));
       myInfo.value = response1.data;
       //console.log(myInfo.value);
     }catch (error){
@@ -77,6 +81,7 @@
   }
   onMounted(()=>{
     console.log("myprofile onmount");
+    console.log(token);
     getData();
   });
 </script>
