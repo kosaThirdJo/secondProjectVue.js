@@ -34,10 +34,10 @@
           <div>
             <ul>
               <li class="side-menu-li">
-                <router-link class="sidemenu-a" to="/users/1/myprofile">이력 관리</router-link>
+                <router-link class="sidemenu-a" to="/users/myprofile">이력 관리</router-link>
               </li>
               <li class="side-menu-li">
-                <router-link class="sidemenu-a" to="/users/1/myinfo">개인 정보 수정</router-link>
+                <router-link class="sidemenu-a" to="/users/myinfo">개인 정보 수정</router-link>
               </li>
             </ul>
           </div>
@@ -79,7 +79,7 @@ const token = localStorage.getItem("jwtToken");
 //프로필 정보 받아서 파싱
 async function getData(){
   try {
-    const response1 = (await axios.get("http://localhost:8081/users/profile/"+route.params.user_id, {
+    const response1 = (await axios.get("http://localhost:8081/users/profile", {
       headers : {
         Authorization: token
       }
