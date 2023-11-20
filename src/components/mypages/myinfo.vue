@@ -157,7 +157,7 @@
   import {onMounted, reactive, ref, watch} from "vue";
   import {useRoute} from "vue-router";
   import {api} from "@/common.js";
-
+  const token = localStorage.getItem("jwtToken");
   const route = useRoute();//CompositionAPI 매칭된 라우트 (OptionAPI : this.$route)
   const getDataErr = reactive({});
   const myInfo = ref({
@@ -268,30 +268,41 @@
   let selectedInterestsJob = [];
 
   //수정
-  function submitupdateInfo(){
-    console.log(myInfo.value);
-    api(
-        "users/setting/"+route.params.user_id,
-        "PUT",
-        //myInfo.value
-        {
-          password : myInfo.value.password,
-          email : myInfo.value.email,
-          nickname : myInfo.value.nickname,
-          location1 : myInfo.value.location1,
-          location2 : myInfo.value.location2,
-          interestLanguage : myInfo.value.interestLanguage,
-          interestFramework : myInfo.value.interestFramework,
-          interestJob : myInfo.value.interestJob
-        }
-    ).then(response => {
-      console.log(response);
-    })
+  function submitupdateInfo() {
+    if(!confirm("정말 수정하시겠습니까?")) {
+      alert("취소되었습니다.");
+      window.location.reload();
+    }else {
+      api(
+          "users/setting",
+          "PUT",
+          //myInfo.value
+          {
+            password: myInfo.value.password,
+            email: myInfo.value.email,
+            nickname: myInfo.value.nickname,
+            location1: myInfo.value.location1,
+            location2: myInfo.value.location2,
+            interestLanguage: myInfo.value.interestLanguage,
+            interestFramework: myInfo.value.interestFramework,
+            interestJob: myInfo.value.interestJob
+          },
+          token)
+          .then(response => {
+            if (response instanceof Error) {
+              console.log(response);
+            } else {
+              console.log(response);
+              alert("수정완료되었습니다.");
+              window.location.reload();
+            }
+          });
+    }
   }
 
   onMounted(()=>{
-
-    api("users/setting/"+route.params.user_id, "GET")
+    console.log(token);
+    api("users/setting", "GET", null, token)
         .then( async (response) => {
           if(response instanceof Error){
             console.log(response);

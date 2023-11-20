@@ -46,7 +46,9 @@ const logout = async () => {
             <!-- 02-03-03 기타 -->
             <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 2}}"><span>기타</span></router-link></div>
             <!-- 02-04 마이페이지(로그인한 경우) -->
-            <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" :to="{name: 'myprofile', params: {user_id: 1}}"><span>마이페이지</span></router-link>
+            <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/myprofile" v-if="state.jwtToken">
+              <span>마이페이지</span>
+            </router-link>
           <!--
                       <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" :to="{name: 'myprofile', params: {user_id: 1}}"><span>마이페이지</span></router-link>
           -->

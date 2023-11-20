@@ -38,7 +38,8 @@ const router = createRouter({
             {path: '/meeting/write', name: 'meetingForm', component:meetingFrom},
             {path: '/meeting/fix/:fix_id', name: 'meetingFix', component:meetingFix},
             // mypage
-            {path: '/users/:user_id', name: 'mypage', component:mypage,
+            //{path: '/users/:user_id', name: 'mypage', component:mypage,
+            {path: '/users', name: 'mypage', component:mypage,
                 children:[
                     {path:'myprofile', name:'myprofile', component: myprofile},
                     {path:'myinfo', name:'myinfo', component: myinfo},
