@@ -7,13 +7,13 @@
             <!-- 게시글 항목 status & title-->
             <div class="meeting-title">
               <div class="meeting-status" >
-                <div class="meeting-status-text-ing" v-if="status=='0'">모집중</div>
-                <div class="meeting-status-text" v-else-if="status=='1'">모집완료</div>
+                <div class="meeting-status-text-ing" v-if="status===0">모집중</div>
+                <div class="meeting-status-text" v-else-if="status===1">모집완료</div>
               </div>
               <div class="meeting-category">
-                <div class="meeting-category-text" v-if="category=='0'">스터디</div>
-                <div class="meeting-category-text" v-else-if="category=='1'">프로젝트</div>
-                <div class="meeting-category-text" v-else-if="category=='2'">기타</div>
+                <div class="meeting-category-text" v-if="category===0">스터디</div>
+                <div class="meeting-category-text" v-else-if="category===1">프로젝트</div>
+                <div class="meeting-category-text" v-else-if="category===2">기타</div>
               </div>
               <div class="meeting-title-div">
                 <div class="meeting-title-text" v-text="title"></div>
@@ -54,11 +54,17 @@
 </template>
 
 <script setup>
-  import {defineProps, ref, toRef, toRefs} from 'vue';
+import {defineProps, ref, toRef, toRefs, watch, watchEffect} from 'vue';
   const  p = defineProps({
     meetingone : Object
   });
-  let {applicationCount, applicationDeadline, category, creationDate, location, meetingId, description, recruitmentCount, status, title, views} = toRefs(p.meetingone);
+  const pp = toRef(p, "meetingone");
+  const {applicationCount, applicationDeadline, category, creationDate, location, meetingId, description, recruitmentCount, status, title, views} = toRefs(p.meetingone);
+  watchEffect(()=>{
+    title.value = pp.value.title
+    category.value = pp.value.category
+    status.value = pp.value.status
+  })
 </script>
 
 <style src="../../assets/css/mymeetinglistView.css" scoped>

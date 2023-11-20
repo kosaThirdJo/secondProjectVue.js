@@ -57,7 +57,6 @@ a{
     height: 40px;
     background: none;
     border: none;
-    color: rgba(0, 0, 0, 1);
     font-size: 20px;
     text-align: center;
     font-weight: 700;
@@ -88,7 +87,6 @@ a{
     height: 40px;
     background: none;
     border: none;
-    color: black;
     font-size: 18px;
     text-align: center;
     font-weight: 500;
@@ -175,7 +173,6 @@ a{
    height: 30px;
    color: black;
    font-size: 20px;
-   font-style: Bold;
    text-align: center;
    font-weight: 600;
 }
@@ -217,26 +214,10 @@ a{
     display: inline-block;
 }
 .result-msg{
-   font-style: Bold;
    font-size: 20px;
    text-align: center;
    font-weight: 700;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .meeting-status{
     display:inline-block;
     width: 10%;
@@ -267,4 +248,13 @@ a{
 }
 .meeting-footer div{
     display: inline-block;
+}
+.activeCate{
+    color: #FF9F29;
+}
+.frame-errormsg{
+    margin: 30px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
 }

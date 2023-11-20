@@ -1,57 +1,59 @@
 <template>
   <aside>
-    <div class="frame-profileinfo">
-      <div class="frame-profile">
-        <img
-            class="profile-img"
-              :src="previewPhoto || myInfo.profilePhoto"
-             alt="Image"/><br/>
-        <span class="text-nickname" v-text="myInfo.nickname"></span>
-        <span class="text-email" v-text="myInfo.email"></span>
-        <div class="frame-img-button">
-          <label class="input-file-button" for="inputImgFile">사진 변경</label>
-          <input
-              type="file"
-              id="inputImgFile"
-              ref="imgfileInput"
-              name="profilePhoto"
-              accept=".jpg, .png"
-              @change="previewImg"
-              required hidden/>
-          <input
-              id="updateimg"
-              class="input-submit"
-              type="button"
-              @click="updateProfileImg()"
-              value="변경 저장"/>
+    <div class="frame-aside">
+      <div class="frame-profileinfo">
+        <div class="frame-profile">
+          <img
+              class="profile-img"
+                :src="previewPhoto || myInfo.profilePhoto"
+               alt="Image"/><br/>
+          <span class="text-nickname" v-text="myInfo.nickname"></span>
+          <span class="text-email" v-text="myInfo.email"></span>
+          <div class="frame-img-button">
+            <label class="input-file-button" for="inputImgFile">사진 변경</label>
+            <input
+                type="file"
+                id="inputImgFile"
+                ref="imgfileInput"
+                name="profilePhoto"
+                accept=".jpg, .png"
+                @change="previewImg"
+                required hidden/>
+            <input
+                id="updateimg"
+                class="input-submit"
+                type="button"
+                @click="updateProfileImg()"
+                value="변경 저장"/>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="frame-sidemenu">
-      <div class="frame-sidemenu-home">
-        <span class="frame-sidemenu-title">내 정보 관리</span>
-        <div>
-          <ul>
-            <li class="side-menu-li">
-              <router-link class="sidemenu-a" to="/users/1/myprofile">이력 관리</router-link>
-            </li>
-            <li class="side-menu-li">
-              <router-link class="sidemenu-a" to="/users/1/myinfo">개인 정보 수정</router-link>
-            </li>
-          </ul>
+      <div class="frame-sidemenu">
+        <div class="frame-sidemenu-home">
+          <span class="frame-sidemenu-title">내 정보 관리</span>
+          <div>
+            <ul>
+              <li class="side-menu-li">
+                <router-link class="sidemenu-a" to="/users/1/myprofile">이력 관리</router-link>
+              </li>
+              <li class="side-menu-li">
+                <router-link class="sidemenu-a" to="/users/1/myinfo">개인 정보 수정</router-link>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="frame-sidemenu-meeting">
-        <span class="frame-sidemenu-title">모임</span>
-        <div>
-          <ul>
-            <li class="side-menu-li">
-              <router-link class="sidemenu-a" to="/users/1/mymeeting">내가 만든 모임</router-link>
-            </li>
-            <li class="side-menu-li">
-              <router-link class="sidemenu-a" to="/users/1/myapplying">내가 참여한 모임</router-link>
-            </li>
-          </ul>
+        <div class="frame-sidemenu-meeting">
+          <span class="frame-sidemenu-title">모임</span>
+          <div>
+            <ul>
+              <li class="side-menu-li">
+                <router-link class="sidemenu-a" to="/users/1/mymeeting">내가 만든 모임</router-link>
+              </li>
+              <li class="side-menu-li">
+                <router-link class="sidemenu-a" to="/users/1/myapplying">내가 참여한 모임</router-link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -63,16 +65,11 @@ import {onMounted, reactive, ref} from 'vue';
 import axios from "axios";
 import {useRoute} from "vue-router";
 import {api} from "../../common.js";
+import defaultImg from '../../assets/image/global/userdefaultimg.png';
 
 const route = useRoute();//CompositionAPI 매칭된 라우트 (OptionAPI : this.$route)
 const getDataErr = reactive({});
-const myInfo = ref({
-  "userId":"",
-  "aboutMe" : "",
-  "nickname" : "",
-  "email" : "",
-  "profilePhoto" : ""
-});
+const myInfo = ref({});
 //[이미지 수정]input태그에서 file값 받는 변수
 const imgfileInput = ref(null);
 //[이미지 미리보기]
@@ -83,6 +80,9 @@ async function getData(){
   try {
     const response1 = await axios.get("http://localhost:8081/users/profile/"+route.params.user_id);
     myInfo.value = response1.data;
+    if(myInfo.value.profilePhoto === ""){
+      myInfo.value.profilePhoto = defaultImg;
+    }
     console.log(myInfo.value);
   }catch (error){
     getDataErr.value =error;

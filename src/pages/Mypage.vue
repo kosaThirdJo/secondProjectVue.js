@@ -16,14 +16,15 @@ import Sidebar from "../components/mypages/Sidebar.vue";
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1250px;
+    width: 100%;
     margin: 10px;
     padding: 20px;
+
   }
   aside{
-    width: 30%;
+    width: 20%;
   }
   section{
-    width: 90%;
+    width: 80%;
   }
 </style>
