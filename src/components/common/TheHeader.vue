@@ -46,7 +46,10 @@ const logout = async () => {
             <!-- 02-03-03 기타 -->
             <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 2}}"><span>기타</span></router-link></div>
             <!-- 02-04 마이페이지 -->
-            <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/mypage/profile"><span>마이페이지</span></router-link>
+            <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" :to="{name: 'myprofile', params: {user_id: 1}}"><span>마이페이지</span></router-link>
+          <!--
+                      <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/1/myprofile"><span>마이페이지</span></router-link>
+          -->
         </div>
         <div class="main-header-searchAndBtn">
           <!-- 03 검색 -->

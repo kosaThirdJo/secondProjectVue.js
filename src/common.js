@@ -19,6 +19,7 @@ const api = async (urn, method, data) => {
     }).catch(e => {
         console.log("http://localhost:8081/" + urn)
         console.log(e);
+        return { data: e}; //error 발생 시 e 반환
     })).data
 }
 
