@@ -1,4 +1,3 @@
-<!-- 11/18 -->
 <template>
   <section class="frame-content">
     <!-- 1. TITLE(내가 만든 모임) -->
@@ -73,9 +72,11 @@
         <!-- 2.2.2. 목록 -->
         <div class="list-container-body">
           <!-- 2.2.2.1. 조회 결과(meetingvoList)가 있을 경우 -->
-          <mymeeting v-for="(data, idx) in resultList" :key="idx" :meetingone="data"></mymeeting>
+          <div v-if="resultList.length>0">
+            <mymeeting v-for="(data, idx) in resultList" :key="idx" :meetingone="data"></mymeeting>
+          </div>
           <!-- 2.2.2.2. 조회 결과(meetingvoList)가 없을 경우 -->
-
+          <div class="frame-errormsg" v-else> {{errorMsg}}</div>
         </div><!-- 2.2.2. 목록 끝 -->
       </div><!-- 2.2. 목록 끝 -->
     </div><!--2.CONTENT 끝 -->
@@ -96,6 +97,7 @@ const selectedFilters = ref({category: "all", status: "all"});
 //조건별 조회(클래스 스타일 바인딩 )
 const ischkC = ref({ all: false, project: false, study: false, etc: false });
 const ischkS = ref({all: false, statusing: false, statused: false});
+const errorMsg = ref("");
 
 function chkCateSts(){
   let targetBtn = event.target;
@@ -134,8 +136,16 @@ function chkCateSts(){
       "?category="+selectedFilters.value.category+
       "&status="+selectedFilters.value.status, "GET")
       .then(response => {
-        console.log(response);
-        resultList.value = response;
+        if(response instanceof Error){
+          let errorRes = response;
+          //에러처리
+          //console.log(errorRes.response.data.message);
+          errorMsg.value = errorRes.response.data.message;
+          resultList.value = [];
+        }else {
+          //console.log(response);
+          resultList.value = response;
+        }
       });
 }
 
@@ -147,7 +157,9 @@ async function getData(){
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
   }catch (error){
-    console.log(error);
+    //console.log(error);
+    //console.log(error.response);
+    errorMsg.value = error.response.data.message;
   }
 }
 onMounted(()=>{

@@ -160,6 +160,7 @@ async function getData(){
     selectedFilters.value.status = 'all';
   }catch (error){
     console.log(error);
+    errorMsg.value = error.response.data.message;
   }
 }
 onMounted(()=>{

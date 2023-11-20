@@ -222,3 +222,9 @@ a{
 .activeCate{
     color: #FF9F29;
 }
+.frame-errormsg{
+    margin: 30px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+}
