@@ -5,10 +5,9 @@
     <div class="title-box">
       <span class="btn btn-primary">모집중</span>
       <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
-      <button id="show-modal" @click="showModal = true">Show Modal</button>
+      <button class="btn btn-primary" id="show-modal" @click="showModal = true">신청 하기</button>
       <router-link :to="'/meeting/fix/'+route.params.post_id" class="btn btn-primary" ><span>수정 하기
       </span></router-link>
-
       <Teleport to="body">
         <!-- use the modal component, pass in the prop -->
         <modal :show="showModal" @close="showModal = false">
@@ -17,8 +16,27 @@
           </template>
         </modal>
       </Teleport>
-      <span class="btn btn-primary" style="float: right">신청하기</span>
+
+      <button class="btn btn-primary" id="show-modal" @click="showValidModal = true">나의 신청 현황</button>
+      <Teleport to="body">
+        <!-- use the modal component, pass in the prop -->
+        <apply-valid-modal :show="showValidModal" @close="showValidModal = false" :meeting-id="parseInt(route.params.post_id)" >
+          <template #header>
+            <h3>나의 신청 현황</h3>
+          </template>
+        </apply-valid-modal>
+      </Teleport>
+      <button class="btn btn-primary" id="show-modal" @click="applicationStatus = true">신청한 사람</button>
+      <Teleport to="body">
+        <!-- use the modal component, pass in the prop -->
+        <apply-reason :show="applicationStatus" @close="applicationStatus = false" :meeting-id="parseInt(route.params.post_id)" >
+          <template #header>
+            <h3>신청한 사람</h3>
+          </template>
+        </apply-reason>
+      </Teleport>
     </div>
+
     <div class="view-box">
       <span></span>
       <span> 조회수 </span>
@@ -60,15 +78,27 @@
 
 import { ref, watch } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
-import {api} from "../../common.js";
+import {api} from "@/common.js";
 import Modal from '../../components/meeting/applyModal.vue'
+import ApplyValidModal from "@/components/meeting/myApplyModal.vue";
+import ApplyReason from "@/components/meeting/applyReasonModal.vue";
+import {useAuthStore} from "@/stores/index.js";
 
 const showModal = ref(false)
+const showValidModal = ref(false)
+const applicationStatus = ref(false)
 const route = useRoute()
 const router = useRouter()
 const isLoading = ref(true);
 const result = ref([])
 const commentResult = ref([])
+const applicant = ref([])
+const auth = useAuthStore();
+const state = ref({
+  jwtToken: auth.getToken(),
+});
+
+
 api(
     "meeting/" +
     route.params.post_id,
@@ -87,18 +117,23 @@ api(
 });
 const commentInput = ref("")
 
-function writeComment(){
 
+function writeComment(){
   api("comment/meeting/" + route.params.post_id,
       "POST",
       {
         userId:1,
         meetingId:route.params.post_id,
-        content: commentInput.value
+        content: commentInput.value,
+        headers: {
+          Authorization: state.value.jwtToken,
+        }
       }
   )
   router.go(0)
 }
+
+// 신청한 사람 조회http://localhost:8081/apply/meeting?meetingId=30
 
 
 </script>
