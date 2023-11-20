@@ -101,7 +101,8 @@ const selectedFilters = ref({category: "all", status: "all"});
 const ischkC = ref({ all: false, project: false, study: false, etc: false });
 const ischkS = ref({all: false, statusing: false, statused: false});
 const errorMsg = ref("");
-
+//토큰
+const jtoken = localStorage.getItem('jwtToken');
 function chkCateSts(){
   let targetBtn = event.target;
   let dataCategory = targetBtn.getAttribute("data-category");
@@ -142,7 +143,9 @@ function chkCateSts(){
         if(response instanceof Error){
           let errorRes = response;
           //에러처리코드
-          //console.log(errorRes.response.data.message);
+          console.log(errorRes);
+          console.log(errorRes.response);
+          console.log(errorRes.response.data.message);
           errorMsg.value = errorRes.response.data.message;
           resultList.value = [];
         }else {
@@ -154,8 +157,12 @@ function chkCateSts(){
 //데이터 조회
 async function getData(){
   try{
-    const res = await axios.get("http://localhost:8081/users/myapplying/"+route.params.user_id);
-    resultList.value = res.data;;
+    const res = await axios.get("http://localhost:8081/users/myapplying/"+route.params.user_id, {
+      headers:{
+        Authorization: jtoken
+      }
+    });
+    resultList.value = res.data;
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
   }catch (error){
@@ -165,6 +172,7 @@ async function getData(){
 }
 onMounted(()=>{
   console.log("myapplyingList onMount");
+  console.log(jtoken);
   getData();
 })
 </script>
