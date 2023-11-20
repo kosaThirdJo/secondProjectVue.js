@@ -1,4 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
+
 /*
 import home from "../pages/home.vue"
 import meeting from "../pages/meeting/meeting.vue";
@@ -26,13 +27,18 @@ const router = createRouter({
     history: createWebHistory(),
     routes:
         [
+            // common
             {path: '/', component: home},
+            {path:'/login', component: login},
+            {path:'/signup', component: signup},
+            // meeting
             {path: '/meeting', name: 'meeting', component: meeting},
             {path: '/meeting/:post_id', component: meetingDetail},
             {path: '/meeting/write',component:meetingFrom},
             {path: '/meeting/:post_id', name: 'meetingDetail', component: meetingDetail},
             {path: '/meeting/write', name: 'meetingForm', component:meetingFrom},
             {path: '/meeting/fix/:fix_id', name: 'meetingFix', component:meetingFix},
+            // mypage
             {path: '/users/:user_id', name: 'mypage', component:mypage,
                 children:[
                     {path:'myprofile', name:'myprofile', component: myprofile},
@@ -41,7 +47,6 @@ const router = createRouter({
                     {path: 'myapplying', name: 'myapplyinglist',component:myapplyingList}
                 ]
             },
-
         ]
 })
 export default router;

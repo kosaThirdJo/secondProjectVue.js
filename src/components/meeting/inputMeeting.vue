@@ -1,6 +1,6 @@
 <script setup>
 import {defineProps, onMounted, ref} from "vue";
-import {api} from "../../common.js";
+import {api} from "@/common.js";
 import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter()

@@ -1,6 +1,43 @@
 <script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from "axios";
+import { useAuthStore } from '@/stores/index';
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+const loginInfo = ref({
+  name:'',
+  password:'',
+})
+
+axios.defaults.withCredentials = true;
+const login = async () => {
+  try {
+    const response = await axios.post('http://localhost:8081/login', loginInfo.value, {
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    });
+    if (response.status === 200) {
+      const token = response.headers['authorization'];
+      console.log('Token:', token);
+
+      authStore.setToken(token);
+
+      location.replace("/");  // 로그인 후 메인 페이지 이동
+    } else {
+      // 로그인 실패 시 처리
+      console.error('로그인 실패:', response.status, response.data);
+    }
+  } catch (error) {
+    console.error('에러 발생:', error);
+  }
+};
 
 </script>
+
 
 <template>
   <div class="login-container">
@@ -21,14 +58,13 @@
 
       <div class="login-form">
         <!-- 로그인 form  -->
-        <form action="/logincheck" method="post" id="loginForm">
+        <form @submit.prevent="login">
           <div class="login-form-input">
             <!--  아이디  -->
             <div class="login-form-input-box">
               <span class="login-form-input-box-title">아이디</span>
               <div class="login-form-input-withbtn">
-                <input
-                    type="text" id="name" name="loginName" class="login-form-input-box-content-withbtn" />
+                <input v-model="loginInfo.name" type="text" id="name" name="loginName" class="login-form-input-box-content-withbtn" />
               </div>
               <div class="login-form-input-check-alert" id="checkId">
                 <span></span>
@@ -38,13 +74,13 @@
             <!--  비밀번호  -->
             <div class="login-form-input-box">
               <span class="login-form-input-box-title">비밀번호</span>
-              <input type="password" id="password" name="loginPassword" class="login-form-input-box-content" />
+              <input v-model="loginInfo.password" type="password" id="password" name="loginPassword" class="login-form-input-box-content" />
               <div class="login-form-input-check-alert" id="checkPassword">
                 <span></span>
               </div>
             </div>
             <!-- 로그인 버튼 -->
-            <button type="button" class="login-form-submit">
+            <button type="submit" class="login-form-submit">
               <span class="login-form-submit-text"><span>로그인</span></span>
             </button>
           </div>
