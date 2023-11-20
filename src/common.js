@@ -22,7 +22,6 @@ const api = async (urn, method, data) => {
         return { data: e}; //error 발생 시 e 반환
     })).data
 }
-
 export {
     api
 };

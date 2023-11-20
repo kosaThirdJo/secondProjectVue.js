@@ -324,7 +324,7 @@ flex-shrink: 0;
     justify-content:center;
 }
 
-.myinfo-updatebtn a {
+.myinfo-updatebtn {
   gap: 10px;
   width: 100px;
   height: 40px;
