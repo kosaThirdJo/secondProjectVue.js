@@ -9,8 +9,8 @@
   <div class="content_list_title_display">
     <div class="container-content">
       <router-link :to="url" class="button">
-<!--  <a :href="url" class="button">//https://velog.io/@mahns/vue-router-link-->
-      <div class="main-left-content-bottom-meeting">
+<!--  <a :href="url" class="button">//https://velog.io/@mahns/vue-router-link -->
+      <div class="main-left-content-bottom-meeting" :class="{'main-left-content-bottom-meeting-end': (status==='모집완료')}">
         <!-- 01-02-01 white box -->
         <div class="main-left-content-bottom-meeting-white">
           <!-- white box - top -->
@@ -21,7 +21,7 @@
               <span v-text="category" class="main-left-content-bottom-meeting-white-top-text"></span>
             </div>
             <!-- white box - top - status -->
-            <div class="main-left-content-bottom-meeting-white-top-status">
+            <div class="main-left-content-bottom-meeting-white-top-status" :class="{'main-left-content-bottom-meeting-white-top-status-end':(status==='모집완료')}">
               <!-- 0: 모집중, 1:모집완료 -->
               <span v-text="status" class="main-left-content-bottom-meeting-white-top-text"></span>
               <!--  스타일 색 다르게-->
@@ -65,7 +65,8 @@
           <div class="main-left-content-bottom-meeting-yellow-now-people">
             <img src="../../assets/image/global/member_count.png" alt="">
             <div class="main-left-content-bottom-meeting-yellow-now-people-text">
-              현재 <span v-text="nowCount" class="main-left-content-bottom-meeting-yellow-now-people-text-cnt"></span>명이 참여중입니다!
+              현재 <span v-text="nowCount" class="main-left-content-bottom-meeting-yellow-now-people-text-cnt"></span>
+              <span v-text=" (status==='모집완료')? '명이 참여하고 있습니다.' : '명이 참여중입니다!'"></span>
             </div>
           </div>
           <!-- yellow - now - info -->
