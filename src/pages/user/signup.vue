@@ -198,7 +198,7 @@ const signupInfo = ref({
 
 // 유효성 검사 조건
     const usernameRegex = /^[a-zA-Z0-9]{4,15}$/;
-    const passwordRegex = /^[a-zA-Z0-9]{6}$/;
+    const passwordRegex = /^[a-zA-Z0-9]{6,}$/;
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,20}$/;
 
