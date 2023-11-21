@@ -1,5 +1,17 @@
 
 /*sidebar-프로필사진*/
+aside{
+    width: 120px;
+    float: left;
+}
+.frame-aside{
+/*    width: 30%;*/
+    width: 270px;
+    position: fixed;
+    left: 50px;
+/*    left: 0;*/
+    top: 256px;
+}
 .frame-profileinfo{
     width: 80%;
     display: flex;
@@ -15,7 +27,7 @@
    align-self: stretch;
    align-items: center;
    flex-direction: column;
-   background-color: rgba(255, 255, 255, 1);
+/*   background-color: rgba(255, 255, 255, 1);*/
 }
 .profile-img{ /*프로필 이미지 */
     width: 12rem;
@@ -56,7 +68,6 @@
     width: 100%;
     height: auto;
     font-size: 25px;
-    font-style: Bold;
     text-align: center;
     font-weight: 500;
     text-decoration: none;
@@ -66,7 +77,6 @@
     width: 100%;
     height: auto;
     font-size: 18px;
-    font-style: Bold;
     text-align: center;
     font-weight: 300;
     text-decoration: none;
@@ -87,7 +97,6 @@
   height: auto;
   font-size: 25px;
   align-self: stretch;
-  font-style: Bold;
   text-align: left;
   font-weight: 700;
   text-decoration: none;

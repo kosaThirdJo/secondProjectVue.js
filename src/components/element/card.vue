@@ -9,8 +9,8 @@
   <div class="content_list_title_display">
     <div class="container-content">
       <router-link :to="url" class="button">
-<!--  <a :href="url" class="button">//https://velog.io/@mahns/vue-router-link-->
-      <div class="main-left-content-bottom-meeting">
+<!--  <a :href="url" class="button">//https://velog.io/@mahns/vue-router-link -->
+      <div class="main-left-content-bottom-meeting" :class="{'main-left-content-bottom-meeting-end': (status==='모집완료')}">
         <!-- 01-02-01 white box -->
         <div class="main-left-content-bottom-meeting-white">
           <!-- white box - top -->
@@ -21,7 +21,7 @@
               <span v-text="category" class="main-left-content-bottom-meeting-white-top-text"></span>
             </div>
             <!-- white box - top - status -->
-            <div class="main-left-content-bottom-meeting-white-top-status">
+            <div class="main-left-content-bottom-meeting-white-top-status" :class="{'main-left-content-bottom-meeting-white-top-status-end':(status==='모집완료')}">
               <!-- 0: 모집중, 1:모집완료 -->
               <span v-text="status" class="main-left-content-bottom-meeting-white-top-text"></span>
               <!--  스타일 색 다르게-->
@@ -65,7 +65,8 @@
           <div class="main-left-content-bottom-meeting-yellow-now-people">
             <img src="../../assets/image/global/member_count.png" alt="">
             <div class="main-left-content-bottom-meeting-yellow-now-people-text">
-              현재 <span v-text="nowCount" class="main-left-content-bottom-meeting-yellow-now-people-text-cnt"></span>명이 참여중입니다!
+              현재 <span v-text="nowCount" class="main-left-content-bottom-meeting-yellow-now-people-text-cnt"></span>
+              <span v-text=" (status==='모집완료')? '명이 참여하고 있습니다.' : '명이 참여중입니다!'"></span>
             </div>
           </div>
           <!-- yellow - now - info -->
@@ -96,9 +97,9 @@
         <!-- yellowbox - hashtag -->
         <div class="main-left-content-bottom-meeting-yellow-hashtag">
           <div class="main-left-content-bottom-meeting-yellow-hashtag-text">
-            <span v-for="(lang,i1) in langArr" v-text="langContainer[lang]"></span>
-            <span v-for="(frame,i2) in frameworkArr" v-text="frameworkContainer[frame]"></span>
-            <span v-for="(job,i3) in jobArr" v-text="jobContainer[job]"></span>
+            <span v-for="(lang,i1) in langArr" v-text="langContainer[lang-1]"></span>
+            <span v-for="(frame,i2) in frameworkArr" v-text="frameworkContainer[frame-1]"></span>
+            <span v-for="(job,i3) in jobArr" v-text="jobContainer[job-1]"></span>
           </div>
         </div>
       </div>
@@ -117,7 +118,7 @@ let p = defineProps( {
   resOne : Object,
 });
 let pp = toRef(p,"resOne")
-const url = "/meeting/" + pp.value.meetingId
+const url = ref("/meeting/" + pp.value.meetingId)
 const title = ref(pp.value.title)
 
 const categoryContainer = ["스터디","프로젝트","기타"]
@@ -141,6 +142,7 @@ langArr = pp.value?.interestLanguage && ref(pp.value.interestLanguage.split("_")
 frameworkArr = pp.value?.interestFramework && ref(pp.value.interestFramework.split("_"))
 jobArr = pp.value?.interestJob && ref(pp.value.interestJob.split("_"))
 watchEffect(() => {
+  url.value = "/meeting/" + pp.value.meetingId
   title.value = pp.value.title
   category.value = categoryContainer[pp.value.category]
   status.value = statusContainer[pp.value.status]

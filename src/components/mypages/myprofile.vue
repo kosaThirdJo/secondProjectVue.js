@@ -42,34 +42,45 @@
   import {api} from "../../common.js";
   import Sidebar from "./Sidebar.vue";
 
-  const route = useRoute();//CompositionAPI 매칭된 라우트 (OptionAPI : this.$route)
-
   const getDataErr = reactive({});
   const myInfo = ref({
     "userId":"",
     "aboutMe" : "",
     "profileContent" : ""
   });
+  const token = localStorage.getItem("jwtToken");
 
   function updateData(){
-    api(
-        "users/profile/"+route.params.user_id, "PATCH",
-        {
-          aboutMe: myInfo.value.aboutMe,
-          profileContent: myInfo.value.profileContent
-        })
-        .then(response2 => {
-          console.log(response2);
-          alert("수정완료되었습니다.");
-          window.location.reload();
-          //this.$router.push("/users/profile/1");
-        });
+    if(!confirm("정말 수정하시겠습니까?")) {
+      alert("취소되었습니다.");
+      window.location.reload();
+    }else {
+      api(
+          "users/profile", "PATCH",
+          {
+            aboutMe: myInfo.value.aboutMe,
+            profileContent: myInfo.value.profileContent
+          }, token)
+          .then(response2 => {
+            if (response2 instanceof Error) {
+              console.log(response2);
+            } else {
+              //console.log(response2);
+              alert("수정완료되었습니다.");
+              window.location.reload();
+            }
+          });
+    }
   }
  async function getData(){
     try {
-      const response1 = await axios.get("http://localhost:8081/users/profile/"+route.params.user_id);
+      const response1 = (await axios.get("http://localhost:8081/users/profile", {
+        headers : {
+          Authorization: token
+        }
+      }));
       myInfo.value = response1.data;
-      //console.log(myInfo.value);
+      console.log(myInfo.value);
     }catch (error){
       getDataErr.value =error;
       //console.log(getDataErr.value);
@@ -77,6 +88,7 @@
   }
   onMounted(()=>{
     console.log("myprofile onmount");
+    console.log(token);
     getData();
   });
 </script>
