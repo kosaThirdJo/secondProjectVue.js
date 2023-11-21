@@ -1,12 +1,11 @@
 <script setup>
-import {api} from "@/common.js";
+import {api, apiToken} from "@/common.js";
 import router from "../../router/index.js";
+import {ref, defineProps,defineEmits ,onMounted, watch} from "vue";
 
-import {ref, defineProps, onMounted} from "vue";
-
+const emit = defineEmits(['view1','view2'])
 const props = defineProps({
   show: Boolean,
-  userId: Number,
   meetingId: Number
 })
 const validObjApply = ref({
@@ -15,18 +14,19 @@ const validObjApply = ref({
 });
 
 function checkValidApply(){
-  api(
+  apiToken(
       "apply/check?meetingId="
-      + props.meetingId
-      + "&userId="
-      + "1",
+      + props.meetingId,
   "GET",
-      ""
+      "",
+      localStorage.getItem("jwtToken")
       ).then(
           response =>{
             validObjApply.value = response;
-            console.log(response)
-            console.log(validObjApply.value.reason)
+            if (response) {
+              emit("view1")
+              emit("view2")
+            }
           }
   )
 }
@@ -48,6 +48,8 @@ onMounted(() => {
           </slot>
           <slot name="body" v-else-if="validObjApply.reject===0">
             <h3>신청 대기중 입니다.</h3>
+            <hr>
+            <h4 v-text="'나의 신청 사유 : ' + validObjApply.reason"></h4>
           </slot>
           <slot name="body" v-else>
             <h3 v-text="'거절 사유 :' + validObjApply.reason"></h3>

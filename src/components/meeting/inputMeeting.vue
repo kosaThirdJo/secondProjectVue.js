@@ -1,20 +1,25 @@
 <script setup>
 import {defineProps, onMounted, ref} from "vue";
-import {api} from "@/common.js";
+import {api, apiToken} from "@/common.js";
 import {useRoute, useRouter} from "vue-router";
 import { useAuthStore } from '@/stores/index';
 const router = useRouter()
+const route = useRoute()
 let p = defineProps({
   type: String
 });
-const authStore = useAuthStore();
+if (!localStorage.getItem("jwtToken")){
+  alert("로그인을 해 주세요!")
+  router.replace("/login")
+}
 function write() {
   //수정 모드
   if (p.type === "fix") {
-    api(
+    apiToken(
         "meeting",
         "PUT",
-        writeVal.value
+        writeVal.value,
+        localStorage.getItem("jwtToken")
     ).then(
         () =>
         { alert("수정 되었습니다.")
@@ -23,15 +28,16 @@ function write() {
     )
   } else {
     //쓰기 모드
-    api(
+    apiToken(
         "meeting",
         "POST",
-        writeVal.value
+        writeVal.value,
+        localStorage.getItem("jwtToken")
     ).then(
         response => {
           console.log(response)
-          alert("저장되었습니다.")
           router.replace("/meeting")
+
         }
     )
   }
@@ -79,7 +85,6 @@ function countText() {
 // 글자수 세기
 const contentCount = ref(0)
 const writeVal = ref({
-  "userId": 1,//
   "title": "",
   "category": 1,
   "applicationDeadline": null,
@@ -90,9 +95,6 @@ const writeVal = ref({
   "interestLanguage": "",
   "interestFramework": "",
   "interestJob": "",
-  "headers": {
-    Authorization: authStore.getToken()
-  }
 });
 
 
