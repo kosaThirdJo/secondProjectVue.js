@@ -144,8 +144,8 @@ function chkCateSts(){
           //에러처리코드
           console.log(errorRes);
           console.log(errorRes.response);
-          console.log(errorRes.response.data.message);
-          errorMsg.value = errorRes.response.data.message;
+          console.log(errorRes.response.data);
+          errorMsg.value = errorRes.response.data;
           resultList.value = [];
         }else {
           resultList.value = response;
@@ -165,8 +165,8 @@ async function getData(){
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
   }catch (error){
-    console.log(error);
-    errorMsg.value = error.response.data.message;
+    console.log(error.response);
+    errorMsg.value = error.response.data;
   }
 }
 onMounted(()=>{

@@ -139,8 +139,8 @@ function chkCateSts(){
         if(response instanceof Error){
           let errorRes = response;
           //에러처리
-          //console.log(errorRes.response.data.message);
-          errorMsg.value = errorRes.response.data.message;
+          console.log(errorRes.response);
+          errorMsg.value = errorRes.response.data;
           resultList.value = [];
         }else {
           //console.log(response);
@@ -161,30 +161,13 @@ async function getData(){
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
   }catch (error){
-    console.log(error);
     //console.log(error.response);
-    errorMsg.value = error.response.data.message;
+    errorMsg.value = error.response.data;
   }
 }
 onMounted(()=>{
   console.log("mymeetingList onMount");
   getData();
-  /*
-  apiToken("users/mymeeting", "GET", null, token)
-      .then(res =>{
-        if(res instanceof Error){
-          console.log(res);
-          let error = res;
-          //console.log(error.response);
-          errorMsg.value = error.response.data.message;
-        }else{
-          console.log(res);
-          resultList.value = res.data;
-          selectedFilters.value.category = 'all';
-          selectedFilters.value.status = 'all';
-        }
-      })
-  */
 })
 </script>
 
