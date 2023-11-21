@@ -258,6 +258,7 @@
   height: 25px;
   display: flex;
   flex-shrink: 1;
+  color: rgba(84, 82, 82, 1);
 }
 .search-morebtn-text {
   color: rgba(84, 82, 82, 1);

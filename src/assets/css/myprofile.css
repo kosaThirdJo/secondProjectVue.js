@@ -9,7 +9,7 @@ a{
     /*min-width: 1000px;*/
 }
 .frame-content-title{ /* content title div (이력관리) */
-    width: 100%;
+    width: 70%;
     padding: 5px 10px;
 }
 .content-title{  /*title */
@@ -29,7 +29,6 @@ a{
   color: rgba(255, 255, 255, 1);
   height: auto;
   font-size: 30px;
-  font-style: Bold;
   text-align: left;
   font-weight: 700;
   line-height: normal;
@@ -37,9 +36,9 @@ a{
   text-decoration: none;
 }
 .frame-content-body {
-    width: 90%;
-    padding: 30px 5%;
-    margin: auto;
+    width: 70%;
+    padding: 10px 40px;
+    /*margin: auto;*/
     display: flex;
     overflow: hidden;
     align-items: center;
@@ -54,7 +53,7 @@ a{
 .frame-oneline{
   gap: 10px;
   width: 90%;
-  height: 100px;
+  height: 150px;
   display: flex;
   overflow: hidden;
   align-self: stretch;
@@ -89,6 +88,13 @@ a{
     border-style: solid;
     border-width: 1px;
 }
+.msgAboutme{
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 500;
+    color: #FF7F50;
+}
 .frame-profilecontent{
   gap: 10px;
   width: 90%;
@@ -98,7 +104,6 @@ a{
   overflow: hidden;
   align-self: stretch;
   align-items: center;
-  flex-shrink: 0;
   flex-direction: column;
   justify-content: center;
 }
@@ -121,15 +126,21 @@ a{
     resize: none;
     outline: none;
 }
+.frame-profile-textcnt{ /*글자수세기 div*/
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 18px;
+    font-weight: 500;
+}
+.frame-profile-textcnt-cnt{ /*글자수세기 div*/
+    font-weight: 900;
+    color: #FF7F50;
+}
 .frame-bottom{
-    width: 90%;
+    width: 40%;
     height: 70px;
     display: flex;
-    overflow: hidden;
-    position: relative;
-    align-items: flex-start;
-    flex-shrink: 0;
-    justify-content:center;
 }
 .button-submit{
   gap: 10px;
@@ -140,7 +151,6 @@ a{
   position: absolute;
   align-self: stretch;
   align-items: center;
-  flex-shrink: 0;
   border: none;
   border-radius: 8px;
   justify-content: center;

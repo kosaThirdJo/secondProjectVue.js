@@ -57,7 +57,7 @@ const searchResult = () => {
           <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/myprofile" v-if="header.jwtToken">
             <span>마이페이지</span>
           </router-link>
-          <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/profiles/info/1" v-if="header.jwtToken">
+          <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/profiles/info/11" v-if="header.jwtToken">
             <span>다른유저 프로필(현덕스)</span>
           </router-link>
 

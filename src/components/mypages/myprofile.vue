@@ -18,6 +18,7 @@
               maxlength="30"
               placeholder="한줄로 간단하게 나를 소개해주세요" />
         </div>
+      <div class="msgAboutme" v-if="myInfo.aboutMe.length>=30">30자 이내로 작성해주세요.</div>
         <!--이력관리-->
         <div class="frame-profilecontent">
           <span class="frame-profilecontent-titletext">이력관리</span>
@@ -27,6 +28,10 @@
               v-model="myInfo.profileContent"
               placeholder="이력을 상세히 작성해주세요.&#13;&#10;작성예시&#13;&#10자격증/수료한 교육/프로젝트 경험">
           </textarea>
+          <div class="frame-profile-textcnt">
+            <span>글자수&nbsp;: &nbsp;</span>
+            <span class="frame-profile-textcnt-cnt">{{myInfo.profileContent.length}}</span>
+          </div>
         </div>
         <div class="frame-bottom">
           <input @click="updateData()" id="submitbutton" class="button-submit"  value="수정하기"/>
