@@ -16,16 +16,17 @@ const loginInfo = ref({
 axios.defaults.withCredentials = true;
 const login = async () => {
   const response = await loginApi("login", "POST", loginInfo.value);
-  if (response instanceof Error) {
+  if (response.data instanceof Error) {
     loginInfo.value.name = '';
     loginInfo.value.password = '';
     alert("아이디 또는 비밀번호가 맞지 않습니다. 다시 확인해 주세요.");
-    } else if(response.status === 200){
-    const token = response.headers['authorization'];
-    authStore.setToken(token);
-    location.replace("/");  // 로그인 후 메인 페이지 이동
-  } else {
-      console.error('로그인 실패:', response.status, response.data);  // 로그인 실패 시 처리
+  } else if(response.status === 200){
+      const token = response.headers['authorization'];
+      authStore.setToken(token);
+      location.replace("/");  // 로그인 후 메인 페이지 이동
+    } else {
+      // 로그인 실패 시 처리
+      console.error('로그인 실패:', response.status, response.data);
     }
 };
 

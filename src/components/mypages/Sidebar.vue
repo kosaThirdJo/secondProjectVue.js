@@ -65,7 +65,7 @@ import {onMounted, reactive, ref} from 'vue';
 import axios from "axios";
 import {useRoute} from "vue-router";
 import {api} from "../../common.js";
-import defaultImg from '../../assets/image/global/userdefaultimg.png';
+import defaultImg from '@/assets/image/global/userdefaultimg.png';
 
 const route = useRoute();//CompositionAPI 매칭된 라우트 (OptionAPI : this.$route)
 const getDataErr = reactive({});
