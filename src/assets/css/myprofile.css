@@ -9,7 +9,7 @@ a{
     /*min-width: 1000px;*/
 }
 .frame-content-title{ /* content title div (이력관리) */
-    width: 100%;
+    width: 70%;
     padding: 5px 10px;
 }
 .content-title{  /*title */
@@ -36,9 +36,9 @@ a{
   text-decoration: none;
 }
 .frame-content-body {
-    width: 90%;
-    padding: 30px 5%;
-    margin: auto;
+    width: 70%;
+    padding: 10px 40px;
+    /*margin: auto;*/
     display: flex;
     overflow: hidden;
     align-items: center;
@@ -104,7 +104,6 @@ a{
   overflow: hidden;
   align-self: stretch;
   align-items: center;
-  flex-shrink: 0;
   flex-direction: column;
   justify-content: center;
 }
@@ -139,11 +138,9 @@ a{
     color: #FF7F50;
 }
 .frame-bottom{
-    width: 100%;
+    width: 40%;
     height: 70px;
     display: flex;
-    align-items: flex-start;
-    justify-content:center;
 }
 .button-submit{
   gap: 10px;
