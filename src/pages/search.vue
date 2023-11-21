@@ -78,8 +78,6 @@ const filterSearchResult = () =>{
   const frameworkUrn = selectedFilters.value.frameworks.length > 0 ? `&frameworks=${selectedFilters.value.frameworks}` : '';
   const jobUrn = selectedFilters.value.jobs.length > 0 ? `&jobs=${selectedFilters.value.jobs}` : '';
   const urn = `search/filter?searchWord=${searchWord}${categoryUrn}${languageUrn}${frameworkUrn}${jobUrn}`;
-  // const urn = `search/filter?searchWord=${searchWord}&category=${selectedFilters.value.category}&languages=${selectedFilters.value.languages}&frameworks=${selectedFilters.value.frameworks}&jobs=${selectedFilters.value.jobs}`;
-  console.log(urn);
   api(urn,"GET", "")
     .then(response => {
       console.log(response);
@@ -89,7 +87,7 @@ const filterSearchResult = () =>{
   });
 }
 
-const handleFilterButtonClick = (filterType, value, event) => {
+const filterButtonClick = (filterType, value, event) => {
   const button = event.target;
   // 필터 버튼 선택
   if (!selectedFilters.value[filterType].includes(value)) {
@@ -148,14 +146,9 @@ const resetFilter = () => {
             <div class="search-filter-select-list-meeting">
               <span class="search-filter-select-title">모임</span>
               <div class="search-filter-select-category">
-                <button
-                    v-for="cate in category"
-                    :key="cate.value"
-                    @click="($event) => handleFilterButtonClick('category', cate.value, $event)"
-                    class="search-filter-select-btn"
-                    type="button"
-                    :data-category="'category'"
-                    :value="cate.value"
+                <button v-for="cate in category" :key="cate.value"
+                    @click="($event) => filterButtonClick('category', cate.value, $event)"
+                    class="search-filter-select-btn" type="button" :value="cate.value"
                 >{{ cate.label }}
                 </button>
               </div>
@@ -165,7 +158,7 @@ const resetFilter = () => {
               <span class="search-filter-select-title">언어</span>
               <div class="search-filter-select-category">
                 <button v-for="lang in languages" :key="lang.value"
-                    @click="($event) => handleFilterButtonClick('languages', lang.value, $event)"
+                    @click="($event) => filterButtonClick('languages', lang.value, $event)"
                     class="search-filter-select-btn" type="button" :value="lang.value"
                 >{{ lang.label }}
                 </button>
@@ -176,7 +169,7 @@ const resetFilter = () => {
               <span class="search-filter-select-title">프레임워크</span>
               <div class="search-filter-select-category">
                 <button v-for="fw in frameworks" :key="fw.value"
-                        @click="($event) => handleFilterButtonClick('frameworks', fw.value, $event)"
+                        @click="($event) => filterButtonClick('frameworks', fw.value, $event)"
                         class="search-filter-select-btn" type="button" :value="fw.value"
                 >{{ fw.label }}
                 </button>
@@ -187,7 +180,7 @@ const resetFilter = () => {
               <span class="search-filter-select-title">직무</span>
               <div class="search-filter-select-category">
                 <button v-for="job in jobs" :key="job.value"
-                        @click="($event) => handleFilterButtonClick('jobs', job.value, $event)"
+                        @click="($event) => filterButtonClick('jobs', job.value, $event)"
                         class="search-filter-select-btn" type="button" :value="job.value"
                 >{{ job.label }}
                 </button>

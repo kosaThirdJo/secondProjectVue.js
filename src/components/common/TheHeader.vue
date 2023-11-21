@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import {onMounted, ref, watch} from "vue";
 import { useAuthStore } from '@/stores/index';
 import router from "@/router/index.js";
 
@@ -14,6 +14,7 @@ console.log(header.value.jwtToken);
 // 로그아웃  시  Pinia 스토어에서 토큰 제거
 const logout = async () => {
   auth.clearToken();
+  await router.push('/');
   location.reload();
 }
 
@@ -51,13 +52,15 @@ const searchResult = () => {
             <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 1}}"><span>프로젝트</span></router-link>
             <!-- 02-03-03 기타 -->
             <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 2}}"><span>기타</span></router-link></div>
-            <!-- 02-04 마이페이지(로그인한 경우) -->
-            <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/myprofile" v-if="header.jwtToken">
-              <span>마이페이지</span>
-            </router-link>
-          <!--
-                      <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" :to="{name: 'myprofile', params: {user_id: 1}}"><span>마이페이지</span></router-link>
-          -->
+
+          <!-- 02-04 마이페이지(로그인한 경우) -->
+          <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/myprofile" v-if="header.jwtToken">
+            <span>마이페이지</span>
+          </router-link>
+          <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/profiles/info/1" v-if="header.jwtToken">
+            <span>다른유저 프로필(현덕스)</span>
+          </router-link>
+
         </div>
         <div class="main-header-searchAndBtn">
           <!-- 03 검색 -->
@@ -67,6 +70,7 @@ const searchResult = () => {
               <button class="main-header-search-button" type="submit" @click="searchResult">
                 <div class="main-header-search-glass">
                   <span class="material-icons">search</span>
+                  <!--                  <img src="@{/image/home/search.png}">-->
                 </div>
               </button>
             </div>
@@ -84,7 +88,7 @@ const searchResult = () => {
               </button>
             </router-link>
 
-<!--             로그인 했을 경우 -->
+            <!--             로그인 했을 경우 -->
             <button class="main-header-button-logout" @click="logout" v-if="header.jwtToken">
               <span class="main-header-button-logout-text"><span>로그아웃</span></span>
             </button>
@@ -95,4 +99,3 @@ const searchResult = () => {
   </header>
 </template>
 <style scoped src="@/assets/css/home.css"></style>
-

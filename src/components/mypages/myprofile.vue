@@ -39,7 +39,7 @@
   import {onMounted, reactive, ref} from "vue";
   import axios from "axios";
   import {useRoute, useRouter} from "vue-router";
-  import {api} from "../../common.js";
+  import {api, apiToken} from "../../common.js";
   import Sidebar from "./Sidebar.vue";
 
   const getDataErr = reactive({});
@@ -55,7 +55,7 @@
       alert("취소되었습니다.");
       window.location.reload();
     }else {
-      api(
+      apiToken(
           "users/profile", "PATCH",
           {
             aboutMe: myInfo.value.aboutMe,
