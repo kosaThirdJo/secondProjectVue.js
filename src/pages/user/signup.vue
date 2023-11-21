@@ -192,8 +192,8 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
 import axios from "axios";
-import {api} from "../../common.js";
-import router from "../../router/index.js";
+import {api} from "@/common.js";
+import router from "@/router/index.js";
 
 // 회원가입 폼
 const signupInfo = ref({

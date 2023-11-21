@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import {onMounted, ref, watch} from "vue";
 import { useAuthStore } from '@/stores/index';
 import router from "@/router/index.js";
 
@@ -68,6 +68,7 @@ const searchResult = () => {
               <button class="main-header-search-button" type="submit" @click="searchResult">
                 <div class="main-header-search-glass">
                   <span class="material-icons">search</span>
+                  <!--                  <img src="@{/image/home/search.png}">-->
                 </div>
               </button>
             </div>
