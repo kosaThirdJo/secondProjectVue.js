@@ -38,6 +38,19 @@ const api = async (urn, method, data) => {
         return { data: e}; //error 발생 시 e 반환
     })).data
 }
+
+const loginApi = async (urn, method, data) => {
+    const url = "http://localhost:8081/" + urn
+    return (await axios({
+        url, method, data, headers: {
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    }).catch(e => {
+        console.log(url);
+        console.log(e);
+        return{data: e};
+    }))
+}
 export {
-    api, apiToken
+    api, apiToken, loginApi
 };
