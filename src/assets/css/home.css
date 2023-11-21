@@ -110,6 +110,7 @@
 .main-header-search{
     background-color: rgba(246, 246, 246, 1);
     padding: 10px 20px;
+    display: flex;
 }
 .main-header-search-input{
     color: #000;

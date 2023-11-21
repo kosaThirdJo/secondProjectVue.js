@@ -19,6 +19,7 @@ api(
     "criteria=" + req.criteria,
     "GET", ""
 ).then(response => {
+  console.log(response);
   cardResult.value = response.content;
 });
 defineProps({})
