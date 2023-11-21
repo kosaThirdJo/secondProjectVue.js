@@ -52,6 +52,7 @@ const searchResult = () => {
             <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 1}}"><span>프로젝트</span></router-link>
             <!-- 02-03-03 기타 -->
             <router-link class="main-header-nav-meetinglist-text" :to="{ name: 'meeting', query: {category: 2}}"><span>기타</span></router-link></div>
+
           <!-- 02-04 마이페이지(로그인한 경우) -->
           <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/myprofile" v-if="header.jwtToken">
             <span>마이페이지</span>
@@ -59,6 +60,7 @@ const searchResult = () => {
           <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/profiles/info/1" v-if="header.jwtToken">
             <span>다른유저 프로필(현덕스)</span>
           </router-link>
+
         </div>
         <div class="main-header-searchAndBtn">
           <!-- 03 검색 -->
