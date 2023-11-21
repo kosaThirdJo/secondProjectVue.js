@@ -1,11 +1,13 @@
 <script setup>
-import {api} from "../../common.js";
+import {api, apiToken} from "@/common.js";
 import router from "../../router/index.js";
+
+
 
 const props = defineProps({
   show: Boolean,
-  userId: Object,
-  meetingId: Object
+  userId: Number,
+  meetingId: Number
 })
 let applyObj = {
   userId : props.userId,
@@ -16,11 +18,17 @@ let applyObj = {
 }
 
 function submitApply (){
-  api("apply",
+  if (!localStorage.getItem("jwtToken")){
+    alert("로그인을 해 주세요")
+    router.replace("/login")
+    return
+  }
+  apiToken("apply",
   "POST",
-      applyObj
+      applyObj,
+      localStorage.getItem("jwtToken")
   )
-  alert("신청되었습니다. => ajax 반환후 메세지 받는걸로 변경...")
+  alert("신청되었습니다.")
   router.go(0);
 }
 

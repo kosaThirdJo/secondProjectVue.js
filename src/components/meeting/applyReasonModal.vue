@@ -1,5 +1,5 @@
 <script setup>
-import {api} from "@/common.js";
+import {api, apiToken} from "@/common.js";
 import router from "../../router/index.js";
 import {ref} from "vue";
 
@@ -15,30 +15,33 @@ let rejectObj = ref([])
 function rejectApply(idx){
   alert(rejectObj.value[idx])
   console.log(validObj.value[idx].userId)
-  api("apply/reject",
+  apiToken("apply/reject",
       "PATCH",
       {
         meetingId:props.meetingId,
         userId:validObj.value[idx].userId,
         reason:rejectObj.value[idx]
-      }
+      },
+      localStorage.getItem("jwtToken")
 
-  ).then( (response) =>{
-    alert(response)
+  ).then(
+      (response) =>{
+
   })
 
 }
 
 function GetValidApply(){
-  api("apply/meeting/valid?meetingId="+props.meetingId,
+  apiToken("apply/meeting/valid?meetingId="+props.meetingId,
   "GET",
-      ""
+      "",
+      localStorage.getItem("jwtToken")
       ).then(
           response =>{
             validObj.value = response;
             console.log(response)
           }
-  )
+          )
 }
 GetValidApply()
 
