@@ -1,11 +1,34 @@
 <template>
-  <div v-if="!isLoading" id="profile" class="border border-dark">
+  <div class="flex-form">
+  <div class="frame-writer">
+    <div id="profile" class="frame-writer-profile">
+      <a class="click-profile" >
+        <div class="meeting-articles-profile">
+          <router-link :to="'/profiles/info/'+result.userId">
+            <img v-if="result.img"
+                 class="meeting-articles-profile-photo"
+                :src="result.img"
+                alt="Image"/><br/>
+          <img v-if="!result.img" class="meeting-articles-profile-photo" src="@/assets/image/global/userdefaultimg.png" alt="Image">
+            <h3 style="color: black" v-text="result.userNickname"></h3>
+            <div style="color: black" v-text="result.userAboutMe"></div>
+          </router-link>
+
+        </div>
+      </a>
+    </div>
+    <div id="apply" class="frame-showapplicant">
+      <span>현재 이 프로젝트에서 <span style="color: #FF9F29; font-weight: 800;" v-text="result.countApplyUsers"></span></span><span>명이 참여중입니다.</span>
+    </div>
+  </div>
+  <div v-if="!isLoading" id="content" class="border border-dark">
 
   <section id="content_box">
     <div class="title-box">
-      <span class="btn btn-primary" :style="{backgroundColor :(result.status===0) ? 'blue':'red'}" v-text="(result.status===0) ? '모집 중': '모집 완료'"></span>
+      <span class="btn" :class="{'btn-silver': result.status}" v-text="(result.status===0) ? '모집 중': '모집 완료'"></span>
       <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
-      <button v-if="viewBtnApply&&(result.status===0)" class="btn btn-primary" id="show-modal" @click="showModal = true">신청 하기</button>
+      <div class="float-right">
+      <button v-if="viewBtnApply&&(result.status===0)" class="btn btn-primary" id="apply-modal" @click="showModal = true">신청 하기</button>
       <router-link v-if="viewBtnFix&&(result.status===0)" :to="'/meeting/fix/'+route.params.post_id" class="btn btn-primary" ><span>수정 하기
       </span></router-link>
       <Teleport to="body">
@@ -17,7 +40,7 @@
         </modal>
       </Teleport>
 
-      <button v-if="viewBtnNowApplyInfo&&(result.status===0)" class="btn btn-primary" id="show-modal" @click="showValidModal = true">나의 신청 현황</button>
+      <button v-if="viewBtnNowApplyInfo&&(result.status===0)" class="btn btn-primary" id="my-apply-modal" @click="showValidModal = true">나의 신청 현황</button>
       <Teleport to="body">
         <!-- use the modal component, pass in the prop -->
         <apply-valid-modal :show="showValidModal" @close="showValidModal = false" :meeting-id="parseInt(route.params.post_id)" >
@@ -28,7 +51,7 @@
       </Teleport>
       <button v-if="viewBtnRemoveMeeting&&(result.status===0)" class="btn btn-primary" @click="removeMeeting()">삭제</button>
       <button v-if="viewBtnApplyCompleting&&(result.status===0)" class="btn btn-primary" @click="completeMeeting()">모집 완료</button>
-      <button class="btn btn-primary" id="show-modal" @click="applicationStatus = true" v-if="viewBtnApplyList&&(result.status===0)">신청한 사람</button>
+      <button class="btn btn-primary" id="apply-users" @click="applicationStatus = true" v-if="viewBtnApplyList&&(result.status===0)">신청한 사람</button>
       <Teleport to="body">
         <!-- use the modal component, pass in the prop -->
         <apply-reason :show="applicationStatus" @close="applicationStatus = false" :meeting-id="parseInt(route.params.post_id)" >
@@ -37,6 +60,7 @@
           </template>
         </apply-reason>
       </Teleport>
+      </div>
     </div>
 
     <div class="view-box">
@@ -60,7 +84,7 @@
     </div>
     <div id="comment_input_line">
       <input id="comment_input" v-model="commentInput" @keyup.enter="writeComment()" class="mt-2 mb-2" type="text" name="commentContent" placeholder=" 댓글을 작성해 보세요">
-      <span id="comment_button" class="btn btn-primary mr-3" @click="writeComment()">등록</span>
+      <span id="comment_button" class="btn btn-primary mr-3" style="width: 55px;" @click="writeComment()">등록</span>
       </div>
     <div class="main-content-container">
       <div class="comment_list" v-for="(commentEle,commentIdx) in commentResult">
@@ -74,6 +98,7 @@
     <div v-else>
     <!-- 로딩 중에 표시할 스피너나 메시지를 추가할 수 있습니다 -->
     로딩 중...
+  </div>
   </div>
 </template>
 <script setup>
@@ -109,6 +134,7 @@ apiToken(
     localStorage.getItem("jwtToken")
 ).then(response => {
   result.value = response
+  console.log(result)
   isLoading.value = false;
   if (!localStorage.getItem("jwtToken")){
     return
@@ -224,6 +250,175 @@ function writeComment(){
   .comment_list{
     background-color: antiquewhite;
     margin-bottom: 10px;
+  }
+
+  .flex-form{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 50px;
+  }
+  .meeting-articles-profile-photo{
+    width:5rem; height:5rem; border-radius:9999px;
+  }
+  .frame-writer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 30px;
+  }
+  .meeting-articles-profile{
+
+    padding-top: 20px;
+    text-align: center;
+    gap: 5px;
+  }
+  .meeting-articles-profile-photo{
+    width:5rem;
+    height:5rem;
+    border-radius:9999px;
+    text-align: center;
+    margin: auto;
+  }
+
+  #content_description{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 250px;
+  }
+
+  .sub-info{
+    margin: 20px 0 20px;
+  }
+  .frame-writer-profile {
+    float: right;
+    background-color: #FAF3E3;
+    width: 330px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    margin-top: 50px;
+    border: none;
+    border-radius: 20%;
+  }
+  .frame-showapplicant{
+    float: right;
+    background-color: white;
+    width: 300px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  #content_box {
+    width: 800px;
+    padding: 5px 5px 5px 5px;
+  }
+
+  #content_title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  #comment_box {
+    background-color: #FAF3E3;
+    width: 800px;
+    padding: 20px 20px 20px 20px;
+  }
+
+  .comment{
+    padding-bottom: 5px;
+  }
+  .comment-content{
+    padding-bottom: 10px;
+  }
+
+  #comment_input_line {
+    margin: 5px 5px 50px;
+    display: flex;
+    gap: 0px 18px;
+  }
+  #modal-button{
+    float: right;
+  }
+
+  #comment-input {
+    display: flex;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+    margin: 20px 0 20px 0;
+  }
+  .modal-input{
+    border-radius: 5px;
+    border: #888888;
+    margin: 5px 0 10px 0;
+  }
+  .input-border-radius{
+    outline: none;
+    border-radius: 10px;
+    border: none;
+  }
+
+  #comment_list {
+    padding-top: 10px;
+    padding-left: 10px;
+    background-color: white;
+    margin-bottom: 5px;
+    magin-top: 10px;
+  }
+
+  #comment_title {
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+
+  article {
+    margin-left: 200px;
+    margin-top:100px;
+    min-height: 1000px;
+  }
+  .frame-writer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 30px;
+  }
+  .click-profile{
+    text-decoration: none;
+    color: black;
+    margin: 10px 0px;
+  }
+  .meeting-articles-profile {
+    display: flex;
+    text-align: center;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .meeting-articles-profile-photo {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 9999px;
+    text-align: center;
+    margin: auto;
+  }
+  .writer-nickname-text{
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .btn{
+    background-color: #FF9F29;
+    border: white;
+    color: white;
+    margin-right: 10px;
+  }
+  .btn:hover{
+    cursor: default; /* 기본 커서로 변경 */
+  }
+  .btn-silver{
+    background-color: grey;
+    color: white
+
   }
 
 </style>
