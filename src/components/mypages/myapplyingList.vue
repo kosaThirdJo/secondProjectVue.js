@@ -91,7 +91,7 @@ import Mymeeting from "./mymeeting.vue";
 import axios, {AxiosError} from "axios";
 import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
-import {api} from "../../common.js";
+import {api, apiToken} from "../../common.js";
 
 const route = useRoute();
 const resultList = ref([]);
@@ -102,7 +102,7 @@ const ischkC = ref({ all: false, project: false, study: false, etc: false });
 const ischkS = ref({all: false, statusing: false, statused: false});
 const errorMsg = ref("");
 //토큰
-const jtoken = localStorage.getItem('jwtToken');
+const token = localStorage.getItem('jwtToken');
 function chkCateSts(){
   let targetBtn = event.target;
   let dataCategory = targetBtn.getAttribute("data-category");
@@ -135,18 +135,17 @@ function chkCateSts(){
   }
 
   console.log(selectedFilters.value);
-  api(
-      "users/myapplyingfilter/"+route.params.user_id+
-      "?category="+selectedFilters.value.category+
-      "&status="+selectedFilters.value.status, "GET")
+  apiToken(
+      "users/myapplyingfilter?category="+selectedFilters.value.category+
+      "&status="+selectedFilters.value.status, "GET", null, token)
       .then(response => {
         if(response instanceof Error){
           let errorRes = response;
           //에러처리코드
           console.log(errorRes);
           console.log(errorRes.response);
-          console.log(errorRes.response.data.message);
-          errorMsg.value = errorRes.response.data.message;
+          console.log(errorRes.response.data);
+          errorMsg.value = errorRes.response.data;
           resultList.value = [];
         }else {
           resultList.value = response;
@@ -157,22 +156,22 @@ function chkCateSts(){
 //데이터 조회
 async function getData(){
   try{
-    const res = await axios.get("http://localhost:8081/users/myapplying/"+route.params.user_id, {
+    const res = await axios.get("http://localhost:8081/users/myapplying", {
       headers:{
-        Authorization: jtoken
+        Authorization: token
       }
     });
     resultList.value = res.data;
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
   }catch (error){
-    console.log(error);
-    errorMsg.value = error.response.data.message;
+    console.log(error.response);
+    errorMsg.value = error.response.data;
   }
 }
 onMounted(()=>{
   console.log("myapplyingList onMount");
-  console.log(jtoken);
+  console.log(token);
   getData();
 })
 </script>
