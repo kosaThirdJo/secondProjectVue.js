@@ -109,6 +109,7 @@ apiToken(
     localStorage.getItem("jwtToken")
 ).then(response => {
   result.value = response
+  isLoading.value = false;
   if (!localStorage.getItem("jwtToken")){
     return
   }
@@ -145,7 +146,6 @@ api(
     "GET", ""
 ).then(response => {
   commentResult.value = response.content
-  isLoading.value = false;
 });
 const commentInput = ref("")
 
