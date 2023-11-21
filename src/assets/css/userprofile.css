@@ -29,14 +29,12 @@
   color: black;
   height: auto;
   font-size: 30px;
-  font-style: Bold;
   text-align: center;
   font-weight: 500;
 }
 .user-nicname-text{
     color: #FF9F29;
     font-size: 30px;
-    font-style: Bold;
     font-weight: 800;
 }
 .frame-profile-info{
