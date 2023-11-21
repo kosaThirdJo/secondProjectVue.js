@@ -88,7 +88,7 @@ import Mymeeting from "./mymeeting.vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import {onMounted, ref} from "vue";
-import {api} from "../../common.js";
+import {api, apiToken} from "../../common.js";
 
 const route = useRoute();
 const resultList = ref([]);
@@ -98,6 +98,7 @@ const selectedFilters = ref({category: "all", status: "all"});
 const ischkC = ref({ all: false, project: false, study: false, etc: false });
 const ischkS = ref({all: false, statusing: false, statused: false});
 const errorMsg = ref("");
+const token = localStorage.getItem("jwtToken");
 
 function chkCateSts(){
   let targetBtn = event.target;
@@ -131,10 +132,9 @@ function chkCateSts(){
   }
 
   console.log(selectedFilters.value);
-  api(
-      "users/mymeetingfilter/"+route.params.user_id+
-      "?category="+selectedFilters.value.category+
-      "&status="+selectedFilters.value.status, "GET")
+  apiToken(
+      "users/mymeetingfilter?category="+selectedFilters.value.category+
+      "&status="+selectedFilters.value.status, "GET", null, token)
       .then(response => {
         if(response instanceof Error){
           let errorRes = response;
@@ -152,12 +152,16 @@ function chkCateSts(){
 //데이터 조회
 async function getData(){
   try{
-    const res = await axios.get("http://localhost:8081/users/mymeeting/"+route.params.user_id);
+    const res = await axios.get("http://localhost:8081/users/mymeeting", {
+      headers : {
+        Authorization: token
+      }
+    });
     resultList.value = res.data;
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
   }catch (error){
-    //console.log(error);
+    console.log(error);
     //console.log(error.response);
     errorMsg.value = error.response.data.message;
   }
@@ -165,6 +169,22 @@ async function getData(){
 onMounted(()=>{
   console.log("mymeetingList onMount");
   getData();
+  /*
+  apiToken("users/mymeeting", "GET", null, token)
+      .then(res =>{
+        if(res instanceof Error){
+          console.log(res);
+          let error = res;
+          //console.log(error.response);
+          errorMsg.value = error.response.data.message;
+        }else{
+          console.log(res);
+          resultList.value = res.data;
+          selectedFilters.value.category = 'all';
+          selectedFilters.value.status = 'all';
+        }
+      })
+  */
 })
 </script>
 

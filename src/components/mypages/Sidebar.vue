@@ -47,10 +47,10 @@
           <div>
             <ul>
               <li class="side-menu-li">
-                <router-link class="sidemenu-a" to="/users/1/mymeeting">내가 만든 모임</router-link>
+                <router-link class="sidemenu-a" to="/users/mymeeting">내가 만든 모임</router-link>
               </li>
               <li class="side-menu-li">
-                <router-link class="sidemenu-a" to="/users/1/myapplying">내가 참여한 모임</router-link>
+                <router-link class="sidemenu-a" to="/users/myapplying">내가 참여한 모임</router-link>
               </li>
             </ul>
           </div>
@@ -121,9 +121,12 @@ function updateProfileImg(){
    }else {
      let fd = new FormData();
      fd.append("profilePhoto", imgfileInput.value.files[0]);
-     axios.put("http://localhost:8081/users/setting/img/" + route.params.user_id, fd,
-         {headers: {'Content-Type': 'multipart/form-data'}})
-         .then(res => {
+     axios.put("http://localhost:8081/users/setting/img", fd, {
+       headers: {
+         'Content-Type' : 'multipart/form-data',
+         'Authorization' : token
+       }
+     }).then(res => {
            console.log(res);
            window.location.reload();
          }).then(error => {
