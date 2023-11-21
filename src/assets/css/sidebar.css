@@ -1,16 +1,13 @@
 
 /*sidebar-프로필사진*/
-aside{
-    width: 120px;
-    float: left;
-}
 .frame-aside{
-/*    width: 30%;*/
-    width: 270px;
-    position: fixed;
-    left: 50px;
-/*    left: 0;*/
-    top: 256px;
+    width: 90%;
+    /*width: 270px;*/
+    position:sticky;
+    left: 80px;
+    top: 170px;
+    display: flex;
+    flex-direction: column;
 }
 .frame-profileinfo{
     width: 80%;

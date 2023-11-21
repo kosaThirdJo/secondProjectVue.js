@@ -7,7 +7,7 @@
   flex-direction: column;
 }*/
 .myinfoframe-content-title{
-    width: 100%;
+    width: 70%;
     padding: 5px 10px;
 }
 .myinfocontent-title{
@@ -38,14 +38,19 @@
   width: 90%;
   height: auto;
   display: flex;
-  padding: 10px 5%;
-  margin: auto;
+  padding: 10px 40px;
+/*  padding: 10px 5%;*/
+/*  margin: auto;*/
   overflow: hidden;
   flex-shrink: 0;
   flex-direction: column;
   justify-content: center;
   background-color: rgba(255, 255, 255, 1);
   align-items: flex-start; /*1120*/
+}
+/*개인정보수정 입력폼*/
+#updateInfoForm {
+  min-width : 250px;
 }
 .myinfo-input {
   gap: 30px;
@@ -149,6 +154,11 @@
   border-width: 1px;
   border-radius: 10px;
 }
+.myinfo-form-input-check-alert{
+  margin-left: 20px;
+  color: rgb(248, 60, 60);
+  font-size: 15px;
+}
 .nickname-checkbtn{ /* 별명 중복 확인 버튼*/
   gap: 10px;
   display: inline-block;
@@ -180,7 +190,7 @@
   display: inline-block;
   padding: 0 20px;
   overflow: hidden;
-  flex-grow: 1;
+/*  flex-grow: 1;*/
   font-size: 20px;
   text-align: left;
   align-items: center;

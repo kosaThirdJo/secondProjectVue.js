@@ -11,15 +11,15 @@ import Sidebar from "../components/mypages/Sidebar.vue";
 
 </script>
 
-<style scoped>
+<!--<style scoped>-->
+<style>
   #frame-all{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
     width: 100%;
+    gap: 40px;
     margin: 10px;
     padding: 20px;
-
   }
   aside{
     width: 20%;

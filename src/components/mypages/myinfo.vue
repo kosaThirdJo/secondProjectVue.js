@@ -16,13 +16,12 @@
                 v-model="myInfo.password"
                 type="password"
                 name="password"
-                placeholder="최소 6자 이상(알파벳, 숫자 필수)"
+                placeholder="최소 6자 이상, 알파벳과 숫자로 입력해주세요."
                 class="myinfo-input2"
                 minlength="6"
+                @input="validatePassword"
                 required />
-            <div class="sign-up-form-input-check-alert" id="checkPassword">
-              <span></span>
-            </div>
+            <div class="myinfo-form-input-check-alert">{{ msg.password }}</div>
           </div>
           <!--  01-02 이메일  -->
           <div class="myinfo-email">
@@ -32,10 +31,9 @@
                 name="email"
                 v-model="myInfo.email"
                 placeholder="honggildong@select.com"
-                class="myinfo-input3" />
-            <div class="sign-up-form-input-check-alert" id="checkEmail">
-              <span></span>
-            </div>
+                class="myinfo-input3"
+                @input="validateEmail"/>
+            <div class="myinfo-form-input-check-alert">{{ msg.email }}</div>
           </div>
           <!--  01-03 닉네임  -->
           <div class="myinfo-nickname">
@@ -46,12 +44,12 @@
                   type="text"
                   name="nickname"
                   v-model="myInfo.nickname"
-                  placeholder="닉네임을 알파벳, 한글, 숫자를 20자 이하로 입력해주세요."
+                  placeholder="닉네임을 20자 이하로 입력해주세요."
+                  maxlength="20"
                   class="myinfo-input4"
+                  @input="validateNickname"
                   required />
-              <div class="sign-up-form-input-check-alert" id="checkNickname">
-                <span></span>
-              </div>
+              <div class="myinfo-form-input-check-alert" :style="{color: check.nickname ? 'green' : 'red'}" >{{ msg.nickname }}</div>
             </div>
           </div>
           <div id="showResult"></div>
@@ -66,7 +64,7 @@
               <button @click.prevent="getLocation" class="myinfo-location1btnbutton">
                 <span class="myinfo-text025"><span>지역 인증</span></span>
               </button>
-              <div class="sign-up-form-input-check-alert" id="checkLocation">
+              <div class="myinfo-form-input-check-alert" id="checkLocation">
                 <span></span>
               </div>
             </div>
@@ -82,7 +80,7 @@
               <button @click.prevent="getLocation2" class="myinfo-location2btnbutton">
                 <span class="myinfo-text025"><span>지역 인증</span></span>
               </button>
-              <div class="sign-up-form-input-check-alert" id="checkLocation2">
+              <div class="myinfo-form-input-check-alert" id="checkLocation2">
                 <span></span>
               </div>
             </div>
@@ -172,18 +170,66 @@
     "interestJob" : ""
   });
 
-  //유효성 검사 msg
-  const pwMessage = ref('');
-  const emailMessage = ref('');
-  const nicknameMessage = ref('');
+  // message
+  const msg = ref({
+    password: '',
+    email: '',
+    nickname: '',
+    location1: ''
+  })
 
   // 유효성 검사 조건
-  const passwordRegex = /^[a-zA-Z0-9]{6}$/;
+  const passwordRegex = /^[a-zA-Z0-9]{6,}$/;
   const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const nicknameRegex = /^[a-zA-Z0-9가-힣]{2,20}$/;
 
-  //중복검사
-  const checkNicknameDuplicateTest = ref(false);
+  // 검사 여부 확인
+  const check = reactive({
+    password: false,
+    email: false,
+    nickname: false,
+    location1: false,
+  });
+
+  // 유효성 검사 & 중복 확인
+  const validatePassword = () => {
+    if (!myInfo.value.password || !passwordRegex.test(myInfo.value.password)) {
+      check.password = false;
+      msg.value.password = "비밀번호는 최소 6자 이상, 알파벳과 숫자로 입력해주세요.";
+    } else {
+      check.password = true;
+      msg.value.password = "";
+    }
+  };
+  const validateEmail = () => {
+    if (!myInfo.value.email || !emailRegex.test(myInfo.value.email)) {
+      check.email = false;
+      msg.value.email = "올바른 이메일 주소를 입력해주세요.";
+    } else {
+      check.email = true;
+      msg.value.email = "";
+    }
+  };
+  const validateNickname = async () => {
+    const value = myInfo.value.nickname;
+    if (!myInfo.value.nickname || !nicknameRegex.test(myInfo.value.nickname)) {
+      check.nickname = false;
+      msg.value.nickname = "닉네임는 2자 이상, 20자 이하로 입력해주세요.";
+    } else {
+      const response = await api(`users/checkDuplicate?type=nickname&value=${value}`, "GET");
+      if (response instanceof Error) {
+        check.nickname = false;  // 이미 존재하는 닉네임입니다.
+        msg.value.nickname = response.response.data;
+      } else {
+        check.nickname = true;
+        msg.value.nickname = response;  // 사용 가능한 닉네임입니다.
+      }
+    }
+  };
+
+  watch(() => myInfo.password, validatePassword);
+  watch(() => myInfo.email, validateEmail);
+  watch(() => myInfo.nickname, validateNickname);
 
   //지역1 위치 인증
   const getLocation = async () => {
@@ -256,7 +302,7 @@
           case "job":
             myInfo.value.interestJob = selectedInterestsInput.value
         }
-        //선택된 버튼은 class가 signup-interest-lang-btn selected 됨
+        //선택된 버튼은 class가 myinfo-interest-lang-btn selected 됨
         console.log(myInfo.value.interestLanguage);
         console.log(myInfo.value.interestFramework);
         console.log(myInfo.value.interestJob);
@@ -268,10 +314,14 @@
   let selectedInterestsJob = [];
 
   //수정
-  function submitupdateInfo() {
-    if(myInfo.value.password === ""){
-      alert("비밀번호 입력은 필수입니다.");
-    }else{
+  async function submitupdateInfo() {
+    //유효성 검사 & 중복 확인
+    validatePassword();
+    validateEmail();
+    await validateNickname(); //중복검사라 await
+
+    //if(myInfo.value.password === ""){
+    if(check.password && check.email && check.nickname){
       if (!confirm("정말 수정하시겠습니까?")) {
         alert("취소되었습니다.");
         window.location.reload();
@@ -300,7 +350,9 @@
                 window.location.reload();
               }
             });
-      }
+          }
+    }else{
+      alert("다시 확인해주세요");
     }
   }
 
