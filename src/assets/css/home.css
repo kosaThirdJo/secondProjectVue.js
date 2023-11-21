@@ -551,7 +551,6 @@ margin-left: 5px;
 
 /* yellowbox */
 .main-left-content-bottom-meeting-yellow-now {
-  gap: 25px;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -560,7 +559,6 @@ margin-left: 5px;
   flex-shrink: 0;
 }
 .main-left-content-bottom-meeting-yellow-now-people {
-width: 172px;
 display: flex;
 overflow: hidden;
 flex-shrink: 0;

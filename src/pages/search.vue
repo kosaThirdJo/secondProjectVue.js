@@ -11,6 +11,8 @@ const searchWord = route.query.searchWord;
 // 검색어 검색 결과 요청
 const searchMeetingResult = ref([]);
 const searchNicknameResult = ref([]);
+const showCount = ref(6);  // 더보기 ( 기본 6개 출력)
+
 api(
     `search?searchWord=${searchWord}`,
     "GET", ""
@@ -72,7 +74,9 @@ const selectedFilters = ref({
   frameworks: [],
   jobs: [],
 })
+// 필터 검색 결과
 const filterSearchResult = () =>{
+  showCount.value = 6;
   const categoryUrn = selectedFilters.value.category.length > 0 ? `&category=${selectedFilters.value.category}` : '';
   const languageUrn = selectedFilters.value.languages.length > 0 ? `&languages=${selectedFilters.value.languages}` : '';
   const frameworkUrn = selectedFilters.value.frameworks.length > 0 ? `&frameworks=${selectedFilters.value.frameworks}` : '';
@@ -115,7 +119,10 @@ const resetFilter = () => {
   };
   filterSearchResult();
 };
-
+// 더보기 버튼 클릭 이벤트
+const showMore = () => {
+  showCount.value += 6;
+};
 </script>
 
 <template>
@@ -198,7 +205,7 @@ const resetFilter = () => {
         <!-- 모임 검색 결과 -->
         <div class="search-filter-result">
           <!-- 모임 검색 결과 있을 경우 -->
-          <card v-if="searchMeetingResult.length>0" v-for="(resOne, i) in searchMeetingResult" :key="i" :resOne="resOne" class="search-filter-result-container"></card>
+          <card v-if="searchMeetingResult.length>0" v-for="(resOne, i) in searchMeetingResult.slice(0, showCount)" :key="i" :resOne="resOne" class="search-filter-result-container"></card>
           <!-- 모임 검색 결과 없을 경우 -->
           <div v-if="searchMeetingResult.length===0" class="search-filter-result-none">
             <div class="search-filter-result-none-result">
@@ -211,9 +218,9 @@ const resetFilter = () => {
           </div>
         </div>
         <!-- 더보기 버튼 -->
-        <div>
-          <button class="search-morebtn">
-            <div class="search-morebtn-icon"><span class="material-icons">arrow_circle_down</span></div>
+        <div v-if="searchMeetingResult.length>showCount">
+          <button class="search-morebtn" @click="showMore()">
+            <div class="search-morebtn-icon"><span class="material-icons">expand_more</span></div>
             <span class="search-morebtn-text"><span>더보기</span></span>
           </button>
         </div>
