@@ -15,6 +15,8 @@ import myprofile from "../components/mypages/myprofile.vue";
 import myinfo from "../components/mypages/myinfo.vue"
 import mymeetingList from "../components/mypages/mymeetingList.vue"
 import myapplyingList from "../components/mypages/myapplyingList.vue"
+//user profile
+import userprofile from "../pages/userprofile.vue"
 
 // 동적 매핑법 :변수
 const router = createRouter({
@@ -42,6 +44,8 @@ const router = createRouter({
                     {path: 'mymeeting', name: 'mymeetinglist',component:mymeetingList},
                     {path: 'myapplying', name: 'myapplyinglist',component:myapplyingList}
                 ]},
+            //user profile
+            {path: '/profiles/info/:user_id', name: 'userprofile', component: userprofile}
 
         ]
 })
