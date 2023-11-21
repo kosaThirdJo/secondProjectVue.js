@@ -1,6 +1,3 @@
-body{
-  background: #f6f6f6;
-}
 .search-container {
   width: 100%;
   display: flex;
@@ -8,6 +5,7 @@ body{
   min-height: 100vh;
   align-items: center;
   flex-direction: column;
+  background: #f6f6f6;
 }
 .search-result {
   gap: 44px;
@@ -142,16 +140,15 @@ body{
 .search-filter-select {
   gap: 10px;
   display: flex;
-  padding: 30px;
+  padding: 30px 50px;
   overflow: hidden;
   align-self: stretch;
-  align-items: center;
+  align-items: flex-start;
   border-color: rgba(167, 166, 166, 1);
   border-style: solid;
   border-width: 2px;
   border-radius: 20px;
   flex-direction: column;
-  justify-content: center;
 }
 .search-filter-select-list-meeting, .search-filter-select-list-language, .search-filter-select-list-framework, .search-filter-select-list-job {
   gap: 40px;
@@ -210,13 +207,11 @@ body{
 }
 
 .search-filter-select-reset {
-  gap: 10px;
-  display: flex;
-  padding: 0 10px;
-  overflow: hidden;
   align-items: center;
   margin-top: 10px;
   justify-content: flex-end;
+  width: 100%;
+  display: flex;
 }
 .search-filter-select-reset-button {
   gap: 3px;
@@ -339,19 +334,17 @@ border-radius:9999px;
   color: rgba(0, 0, 0, 1);
   height: auto;
   font-size: 14px;
-  font-style: Bold;
   text-align: left;
   font-weight: 700;
   text-decoration: none;
 }
 .search-nickname-info-about {
   color: rgba(95, 91, 91, 1);
-  height: 50px;
   font-size: 14px;
-  font-style: Bold;
   text-align: left;
   font-weight: 700;
   text-decoration: none;
+  min-height: 100px;
 }
 .search-nickname-noUser{
 margin: 0 auto;

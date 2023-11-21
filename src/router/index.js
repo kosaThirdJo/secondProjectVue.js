@@ -3,6 +3,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import home from "@/pages/Home.vue";
 import login from "@/pages/user/login.vue";
 import signup from "@/pages/user/signup.vue";
+import search from "@/pages/search.vue";
 // meeting
 import meeting from "@/pages/meeting/Meeting.vue";
 import meetingDetail from "@/pages/meeting/meetingDetail.vue";
@@ -24,6 +25,7 @@ const router = createRouter({
             {path: '/', component: home},
             {path:'/login', component: login},
             {path:'/signup', component: signup},
+            {path:'/search', component: search},
             // meeting
             {path: '/meeting', name: 'meeting', component: meeting},
             {path: '/meeting/:post_id', name: 'meetingDetail', component: meetingDetail},
