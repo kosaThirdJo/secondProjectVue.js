@@ -1,6 +1,24 @@
 <template>
   <div v-if="!isLoading" id="profile" class="border border-dark">
+    <div class="frame-writer">
+      <div id="profile" class="frame-writer-profile">
+        <a class="click-profile" >
+          <div class="meeting-articles-profile">
+            <img class="meeting-articles-profile-photo">
+            <img class="meeting-articles-profile-photo" style="width:5rem; height:5rem; border-radius:9999px;"/>
 
+            <div class="writer-nickname-text" text="${userDao.getProfileInfo(meetingDTO.userId).getNickname()}"></div>
+            <div class="writer-oneline-text" text="${userDao.getUserProfileInfo(meetingDTO.userId).about_me}"></div>
+          </div>
+        </a>
+      </div>
+      <div  id="apply" class="frame-showapplicant">
+        <span>현재 이 프로젝트에서 <span style="color: #FF9F29; font-weight: 800;" text="${applyDao.countApplyByMeetingId(meetingDTO.meetingId)==null  ? 0 : applyDao.countApplyByMeetingId(meetingDTO.meetingId) }">0</span>명이 참여중입니다.</span>
+
+        <div text="${applyName}"></div>
+
+      </div>
+    </div>
   <section id="content_box">
     <div class="title-box">
       <span class="btn btn-primary" :style="{backgroundColor :(result.status===0) ? 'blue':'red'}" v-text="(result.status===0) ? '모집 중': '모집 완료'"></span>
@@ -224,6 +242,9 @@ function writeComment(){
   .comment_list{
     background-color: antiquewhite;
     margin-bottom: 10px;
+  }
+  #profile{
+    width: 75%;
   }
 
 </style>
