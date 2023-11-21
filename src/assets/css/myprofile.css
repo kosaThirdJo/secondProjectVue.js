@@ -29,7 +29,6 @@ a{
   color: rgba(255, 255, 255, 1);
   height: auto;
   font-size: 30px;
-  font-style: Bold;
   text-align: left;
   font-weight: 700;
   line-height: normal;
@@ -54,7 +53,7 @@ a{
 .frame-oneline{
   gap: 10px;
   width: 90%;
-  height: 100px;
+  height: 150px;
   display: flex;
   overflow: hidden;
   align-self: stretch;
@@ -89,6 +88,13 @@ a{
     border-style: solid;
     border-width: 1px;
 }
+.msgAboutme{
+    width: 100%;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 500;
+    color: #FF7F50;
+}
 .frame-profilecontent{
   gap: 10px;
   width: 90%;
@@ -121,14 +127,22 @@ a{
     resize: none;
     outline: none;
 }
+.frame-profile-textcnt{ /*글자수세기 div*/
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 18px;
+    font-weight: 500;
+}
+.frame-profile-textcnt-cnt{ /*글자수세기 div*/
+    font-weight: 900;
+    color: #FF7F50;
+}
 .frame-bottom{
-    width: 90%;
+    width: 100%;
     height: 70px;
     display: flex;
-    overflow: hidden;
-    position: relative;
     align-items: flex-start;
-    flex-shrink: 0;
     justify-content:center;
 }
 .button-submit{
@@ -140,7 +154,6 @@ a{
   position: absolute;
   align-self: stretch;
   align-items: center;
-  flex-shrink: 0;
   border: none;
   border-radius: 8px;
   justify-content: center;

@@ -41,6 +41,7 @@
 import {onMounted, ref} from "vue";
 import {api} from "@/common.js";
 import {useRoute} from "vue-router";
+import defaultImg from '../assets/image/global/userdefaultimg.png';
 const userInfo = ref({});
 
 const route = useRoute();
@@ -62,6 +63,10 @@ onMounted(()=>{
           console.log(errorRes.response);
         }else{
           userInfo.value = res;
+          //console.log(userInfo.value);
+          if(userInfo.value.profilePhoto === ""){
+            userInfo.value.profilePhoto = defaultImg;
+          }
           //console.log(userInfo.value);
         }
       });

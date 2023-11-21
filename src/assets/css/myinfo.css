@@ -38,7 +38,8 @@
   width: 90%;
   height: auto;
   display: flex;
-  padding: 10px 5%;
+  padding: 10px;
+/*  padding: 10px 5%;*/
   margin: auto;
   overflow: hidden;
   flex-shrink: 0;
@@ -46,6 +47,10 @@
   justify-content: center;
   background-color: rgba(255, 255, 255, 1);
   align-items: flex-start; /*1120*/
+}
+/*개인정보수정 입력폼*/
+#updateInfoForm {
+  min-width : 250px;
 }
 .myinfo-input {
   gap: 30px;
@@ -180,7 +185,7 @@
   display: inline-block;
   padding: 0 20px;
   overflow: hidden;
-  flex-grow: 1;
+/*  flex-grow: 1;*/
   font-size: 20px;
   text-align: left;
   align-items: center;
