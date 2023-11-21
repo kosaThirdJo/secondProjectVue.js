@@ -119,6 +119,7 @@ function updateProfileImg(){
       alert("취소되었습니다.");
       window.location.reload();
    }else {
+      //multipart/form-data 형식으로 전송
      let fd = new FormData();
      fd.append("profilePhoto", imgfileInput.value.files[0]);
      axios.put("http://localhost:8081/users/setting/img", fd, {
