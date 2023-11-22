@@ -1,7 +1,7 @@
 
 /*sidebar-프로필사진*/
 .frame-aside{
-    width: 90%;
+    width: 100%;
     /*width: 270px;*/
     position:sticky;
     left: 80px;
