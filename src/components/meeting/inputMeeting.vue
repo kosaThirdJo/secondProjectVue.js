@@ -13,8 +13,24 @@ if (!localStorage.getItem("jwtToken")){
   router.replace("/login")
 }
 function write() {
+  if (!writeVal.value.title){
+    alert("제목을 입력해 주세요")
+    return;
+  }
+  if (!writeVal.value.applicationDeadline){
+    alert("모집기간을 적어주세요")
+    return;
+  }
+  if (!writeVal.value.recruitmentCount){
+    alert("모집 인원을 입력을 확인 해 주세요")
+    return;
+  }
+  if (!writeVal.value.description){
+    alert("내용을 확인 해 주세요")
+    return;
+  }
   //수정 모드
-  if (p.type === "fiㅔx") {
+  if (p.type === "fix") {
     apiToken(
         "meeting",
         "PUT",
@@ -37,7 +53,6 @@ function write() {
         response => {
           console.log(response)
           router.replace("/meeting")
-
         }
     )
   }
@@ -88,7 +103,6 @@ const writeVal = ref({
   "title": "",
   "category": 1,
   "applicationDeadline": null,
-
   "recruitmentCount": 0,
   "location": "서울특별시",
   "description": "",
@@ -96,8 +110,6 @@ const writeVal = ref({
   "interestFramework": "",
   "interestJob": "",
 });
-
-
 
 
 
@@ -113,8 +125,6 @@ onMounted(() => {
         async (response) => {
           console.log(response)
           writeVal.value.description = await response.description
-          writeVal.value.location = response.location
-          writeVal.value.recruitmentCount = response.recruitmentCount
           writeVal.value.location = response.location
           writeVal.value.title = response.title
           writeVal.value.applicationDeadline = response.applicationDeadline

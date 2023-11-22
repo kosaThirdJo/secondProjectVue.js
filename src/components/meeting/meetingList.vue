@@ -50,7 +50,7 @@ const route = useRoute();
   size:(useRoute().query.size!== undefined) ? parseInt(useRoute().query.size): 9,
   order:(useRoute().query.order!== undefined) ? useRoute().query.order: "desc",
   category: (useRoute().query.category!== undefined) ? useRoute().query.category: null,
-  criteria:(useRoute().query.criteria!== undefined) ? useRoute().query.criteria: "creationDate",
+  criteria:(useRoute().query.criteria!== undefined) ? useRoute().query.criteria: "meetingId",
     offset:(useRoute().query.offset!== undefined) ? parseInt(useRoute().query.offset): 0
 })
 let offset = (useRoute().query.offset!== undefined) ? parseInt(useRoute().query.offset): 0

@@ -219,7 +219,11 @@ function writeComment(){
     router.replace("/login")
     return ;
   }
-
+  if (!commentInput.value){
+    alert("내용을 입력 해 주세요")
+    router.go(0)
+    return;
+  }
   apiToken("comment/meeting/" + route.params.post_id,
       "POST",
       {
