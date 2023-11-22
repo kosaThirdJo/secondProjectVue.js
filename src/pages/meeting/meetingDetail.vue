@@ -25,7 +25,7 @@
 
   <section id="content_box">
     <div class="title-box">
-      <span class="btn" :class="{'btn-silver': result.status}" v-text="(result.status===0) ? '모집 중': '모집 완료'"></span>
+      <span class="btn" :class="{'btn-silver': result.status}" v-text="(result.status===0) ? '모집 중': '모집 종료'"></span>
       <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
       <div class="float-right">
       <button v-if="viewBtnApply&&(result.status===0)" class="btn btn-primary" id="apply-modal" @click="showModal = true">신청 하기</button>
@@ -111,7 +111,7 @@ import ApplyValidModal from "@/components/meeting/myApplyModal.vue";
 import ApplyReason from "@/components/meeting/applyReasonModal.vue";
 
 
-const viewBtnApplyCompleting = ref(true)
+const viewBtnApplyCompleting = ref(false)
 const viewBtnRemoveMeeting = ref(false)
 const viewBtnApplyList = ref(false)
 const viewBtnFix = ref(false)
@@ -139,6 +139,7 @@ apiToken(
   if (!localStorage.getItem("jwtToken")){
     return
   }
+  // 로그인아이디와 작성자가 다를경우
   if (response.loginId !== response.userId){
     // 신청 테이블 조회
     apiToken(
@@ -160,9 +161,11 @@ apiToken(
 
     return;
   }
+  // 자기가 작성자인 경우
   viewBtnRemoveMeeting.value = true
   viewBtnApplyList.value = true
   viewBtnFix.value = true
+  viewBtnApplyCompleting.value = true
   console.log(response)
 
 });
@@ -216,7 +219,11 @@ function writeComment(){
     router.replace("/login")
     return ;
   }
-
+  if (!commentInput.value){
+    alert("내용을 입력 해 주세요")
+    router.go(0)
+    return;
+  }
   apiToken("comment/meeting/" + route.params.post_id,
       "POST",
       {
