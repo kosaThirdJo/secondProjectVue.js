@@ -96,8 +96,9 @@
   </section>
   </div>
     <div v-else>
-    <!-- 로딩 중에 표시할 스피너나 메시지를 추가할 수 있습니다 -->
-    로딩 중...
+      <div>
+        로딩 중...
+      </div>
   </div>
   </div>
 </template>

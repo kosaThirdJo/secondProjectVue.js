@@ -7,16 +7,19 @@ import SearchNicknameCard from "@/components/element/searchNicknameCard.vue";
 
 const route = useRoute()
 const searchWord = route.query.searchWord;
+const isLoading = ref(true);
 
 // 검색어 검색 결과 요청
 const searchMeetingResult = ref([]);
 const searchNicknameResult = ref([]);
-const showCount = ref(6);  // 더보기 ( 기본 6개 출력)
+const showCount = ref(6);  // 더보기 (기본 6개 출력)
+const showMemberCount = ref(8); // 회원 (기본 8개 출력)
 
 api(
     `search?searchWord=${searchWord}`,
     "GET", ""
 ).then(response => {
+  isLoading.value = false;
   searchMeetingResult.value = response[0];
   searchNicknameResult.value = response[1];
 }).catch(error => {
@@ -122,15 +125,18 @@ const resetFilter = () => {
 // 더보기 버튼 클릭 이벤트
 const showMore = () => {
   showCount.value += 6;
+};const showMemberMore = () => {
+  showMemberCount.value += 8;
 };
 </script>
 
 <template>
   <div class="search-container">
-    <div class="search-result">
+    <div v-if="!isLoading" class="search-result">
       <div class="search-title">
         <span class="search-title-word">{{ searchWord }}</span>
-        <span class="search-title-result">검색결과</span>
+        <span v-if="searchWord" class="search-title-result">검색결과</span>
+        <span v-if="!searchWord" class="search-title-result">전체 검색결과</span>
       </div>
       <!-- 모임 결과 시작 -->
       <div class="search-meeting-result">
@@ -209,11 +215,12 @@ const showMore = () => {
           <!-- 모임 검색 결과 없을 경우 -->
           <div v-if="searchMeetingResult.length===0" class="search-filter-result-none">
             <div class="search-filter-result-none-result">
-              <span class="search-filter-result-none-searchWord">{{ searchWord }}</span>에 대한 모임 결과가 없습니다.
+              <span v-if="searchWord"><span class="search-filter-result-none-searchWord">{{ searchWord }}</span>에 대한 모임 결과가 없습니다.</span>
+              <span v-if="!searchWord">모임 결과가 없습니다.</span>
             </div>
             <div>찾으시는 모임이 없나요? 직접 만들어 보세요!</div>
             <div class="search-filter-result-none-btn">
-              <a class="search-filter-result-none-meetingbtn">모임 만들기</a>
+              <a href="/meeting/write" class="search-filter-result-none-meetingbtn">모임 만들기</a>
             </div>
           </div>
         </div>
@@ -232,13 +239,30 @@ const showMore = () => {
         <div class="search-nickname-title">회원</div>
         <div class="search-nickname-content">
           <!--회원 검색 결과 있을 경우-->
-          <search-nickname-card v-if="searchNicknameResult.length>0" v-for="(resOne, i) in searchNicknameResult" :key="i" :resOne="resOne" class="search-nickname-info"></search-nickname-card>
+          <search-nickname-card v-if="searchNicknameResult.length>0" v-for="(resOne, i) in searchNicknameResult.slice(0, showMemberCount)" :key="i" :resOne="resOne" class="search-nickname-info"></search-nickname-card>
           <!--회원 검색 결과 없을 경우-->
           <div v-if="searchNicknameResult.length===0" class="search-nickname-noUser">찾으시는 회원이 존재하지 않습니다.</div>
         </div>
+        <!-- 더보기 버튼 -->
+        <div v-if="searchNicknameResult.length>showMemberCount">
+          <button class="search-morebtn" @click="showMemberMore()">
+            <div class="search-morebtn-icon"><span class="material-icons">expand_more</span></div>
+            <span class="search-morebtn-text"><span>더보기</span></span>
+          </button>
+        </div>
       </div>
     </div>
-
+<!--    검색 로딩 화면 -->
+    <div v-else class="search-loading">
+      <div class="search-loading-gif">
+        <img src="@/assets/image/global/Spin-loading.gif" alt="loading">
+      </div>
+      <div class="search-loading-title">
+        <span class="search-title-word">{{ searchWord }}</span>
+        <span v-if="searchWord" class="search-title-result">검색중</span>
+        <span v-if="!searchWord" class="search-title-result">전체 검색중</span>
+      </div>
+    </div>
   </div>
 </template>
 

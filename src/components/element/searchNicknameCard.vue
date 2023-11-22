@@ -1,23 +1,12 @@
 <style src="@/assets/css/search.css" scoped>
 </style>
 <template>
-
-<!--회원 이력 조회 router-link 추가-->
-                <a >
-<!--회원 프로필 이미지 추가-->
-<!--                  <th:block th:if="${encodeImgList[userStat.index]} != null">-->
-<!--                    <img class="search-user-profile-photo"-->
-<!--                         th:src="@{'data:image/png;base64,' + ${encodeImgList[userStat.index]}}" alt="Image">-->
-<!--                  </th:block>-->
-<!--                  <th:block th:if="${encodeImgList[userStat.index]} == null">-->
-<!--                    <img class="search-user-profile-photo"-->
-<!--                         th:src="@{/image/global/userdefaultimg.png}"/>-->
-<!--                  </th:block>-->
-                  <img v-if="photo" class="search-user-profile-photo" :src="photo" alt="Image"/>
-                  <img v-if="!photo || photo.isEmpty" class="search-user-profile-photo" :src="defaultImg" alt="Image"/>
-                  <div class="search-nickname-info-name">{{ nickname }}</div>
-                  <div class="search-nickname-info-about" style="min-height: 100px">{{ aboutMe }}</div>
-                </a>
+  <router-link :to="'/profiles/info/'+userId">
+    <img v-if="photo" class="search-user-profile-photo" :src="photo" alt="Image"/>
+    <img v-if="!photo || photo.isEmpty" class="search-user-profile-photo" :src="defaultImg" alt="Image"/>
+    <div class="search-nickname-info-name">{{ nickname }}</div>
+    <div class="search-nickname-info-about" style="min-height: 100px">{{ aboutMe }}</div>
+  </router-link>
 </template>
 
 <script setup>
@@ -30,6 +19,7 @@ let p = defineProps( {
 });
 
 let pp = toRef(p,"resOne");
+const userId = ref(pp.value.userId);
 const photo = ref(pp.value.profilePhoto);
 const nickname = ref(pp.value.nickname);
 const aboutMe = ref(pp.value.aboutMe);

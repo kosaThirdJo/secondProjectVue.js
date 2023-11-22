@@ -28,13 +28,13 @@
 }
 .search-title-word {
   color: rgba(255, 159, 41, 1);
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 700;
   text-decoration: none;
 }
 .search-title-result {
   color: rgba(0, 0, 0, 1);
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 700;
   text-decoration: none;
 }
@@ -356,7 +356,8 @@ margin: 0 auto;
     display: flex;
     flex-flow: row wrap;
     gap: 5px;
-    width: 100%;
+    width: 90%;
+    margin-left: 40px;
 }
 .search-filter-result-container{
     width: calc((100% - 50px) / 3);
@@ -405,4 +406,19 @@ border-radius: 20px;
 .search-filter-result-none-meetingbtn:hover{
 background-color: rgb(44, 125, 75);
 color: white;
+}
+
+.search-loading{
+  margin: 15% auto;
+  text-align: center;
+}
+.search-loading-title{
+  justify-content: center;
+  margin: 20px auto;
+}
+.search-loading-title span{
+  margin: 7px;
+}
+.search-loading-gif img{
+  width: 30%;
 }
