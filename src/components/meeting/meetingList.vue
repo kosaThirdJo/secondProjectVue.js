@@ -23,6 +23,7 @@
   display:flex;
   flex-flow: row wrap;
   gap: 5px;
+  margin-bottom: 20px;
 }
 
 .content_list_btn {

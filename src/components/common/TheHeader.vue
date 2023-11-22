@@ -12,9 +12,9 @@ const header = ref({
 });
 console.log(header.value.jwtToken);
 // 로그아웃  시  Pinia 스토어에서 토큰 제거
-const logout = async () => {
+const logout = () => {
   auth.clearToken();
-  await router.push('/');
+  router.push('/');
   location.reload();
 }
 
@@ -57,10 +57,6 @@ const searchResult = () => {
           <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/users/myprofile" v-if="header.jwtToken">
             <span>마이페이지</span>
           </router-link>
-          <router-link class="main-header-nav-mypage main-header-nav-meetinglist-text" to="/profiles/info/11" v-if="header.jwtToken">
-            <span>다른유저 프로필(현덕스)</span>
-          </router-link>
-
         </div>
         <div class="main-header-searchAndBtn">
           <!-- 03 검색 -->
@@ -87,8 +83,6 @@ const searchResult = () => {
                 <span class="main-header-button-signup-text"><span>회원가입</span></span>
               </button>
             </router-link>
-
-            <!--             로그인 했을 경우 -->
             <button class="main-header-button-logout" @click="logout" v-if="header.jwtToken">
               <span class="main-header-button-logout-text"><span>로그아웃</span></span>
             </button>
