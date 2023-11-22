@@ -14,7 +14,7 @@ if (!localStorage.getItem("jwtToken")){
 }
 function write() {
   //수정 모드
-  if (p.type === "fix") {
+  if (p.type === "fiㅔx") {
     apiToken(
         "meeting",
         "PUT",
