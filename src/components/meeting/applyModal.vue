@@ -23,6 +23,13 @@ function submitApply (){
     router.replace("/login")
     return
   }
+  if (!applyObj.emailAddress){
+    alert("이메일을 입력해 주세요!")
+    return;
+  }
+  if (!applyObj.reason){
+    alert("사유를 입력 해 주세요")
+  }
   apiToken("apply",
   "POST",
       applyObj,

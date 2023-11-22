@@ -35,7 +35,7 @@
         <!-- use the modal component, pass in the prop -->
         <modal :show="showModal" @close="showModal = false" :meeting-id="parseInt(route.params.post_id)">
           <template #header>
-            <h3>custom header</h3>
+            <h3>신청 하기</h3>
           </template>
         </modal>
       </Teleport>
