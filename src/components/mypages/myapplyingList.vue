@@ -76,7 +76,14 @@
         <div class="list-container-body">
           <!-- 2.2.2.1. 조회 결과(meetingvoList)가 있을 경우 -->
           <div v-if="resultList.length>0">
-          <mymeeting v-for="(data, idx) in resultList" :key="idx" :meetingone="data"></mymeeting>
+          <mymeeting v-for="(data, idx) in resultList.slice(0, showCount)" :key="idx" :meetingone="data"></mymeeting>
+          </div>
+          <!-- 더보기 버튼 -->
+          <div class="frame-search-morebtn" v-if="resultList.length>showCount">
+            <button class="search-morebtn" @click="showMore()">
+              <div class="search-morebtn-icon"><span class="material-icons">expand_more</span></div>
+              <span class="search-morebtn-text"><span>더보기</span></span>
+            </button>
           </div>
           <!-- 2.2.2.2. 조회 결과(meetingvoList)가 없을 경우 -->
           <div class="frame-errormsg" v-else> {{errorMsg}}</div>
@@ -103,13 +110,12 @@ const ischkS = ref({all: false, statusing: false, statused: false});
 const errorMsg = ref("");
 //토큰
 const token = localStorage.getItem('jwtToken');
+const showCount = ref(5); //더보기(기본 5개)
+
 function chkCateSts(){
   let targetBtn = event.target;
   let dataCategory = targetBtn.getAttribute("data-category");
   let dataValue = targetBtn.getAttribute("value");
-
-  let computedstyle = window.getComputedStyle(targetBtn);
-  let btnCss = computedstyle.color;
 
   if(dataCategory==="category"){
     selectedFilters.value.category = dataValue;
@@ -144,10 +150,10 @@ function chkCateSts(){
           //에러처리코드
           console.log(errorRes);
           console.log(errorRes.response);
-          console.log(errorRes.response.data);
           errorMsg.value = errorRes.response.data;
           resultList.value = [];
         }else {
+          showCount.value = 5;
           resultList.value = response;
         }
       })
@@ -161,6 +167,7 @@ async function getData(){
         Authorization: token
       }
     });
+    showCount.value = 5;
     resultList.value = res.data;
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
@@ -174,6 +181,9 @@ onMounted(()=>{
   console.log(token);
   getData();
 })
+const showMore = () => {
+  showCount.value += 5;
+};
 </script>
 
 <style src="../../assets/css/applymeetinglistView.css" scoped>

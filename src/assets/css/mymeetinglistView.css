@@ -232,3 +232,33 @@ a:hover{
     font-weight: 700;
     font-size: 30px;
 }
+/* 검색 더보기 */
+.frame-search-morebtn{
+    display: flex;
+    justify-content: center;
+}
+.search-morebtn {
+    gap: 10px;
+    display: flex;
+    padding: 6px 0;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 1);
+    border: none;
+}
+.search-morebtn-icon {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    flex-shrink: 1;
+    color: rgba(84, 82, 82, 1);
+}
+.search-morebtn-text {
+    color: rgba(84, 82, 82, 1);
+    height: auto;
+    font-size: 25px;
+    text-align: left;
+    font-weight: 700;
+    text-decoration: none;
+}
