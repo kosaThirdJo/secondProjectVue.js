@@ -35,7 +35,7 @@
         <!-- use the modal component, pass in the prop -->
         <modal :show="showModal" @close="showModal = false" :meeting-id="parseInt(route.params.post_id)">
           <template #header>
-            <h3>custom header</h3>
+            <h3>신청 하기</h3>
           </template>
         </modal>
       </Teleport>
@@ -65,22 +65,22 @@
 
     <div class="view-box">
       <span></span>
-      <span> 조회수 </span>
+      <span style="font-weight: bold"> 조회수 </span>
       <span v-text="result.views"></span>
     </div>
     <div v-text="result.description" id="content_description" class="main-content-box">
     </div>
     <div id="end_date_line">
-      <span>마감일 </span>
+      <span style="font-weight: bold">마감일 </span>
       <span v-text="result.applicationDeadline"></span>
     </div>
     <div id="location">
-      <span> 위치 </span>
+      <span style="font-weight: bold"> 위치 </span>
       <span v-text="result.location"></span>
     </div>
   </section>
   <section id="comment_box">
-    <div>댓글 <span v-text="commentResult.length" style="color: #1A4D2E"></span>
+    <div><span style="font-weight: bold">댓글 </span><span v-text="commentResult.length" style="color: #1A4D2E"></span>
     </div>
     <div id="comment_input_line">
       <input id="comment_input" v-model="commentInput" @keyup.enter="writeComment()" class="mt-2 mb-2" type="text" name="commentContent" placeholder=" 댓글을 작성해 보세요">
@@ -260,6 +260,7 @@ function writeComment(){
   }
 
   .flex-form{
+    margin-top: 20px;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -291,7 +292,7 @@ function writeComment(){
   #content_description{
     margin-top: 20px;
     margin-bottom: 20px;
-    min-height: 250px;
+    min-height: 500px;
   }
 
   .sub-info{
@@ -373,6 +374,9 @@ function writeComment(){
     background-color: white;
     margin-bottom: 5px;
     magin-top: 10px;
+  }
+  .title-box{
+    margin-bottom: 15px;
   }
 
   #comment_title {

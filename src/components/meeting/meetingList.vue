@@ -1,12 +1,76 @@
+<style src="../../assets/css/meeting/meeting_home.css" scoped>
+.read-the-docs {
+  color: #888;
+}
+</style>
+<style src="../../assets/css/home.css" scoped>
+
+</style>
 <style scoped>
+.frame{
+  margin: 40px 10px;
+  display: flex;
+  flex-direction: column;
+}
+.button-create-meeting{
+  width: 75%;
+  height: 65px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
 .container {
   display:flex;
   flex-flow: row wrap;
   gap: 5px;
 }
+
+.content_list_btn {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+.make-meeting {
+  width: 210px;
+  display: flex;
+  align-items: center;
+}
+
+.content_list_btn:hover .circle .icon.arrow {
+  background: #fff;
+  transform: translate(1rem, 0);
+}
+.arrow{
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+
 </style>
 <template>
+  <div class="frame">
+  <div class="button-create-meeting">
+    <a href="/meeting/write" class="content_list_btn make-meeting">
+      <span class="circle" aria-hidden="true">
+          <span class="icon arrow"></span>
+      </span>
+      <span class="button-text">모임 만들기</span>
+    </a>
+  </div>
   <div class="container">
+
+    <br>
     <card v-for="(resOne, i) in result" :key="i" :resOne="resOne"></card>
   </div>
 
@@ -32,6 +96,7 @@
 
   <div>
 
+  </div>
   </div>
 </template>
 
