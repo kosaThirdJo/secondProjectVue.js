@@ -26,7 +26,6 @@
     footer{
         bottom : 0;
         width: 100%;
-        margin-top: 90px;
     }
 
 /* 01 header */
@@ -213,6 +212,7 @@
   align-self: stretch;
   flex-shrink: 0;
   justify-content: center;
+ padding-bottom: 50px;
 }
 .main-content-left {
   gap: 17px;
