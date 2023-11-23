@@ -13,11 +13,11 @@
   flex-direction: column;
 }
 .button-create-meeting{
-  width: 75%;
   height: 65px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   display: flex;
   justify-content: flex-end;
+  margin-right: 15%;
 }
 .container {
   display:flex;
@@ -90,7 +90,7 @@
         <li v-if="offset+5< totalPage"  class="page-item"><span class="page-link" @click="changeOffset(+5)">다음</span></li>
       </ul>
       </div>
-      <div class="page-item" style=""><a id="write-content" href="/meeting/write" class="btn btn-primary" style="background-color: #FF9F29; color: white; float: right"> 새 글 작성</a></div>
+      <div class="page-item-btn" style=""><a id="write-content" href="/meeting/write" class="btn btn-primary" style="background-color: #FF9F29; color: white; float: right"> 새 글 작성</a></div>
 
     </nav>
   </div>

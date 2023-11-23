@@ -17,6 +17,7 @@ import Sidebar from "../components/mypages/Sidebar.vue";
     display: flex;
     flex-direction: row;
     width: 100%;
+    min-height: 1300px;
     gap: 40px;
     margin: 10px;
     padding: 20px;

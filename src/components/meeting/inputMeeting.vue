@@ -214,8 +214,8 @@ onMounted(() => {
 
 <template>
   <article>
-    <h2><input style="width: 100%" name="title" placeholder="제목을 입력해 주세요" maxlength=50 minlength="2"
-               v-model="writeVal.title" required></h2>
+    <h2><input class="title-input" name="title" placeholder="제목을 입력해 주세요" maxlength=50 minlength="2"
+               v-model="writeVal.title" required ></h2>
     <section>
       <div id="content_type">
         <table>
@@ -223,8 +223,8 @@ onMounted(() => {
             <th>카테고리</th>
             <td>
               <input id="radio1" type="radio" name="category" value=1 @click="()=> writeVal.category = 1" checked> 프로젝트
-              <input id="radio0" type="radio" name="category" value=0 @click="()=> writeVal.category = 0"> 스터디
-              <input id="radio2" type="radio" name="category" value=2 @click="()=> writeVal.category = 2"> 기타
+              <input id="radio0" type="radio" name="category" value=0 @click="()=> writeVal.category = 0" class="category-radio"> 스터디
+              <input id="radio2" type="radio" name="category" value=2 @click="()=> writeVal.category = 2" class="category-radio"> 기타
             </td>
           </tr>
           <tr>
@@ -315,27 +315,57 @@ onMounted(() => {
       <div id="content">
         <table>
           <tr>
-            <th>소개</th>
+            <th>
+              <div>소개</div>
+              <div id="text-length-check">글자수 :
+                <span id="text-length-check-count" v-text="contentCount"></span>
+              </div>
+            </th>
             <td>
               <textarea id="description" name="content" placeholder="내용을 입력해 주세요!" required @keyup="countText()"
                         v-model="writeVal.description"></textarea>
-              <div id="text-length-check">글자수 :
-                <span v-text="contentCount"></span>
-              </div>
             </td>
           </tr>
         </table>
       </div>
     </section>
-    <button id="submit-button" type="button" @click="write()" class="btn btn-primary"
-            style="background-color: #FF9F29; color: white; margin-top: 30px;">등록하기
-    </button>
+    <div class="submit-btn-container">
+      <button id="submit-button" type="button" @click="write()" class="submit-btn">등록하기</button>
+    </div>
   </article>
 
 </template>
 
 
 <style scoped>
+section{
+  width: 100%;
+}
+.title-input{
+  width: 100%;
+  padding: 10px;
+  padding-left: 15px;
+}
+#text-length-check{
+  font-size: 16px;
+  margin-top: 5px;
+  color: grey;
+}
+#text-length-check-count{
+  color: coral;
+}
+.category-radio{
+  margin-left: 15px;
+}
+.submit-btn-container{
+  text-align: right;
+}
+.submit-btn{
+  background-color: #FF9F29; color: white; margin-top: 40px; border: 1px solid white;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+}
 </style>
 
 <style src="../../assets/css/meeting/meeting_home.css" scoped>
