@@ -184,6 +184,14 @@ const commentInput = ref("")
 
 
 function completeMeeting(){
+  const result = confirm("모집 완료 하실껀가요?");
+  if(result) {
+  } else {
+    alert("모집 완료 취소되었습니다.");
+    return;
+  }
+
+
   apiToken(
       "meeting",
       "PATCH", {
@@ -200,6 +208,13 @@ function completeMeeting(){
   )
 }
 function removeMeeting() {
+  const result = confirm("삭제 하실껀가요?");
+  if(result) {
+  } else {
+    alert("삭제 취소되었습니다.");
+    return;
+  }
+
   apiToken(
       "meeting/" + route.params.post_id,
       "DELETE",
