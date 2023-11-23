@@ -12,9 +12,9 @@ const header = ref({
 });
 console.log(header.value.jwtToken);
 // 로그아웃  시  Pinia 스토어에서 토큰 제거
-const logout = () => {
+const logout = async () => {
   auth.clearToken();
-  router.push('/');
+  await router.push('/');
   location.reload();
 }
 
