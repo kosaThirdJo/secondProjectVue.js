@@ -13,8 +13,13 @@ let rejectObj = ref([])
 
 
 function rejectApply(idx){
-  alert(rejectObj.value[idx])
-  console.log(validObj.value[idx].userId)
+  const result = confirm("거부 하실껀가요?");
+  if(result) {
+  } else {
+    alert("거부 취소되었습니다.");
+    return;
+  }
+
   apiToken("apply/reject",
       "PATCH",
       {
@@ -23,10 +28,10 @@ function rejectApply(idx){
         reason:rejectObj.value[idx]
       },
       localStorage.getItem("jwtToken")
-
   ).then(
       (response) =>{
-
+      alert("거절하셨습니다.")
+        router.go(0);
   })
 
 }
