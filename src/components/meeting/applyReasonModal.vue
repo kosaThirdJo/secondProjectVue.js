@@ -13,10 +13,10 @@ let rejectObj = ref([])
 
 
 function rejectApply(idx){
-  const result = confirm("거부 하실껀가요?");
+  const result = confirm("거절 하실껀가요?");
   if(result) {
   } else {
-    alert("거부 취소되었습니다.");
+    alert("거절 취소되었습니다.");
     return;
   }
 
