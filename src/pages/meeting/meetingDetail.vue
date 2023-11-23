@@ -1,105 +1,107 @@
 <template>
-  <div class="flex-form">
-  <div class="frame-writer">
-    <div id="profile" class="frame-writer-profile">
-      <a class="click-profile" >
-        <div class="meeting-articles-profile">
-          <router-link :to="'/profiles/info/'+result.userId">
-            <img v-if="result.img"
-                 class="meeting-articles-profile-photo"
-                :src="result.img"
-                alt="Image"/><br/>
-          <img v-if="!result.img" class="meeting-articles-profile-photo" src="@/assets/image/global/userdefaultimg.png" alt="Image">
-            <h3 style="color: black" v-text="result.userNickname"></h3>
-            <div style="color: black" v-text="result.userAboutMe"></div>
-          </router-link>
+  <div class="meeting-detail-container">
+    <div class="flex-form">
+      <div class="frame-writer">
+        <div id="profile" class="frame-writer-profile">
+          <a class="click-profile" >
+            <div class="meeting-articles-profile">
+              <router-link :to="'/profiles/info/'+result.userId">
+                <img v-if="result.img"
+                     class="meeting-articles-profile-photo"
+                     :src="result.img"
+                     alt="Image"/><br/>
+                <img v-if="!result.img" class="meeting-articles-profile-photo" src="@/assets/image/global/userdefaultimg.png" alt="Image">
+                <h3 style="color: black" v-text="result.userNickname"></h3>
+                <div style="color: black" v-text="result.userAboutMe"></div>
+              </router-link>
 
+            </div>
+          </a>
         </div>
-      </a>
-    </div>
-    <div id="apply" class="frame-showapplicant">
-      <span>현재 이 프로젝트에서 <span style="color: #FF9F29; font-weight: 800;" v-text="result.countApplyUsers"></span></span><span>명이 참여중입니다.</span>
-    </div>
-  </div>
-  <div v-if="!isLoading" id="content" class="border border-dark">
+        <div id="apply" class="frame-showapplicant">
+          <span>현재 이 프로젝트에서 <span style="color: #FF9F29; font-weight: 800;" v-text="result.countApplyUsers"></span></span><span>명이 참여중입니다.</span>
+        </div>
+      </div>
+      <div v-if="!isLoading" id="content" class="border border-dark">
 
-  <section id="content_box">
-    <div class="title-box">
-      <span class="btn" :class="{'btn-silver': result.status}" v-text="(result.status===0) ? '모집 중': '모집 종료'"></span>
-      <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
-      <div class="float-right">
-      <button v-if="viewBtnApply&&(result.status===0)" class="btn btn-primary" id="apply-modal" @click="showModal = true">신청 하기</button>
-      <router-link v-if="viewBtnFix&&(result.status===0)" :to="'/meeting/fix/'+route.params.post_id" class="btn btn-primary" ><span>수정 하기
+        <section id="content_box">
+          <div class="title-box">
+            <span class="btn" :class="{'btn-silver': result.status}" v-text="(result.status===0) ? '모집 중': '모집 종료'"></span>
+            <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
+            <div class="float-right">
+              <button v-if="viewBtnApply&&(result.status===0)" class="btn btn-primary" id="apply-modal" @click="showModal = true">신청 하기</button>
+              <router-link v-if="viewBtnFix&&(result.status===0)" :to="'/meeting/fix/'+route.params.post_id" class="btn btn-primary" ><span>수정 하기
       </span></router-link>
-      <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
-        <modal :show="showModal" @close="showModal = false" :meeting-id="parseInt(route.params.post_id)">
-          <template #header>
-            <h3>신청 하기</h3>
-          </template>
-        </modal>
-      </Teleport>
+              <Teleport to="body">
+                <!-- use the modal component, pass in the prop -->
+                <modal :show="showModal" @close="showModal = false" :meeting-id="parseInt(route.params.post_id)">
+                  <template #header>
+                    <h3>신청 하기</h3>
+                  </template>
+                </modal>
+              </Teleport>
 
-      <button v-if="viewBtnNowApplyInfo&&(result.status===0)" class="btn btn-primary" id="my-apply-modal" @click="showValidModal = true">나의 신청 현황</button>
-      <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
-        <apply-valid-modal :show="showValidModal" @close="showValidModal = false" :meeting-id="parseInt(route.params.post_id)" >
-          <template #header>
-            <h3>나의 신청 현황</h3>
-          </template>
-        </apply-valid-modal>
-      </Teleport>
-      <button v-if="viewBtnRemoveMeeting&&(result.status===0)" class="btn btn-primary" @click="removeMeeting()">삭제</button>
-      <button v-if="viewBtnApplyCompleting&&(result.status===0)" class="btn btn-primary" @click="completeMeeting()">모집 완료</button>
-      <button class="btn btn-primary" id="apply-users" @click="applicationStatus = true" v-if="viewBtnApplyList&&(result.status===0)">신청한 사람</button>
-      <Teleport to="body">
-        <!-- use the modal component, pass in the prop -->
-        <apply-reason :show="applicationStatus" @close="applicationStatus = false" :meeting-id="parseInt(route.params.post_id)" >
-          <template #header>
-            <h3>신청한 사람</h3>
-          </template>
-        </apply-reason>
-      </Teleport>
-      </div>
-    </div>
+              <button v-if="viewBtnNowApplyInfo&&(result.status===0)" class="btn btn-primary" id="my-apply-modal" @click="showValidModal = true">나의 신청 현황</button>
+              <Teleport to="body">
+                <!-- use the modal component, pass in the prop -->
+                <apply-valid-modal :show="showValidModal" @close="showValidModal = false" :meeting-id="parseInt(route.params.post_id)" >
+                  <template #header>
+                    <h3>나의 신청 현황</h3>
+                  </template>
+                </apply-valid-modal>
+              </Teleport>
+              <button v-if="viewBtnRemoveMeeting&&(result.status===0)" class="btn btn-primary" @click="removeMeeting()">삭제</button>
+              <button v-if="viewBtnApplyCompleting&&(result.status===0)" class="btn btn-primary" @click="completeMeeting()">모집 완료</button>
+              <button class="btn btn-primary" id="apply-users" @click="applicationStatus = true" v-if="viewBtnApplyList&&(result.status===0)">신청한 사람</button>
+              <Teleport to="body">
+                <!-- use the modal component, pass in the prop -->
+                <apply-reason :show="applicationStatus" @close="applicationStatus = false" :meeting-id="parseInt(route.params.post_id)" >
+                  <template #header>
+                    <h3>신청한 사람</h3>
+                  </template>
+                </apply-reason>
+              </Teleport>
+            </div>
+          </div>
 
-    <div class="view-box">
-      <span></span>
-      <span style="font-weight: bold"> 조회수 </span>
-      <span v-text="result.views"></span>
-    </div>
-    <div v-text="result.description" id="content_description" class="main-content-box">
-    </div>
-    <div id="end_date_line">
-      <span style="font-weight: bold">마감일 </span>
-      <span v-text="result.applicationDeadline"></span>
-    </div>
-    <div id="location">
-      <span style="font-weight: bold"> 위치 </span>
-      <span v-text="result.location"></span>
-    </div>
-  </section>
-  <section id="comment_box">
-    <div><span style="font-weight: bold">댓글 </span><span v-text="commentResult.length" style="color: #1A4D2E"></span>
-    </div>
-    <div id="comment_input_line">
-      <input id="comment_input" v-model="commentInput" @keyup.enter="writeComment()" class="mt-2 mb-2" type="text" name="commentContent" placeholder=" 댓글을 작성해 보세요">
-      <span id="comment_button" class="btn btn-primary mr-3" style="width: 55px;" @click="writeComment()">등록</span>
+          <div class="view-box">
+            <span></span>
+            <span style="font-weight: bold"> 조회수 </span>
+            <span v-text="result.views"></span>
+          </div>
+          <div v-text="result.description" id="content_description" class="main-content-box">
+          </div>
+          <div id="end_date_line">
+            <span style="font-weight: bold">마감일 </span>
+            <span v-text="result.applicationDeadline"></span>
+          </div>
+          <div id="location">
+            <span style="font-weight: bold"> 위치 </span>
+            <span v-text="result.location"></span>
+          </div>
+        </section>
+        <section id="comment_box">
+          <div><span style="font-weight: bold">댓글 </span><span v-text="commentResult.length" style="color: #1A4D2E"></span>
+          </div>
+          <div id="comment_input_line">
+            <input id="comment_input" v-model="commentInput" @keyup.enter="writeComment()" class="mt-2 mb-2" type="text" name="commentContent" placeholder=" 댓글을 작성해 보세요">
+            <span id="comment_button" class="btn btn-primary mr-3" style="width: 55px;" @click="writeComment()">등록</span>
+          </div>
+          <div class="main-content-container">
+            <div class="comment_list" v-for="(commentEle,commentIdx) in commentResult">
+              <div id="comment_title" v-text="commentEle.userNickName"></div>
+              <div v-text="commentEle.content"></div>
+              <div v-text="commentEle.creationDate"></div>
+            </div>
+          </div>
+        </section>
       </div>
-    <div class="main-content-container">
-      <div class="comment_list" v-for="(commentEle,commentIdx) in commentResult">
-        <div id="comment_title" v-text="commentEle.userNickName"></div>
-        <div v-text="commentEle.content"></div>
-        <div v-text="commentEle.creationDate"></div>
+      <div v-else>
+        <div>
+          로딩 중...
+        </div>
       </div>
     </div>
-  </section>
-  </div>
-    <div v-else>
-      <div>
-        로딩 중...
-      </div>
-  </div>
   </div>
 </template>
 <script setup>
@@ -259,7 +261,9 @@ function writeComment(){
     background-color: antiquewhite;
     margin-bottom: 10px;
   }
-
+.meeting-detail-container{
+  min-height: 1300px;
+}
   .flex-form{
     margin-top: 20px;
     display: flex;
@@ -390,12 +394,6 @@ function writeComment(){
     margin-top:100px;
     min-height: 1000px;
   }
-  .frame-writer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin-left: 30px;
-  }
   .click-profile{
     text-decoration: none;
     color: black;
@@ -432,6 +430,7 @@ function writeComment(){
     color: white
 
   }
+
 
 </style>
 <!--

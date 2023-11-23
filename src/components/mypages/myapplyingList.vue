@@ -86,7 +86,7 @@
             </button>
           </div>
           <!-- 2.2.2.2. 조회 결과(meetingvoList)가 없을 경우 -->
-          <div class="frame-errormsg" v-else> {{errorMsg}}</div>
+          <div class="frame-errormsg" v-if="!resultList.length"> {{errorMsg}}</div>
         </div><!-- 2.2.2. 목록 끝 -->
       </div><!-- 2.2. 목록 끝 -->
     </div><!--2.CONTENT 끝 -->
