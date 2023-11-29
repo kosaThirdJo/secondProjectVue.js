@@ -10,7 +10,6 @@ const header = ref({
   jwtToken: auth.getToken(),
   searchWord: '',
 });
-console.log(header.value.jwtToken);
 // 로그아웃  시  Pinia 스토어에서 토큰 제거
 const logout = async () => {
   auth.clearToken();
