@@ -51,7 +51,6 @@ function write() {
         localStorage.getItem("jwtToken")
     ).then(
         response => {
-          console.log(response)
           router.replace("/meet")
         }
     )
@@ -84,7 +83,7 @@ function selectInterests(buttons, selectedInterests, selectedInterestsInput, typ
           writeVal.value.interestJob = selectedInterestsInput.value
       }
       //선택된 버튼은 class가 signup-interest-lang-btn selected 됨
-      console.log(writeVal)
+
     })
   })
 }
@@ -123,7 +122,7 @@ onMounted(() => {
         ""
     ).then(
         async (response) => {
-          console.log(response)
+          // console.log(response)
           writeVal.value.description = await response.description
           writeVal.value.location = response.location
           writeVal.value.title = response.title
@@ -149,7 +148,7 @@ onMounted(() => {
           //직무
           let jobarr = (response.interestJob) ? response.interestJob.split("_") : [];
           let jobs = jobarr.filter((element) => element !== "");
-          console.log(response.interestJob)
+          // console.log(response.interestJob)
           let langButtons = document.querySelectorAll('.signup-interest-lang-btn');
           for (let lang of langs) {
             for (let langBtn of langButtons) {

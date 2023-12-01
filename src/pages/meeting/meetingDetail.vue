@@ -253,8 +253,6 @@ function writeComment(){
   router.go(0)
 }
 
-// 신청한 사람 조회http://localhost:8081/apply/meeting?meetingId=30
-
 
 </script>
 
