@@ -49,10 +49,9 @@ api(
         <div class="main-content-left-top">
           <div class="main-content-left-title">
             <div class="main-content-left-title-text">
-              <span class="material-icons" style="color: #F4CE14;">notifications</span>
+              <img src="../assets/image/global/notifications01.png" style="width: 30px; height: 30px">
               <span class="main-content-left-title-text">ORDER BY</span></div>
             <div class="main-content-right-rank-info">
-              <span class="material-icons" style="font-size: 13px;">info</span>
               <span>모집 중인 최신 모임 글</span>
             </div>
           </div>
@@ -76,11 +75,10 @@ api(
           <div class="main-content-right-rank">
             <div class="main-content-right-rank-title">
               <div class="main-content-right-rank-title-text">
-                <span class="material-icons" style="color: #C70039;">local_fire_department</span>
-
+                <img src="../assets/image/home/fire.png" style="width: 30px; height: 30px">
                 <span class="main-content-right-rank-title-text">RANK</span></div>
               <div class="main-content-right-rank-info">
-                <span class="material-icons" style="font-size: 13px;">info</span><span>일주일 동안 게시된 모임에서 조회 수 높은 순위</span>
+                <span>일주일 동안 게시된 모임에서 조회 수 높은 순위</span>
               </div>
             </div>
             <!-- rank list -->

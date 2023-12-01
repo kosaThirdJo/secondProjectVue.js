@@ -140,7 +140,6 @@ function chkCateSts(){
     ischkS.value[dataValue] = true;
   }
 
-  console.log(selectedFilters.value);
   apiToken(
       "users/myapplyingfilter?category="+selectedFilters.value.category+
       "&status="+selectedFilters.value.status, "GET", null, token)
@@ -148,8 +147,6 @@ function chkCateSts(){
         if(response instanceof Error){
           let errorRes = response;
           //에러처리코드
-          console.log(errorRes);
-          console.log(errorRes.response);
           errorMsg.value = errorRes.response.data;
           resultList.value = [];
         }else {
@@ -162,7 +159,7 @@ function chkCateSts(){
 //데이터 조회
 async function getData(){
   try{
-    const res = await axios.get("http://localhost:8081/users/myapplying", {
+    const res = await axios.get("http://43.201.149.206:8081/users/myapplying", {
       headers:{
         Authorization: token
       }
@@ -178,7 +175,6 @@ async function getData(){
 }
 onMounted(()=>{
   console.log("myapplyingList onMount");
-  console.log(token);
   getData();
 })
 const showMore = () => {

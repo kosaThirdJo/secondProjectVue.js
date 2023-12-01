@@ -79,7 +79,7 @@ const token = localStorage.getItem("jwtToken");
 //프로필 정보 받아서 파싱
 async function getData(){
   try {
-    const response1 = (await axios.get("http://localhost:8081/users/profile", {
+    const response1 = (await axios.get("http://43.201.149.206:8081/users/profile", {
       headers : {
         Authorization: token
       }
@@ -122,7 +122,7 @@ function updateProfileImg(){
       //multipart/form-data 형식으로 전송
      let fd = new FormData();
      fd.append("profilePhoto", imgfileInput.value.files[0]);
-     axios.put("http://localhost:8081/users/setting/img", fd, {
+     axios.put("http://43.201.149.206:8081/users/setting/img", fd, {
        headers: {
          'Content-Type' : 'multipart/form-data',
          'Authorization' : token

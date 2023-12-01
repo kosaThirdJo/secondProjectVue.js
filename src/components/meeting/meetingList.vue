@@ -120,7 +120,6 @@ const route = useRoute();
     offset:(useRoute().query.offset!== undefined) ? parseInt(useRoute().query.offset): 0
 })
 let offset = (useRoute().query.offset!== undefined) ? parseInt(useRoute().query.offset): 0
-console.log(offset)
 getPage()
 watch(() => route.query.category, (newCategory,lastCategory) => {
     req.value.category = newCategory;

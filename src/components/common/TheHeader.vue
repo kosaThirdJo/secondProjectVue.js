@@ -10,7 +10,6 @@ const header = ref({
   jwtToken: auth.getToken(),
   searchWord: '',
 });
-console.log(header.value.jwtToken);
 // 로그아웃  시  Pinia 스토어에서 토큰 제거
 const logout = async () => {
   auth.clearToken();
@@ -20,7 +19,7 @@ const logout = async () => {
 
 // 검색
 const searchResult = () => {
-  router.replace({ path: '/search', query: { searchWord: header.value.searchWord } });
+  router.replace({ path: '/searching', query: { searchWord: header.value.searchWord } });
 }
 
 </script>
@@ -65,8 +64,8 @@ const searchResult = () => {
               <input v-model="header.searchWord" @keyup.enter="searchResult" class="main-header-search-input" name="searchWord" placeholder="검색해보세요!" type="text"/>
               <button class="main-header-search-button" type="submit" @click="searchResult">
                 <div class="main-header-search-glass">
-                  <span class="material-icons">search</span>
-                  <!--                  <img src="@{/image/home/search.png}">-->
+                  <img src="../../assets/image/home/search.png" style="width: 20px; height: 20px">
+
                 </div>
               </button>
             </div>

@@ -135,7 +135,6 @@ function chkCateSts(){
     }
     ischkS.value[dataValue] = true;
   }
-  console.log(selectedFilters.value);
   apiToken(
       "users/mymeetingfilter?category="+selectedFilters.value.category+
       "&status="+selectedFilters.value.status, "GET", null, token)
@@ -143,11 +142,9 @@ function chkCateSts(){
         if(response instanceof Error){
           let errorRes = response;
           //에러처리
-          console.log(errorRes.response);
           errorMsg.value = errorRes.response.data;
           resultList.value = [];
         }else {
-          //console.log(response);
           showCount.value = 5;
           resultList.value = response;
         }
@@ -157,7 +154,7 @@ function chkCateSts(){
 //데이터 조회
 async function getData(){
   try{
-    const res = await axios.get("http://localhost:8081/users/mymeeting", {
+    const res = await axios.get("http://43.201.149.206:8081/users/mymeeting", {
       headers : {
         Authorization: token
       }
@@ -167,12 +164,10 @@ async function getData(){
     selectedFilters.value.category = 'all';
     selectedFilters.value.status = 'all';
   }catch (error){
-    //console.log(error.response);
     errorMsg.value = error.response.data;
   }
 }
 onMounted(()=>{
-  console.log("mymeetingList onMount");
   getData();
 })
 const showMore = () => {

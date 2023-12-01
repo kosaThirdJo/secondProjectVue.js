@@ -44,7 +44,7 @@ function GetValidApply(){
       ).then(
           response =>{
             validObj.value = response;
-            console.log(response)
+
           }
           )
 }
