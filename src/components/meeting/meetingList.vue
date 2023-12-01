@@ -62,12 +62,12 @@
 <template>
   <div class="frame">
   <div class="button-create-meeting">
-    <a href="/meeting/write" class="content_list_btn make-meeting">
+    <router-link :to="'/meet/write'" class="content_list_btn make-meeting">
       <span class="circle" aria-hidden="true">
           <span class="icon arrow"></span>
       </span>
       <span class="button-text">모임 만들기</span>
-    </a>
+    </router-link>
   </div>
   <div class="container">
 
@@ -90,7 +90,7 @@
         <li v-if="offset+5< totalPage"  class="page-item"><span class="page-link" @click="changeOffset(+5)">다음</span></li>
       </ul>
       </div>
-      <div class="page-item-btn" style=""><a id="write-content" href="/meeting/write" class="btn btn-primary" style="background-color: #FF9F29; color: white; float: right"> 새 글 작성</a></div>
+      <div class="page-item-btn" style=""><router-link id="write-content" :to="'/meet/write'" class="btn btn-primary" style="background-color: #FF9F29; color: white; float: right"> 새 글 작성</router-link></div>
 
     </nav>
   </div>
@@ -127,7 +127,7 @@ watch(() => route.query.category, (newCategory,lastCategory) => {
     getPage()
 
 })
-let routerUrl = ref("/meeting?")
+let routerUrl = ref("/meet?")
 let routeQuery = route.query
 
 for (const ele in routeQuery){
@@ -142,7 +142,7 @@ watch(
         req.value.page = 0;
         offset = 0
       }
-      routerUrl = ref("/meeting?")
+      routerUrl = ref("/meet?")
       routeQuery = route.query
 
       for (const ele in routeQuery){
@@ -166,13 +166,6 @@ function changeOffset(offsetDelta){
 }
 //
 async function getPage() {
-  console.log(offset)
-  console.log("meeting?" +
-      "page=" + (parseInt(req.value.page)) + "&" +
-      "size=" + req.value.size + "&" +
-      "order=" + req.value.order + "&" +  // '=' 추가
-      "criteria=" + req.value.criteria
-      + ((req.value.category) ? "&category=" + req.value.category : ""))
    api(
       "meeting?" +
       "page=" + (parseInt(req.value.page)) + "&" +

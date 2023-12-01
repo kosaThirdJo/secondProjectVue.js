@@ -118,7 +118,7 @@ let p = defineProps( {
   resOne : Object,
 });
 let pp = toRef(p,"resOne")
-const url = ref("/meeting/" + pp.value.meetingId)
+const url = ref("/meet/" + pp.value.meetingId)
 const title = ref(pp.value.title)
 
 const categoryContainer = ["스터디","프로젝트","기타"]
@@ -142,7 +142,7 @@ langArr = pp.value?.interestLanguage && ref(pp.value.interestLanguage.split("_")
 frameworkArr = pp.value?.interestFramework && ref(pp.value.interestFramework.split("_"))
 jobArr = pp.value?.interestJob && ref(pp.value.interestJob.split("_"))
 watchEffect(() => {
-  url.value = "/meeting/" + pp.value.meetingId
+  url.value = "/meet/" + pp.value.meetingId
   title.value = pp.value.title
   category.value = categoryContainer[pp.value.category]
   status.value = statusContainer[pp.value.status]

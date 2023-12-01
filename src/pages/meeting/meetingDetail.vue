@@ -30,7 +30,7 @@
             <h2 v-text="result.title" id="content_title" style="display: inline"> </h2>
             <div class="float-right">
               <button v-if="viewBtnApply&&(result.status===0)" class="btn btn-primary" id="apply-modal" @click="showModal = true">신청 하기</button>
-              <router-link v-if="viewBtnFix&&(result.status===0)" :to="'/meeting/fix/'+route.params.post_id" class="btn btn-primary" ><span>수정 하기
+              <router-link v-if="viewBtnFix&&(result.status===0)" :to="'/meet/fix/'+route.params.post_id" class="btn btn-primary" ><span>수정 하기
       </span></router-link>
               <Teleport to="body">
                 <!-- use the modal component, pass in the prop -->
@@ -393,7 +393,7 @@ function writeComment(){
     padding-left: 10px;
     background-color: white;
     margin-bottom: 5px;
-    magin-top: 10px;
+    margin-top: 10px;
   }
   .title-box{
     margin-bottom: 15px;

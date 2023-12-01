@@ -12,5 +12,13 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  build: {
+    outDir: "../spring/src/main/resources/static",
+  }, // 빌드 결과물이 생성되는 경로
+  server: {
+    proxy: {
+      "/api": "http://localhost:8081",
+    }, // proxy 설정
+  },
 })
