@@ -52,7 +52,7 @@ function write() {
     ).then(
         response => {
           console.log(response)
-          router.replace("/meeting")
+          router.replace("/meet")
         }
     )
   }

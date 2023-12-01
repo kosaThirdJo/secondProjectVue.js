@@ -41,7 +41,7 @@ const searchResult = () => {
           <!-- 02-01 FROM -->
           <div class="main-header-nav-from"><span class="main-header-nav-from-text"><span>FROM</span></span></div>
           <!-- 02-02 모임 -->
-          <router-link class="main-header-nav-meeting" to="/meeting">
+          <router-link class="main-header-nav-meeting" to="/meet">
             <span class="main-header-nav-meeting-text"><span>모임</span></span>
           </router-link>
           <!-- 02-03 모임 리스트 -->
@@ -60,7 +60,7 @@ const searchResult = () => {
         </div>
         <div class="main-header-searchAndBtn">
           <!-- 03 검색 -->
-          <form id="searchForm" action="/search" method="get">
+          <form id="searchForm" action="/searching" method="get">
             <div class="main-header-search">
               <input v-model="header.searchWord" @keyup.enter="searchResult" class="main-header-search-input" name="searchWord" placeholder="검색해보세요!" type="text"/>
               <button class="main-header-search-button" type="submit" @click="searchResult">
